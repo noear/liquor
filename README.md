@@ -2,6 +2,9 @@
 
 Java dynamic compilation tool
 
+
+The code for this tool is mainly borrowed from Arthas. This part of the code is very valuable, happened to be used in some of my projects, specially organized into a toolkit.
+
 ### demo
 
 ```java
