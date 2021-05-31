@@ -8,10 +8,21 @@
 Java 动态编译小工具。
 
 
-本工具的代码主要借签自 arthas。这部分的代码非常有价值，正好我的一些项目也用到，特整理成一个小工具包进行常期维护。
+本工具的代码主要源自 arthas。这部份代码比较冷门，所有非常有价值，但也只能在合适的场景使用（切不可滥用）。为了方便复用，特整理成一个小工具包进行长期维护。
 
 
 ### 演示
+
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.noear</groupId>
+        <artifactId>liquor</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
 
 ```java
 public class DemoApp {
