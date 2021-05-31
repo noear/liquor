@@ -1,4 +1,4 @@
-package demoapp;
+package demo;
 
 import org.noear.liquor.DynamicCompiler;
 
