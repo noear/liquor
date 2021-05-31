@@ -8,7 +8,7 @@
 Java dynamic compilation tool.
 
 
-The code for this tool is primarily derived from Arthas. This part of the code is a bit of a no-no, so it's all very valuable, but it should only be used in appropriate situations (never overused). In order to facilitate reuse, it is specially arranged into a small tool kit for long-term maintenance.
+The code for this tool is primarily derived from Arthas. This part of the code is obscure and valuable, but it should only be used in appropriate situations (never overused). In order to facilitate reuse, it is specially arranged into a small tool kit for long-term maintenance.
 
 
 ### demo
