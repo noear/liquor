@@ -20,7 +20,7 @@ public class DemoApp {
     }
 
     public static void compiler_test1() {
-        String fullName = "com.seeyon.proxy.MyClass";
+        String fullName = "com.demo.proxy.MyClass";
         String code = Utils.getResourceAsString("codefile/MyClass1.txt", null);
 
         System.out.println(code);
@@ -31,7 +31,7 @@ public class DemoApp {
     }
 
     public static void compiler_test2()  {
-        String fullName = "com.seeyon.proxy.MyClass";
+        String fullName = "com.demo.proxy.MyClass";
         String code = Utils.getResourceAsString("codefile/MyClass2.txt", null);
 
         System.out.println(code);

@@ -1,4 +1,4 @@
-package com.seeyon.proxy;
+package com.demo.proxy;
 
 public class MyClass {
 
