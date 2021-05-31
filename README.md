@@ -1,2 +1,3 @@
 # liquor
-java dynamic compiler
+
+Java dynamic compilation tool
