@@ -5,7 +5,7 @@
 
 # Liquor for java
 
-Java dynamic compilation tool
+Java dynamic compilation tool.
 
 
 The code for this tool is mainly borrowed from Arthas. This part of the code is very valuable, just some of my projects also used, specially organized into a small kit for regular maintenance.
