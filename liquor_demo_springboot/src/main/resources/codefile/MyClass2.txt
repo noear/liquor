@@ -1,0 +1,11 @@
+package com.demo.proxy;
+
+import org.noear.solon.core.Props;
+
+public class MyClass {
+    Props props;
+
+    public String say(String str){
+        return "hello"+str;
+    }
+}
