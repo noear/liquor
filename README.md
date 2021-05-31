@@ -8,10 +8,20 @@
 Java dynamic compilation tool.
 
 
-The code for this tool is mainly borrowed from Arthas. This part of the code is very valuable, just some of my projects also used, specially organized into a small kit for regular maintenance.
+The code for this tool is primarily derived from Arthas. This part of the code is a bit of a no-no, so it's all very valuable, but it should only be used in appropriate situations (never overused). In order to facilitate reuse, it is specially arranged into a small tool kit for long-term maintenance.
 
 
 ### demo
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.noear</groupId>
+        <artifactId>liquor</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
 
 ```java
 public class DemoApp {
