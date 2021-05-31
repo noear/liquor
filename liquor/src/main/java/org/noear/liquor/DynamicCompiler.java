@@ -1,5 +1,6 @@
 package org.noear.liquor;
 
+import javax.swing.plaf.TableHeaderUI;
 import javax.tools.*;
 import java.util.*;
 
@@ -15,6 +16,10 @@ public class DynamicCompiler {
     private final Collection<JavaFileObject> compilationUnits = new ArrayList<>();
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<>();
     private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<>();
+
+    public DynamicCompiler(){
+        this(Thread.currentThread().getContextClassLoader());
+    }
 
     public DynamicCompiler(ClassLoader classLoader) {
         if (javaCompiler == null) {

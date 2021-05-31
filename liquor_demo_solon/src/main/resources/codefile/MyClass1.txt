@@ -1,0 +1,8 @@
+package com.seeyon.proxy;
+
+public class MyClass {
+
+    public String say(String str){
+        return "hello"+str;
+    }
+}
