@@ -15,7 +15,7 @@ public class DemoApp {
         System.out.println("------------------ test1.无第三方包引入 ------------------");
         compiler_test1();
 
-        System.out.println("------------------ test2.有第三方包引入(验证 spring-boot-maven-plugin 打包是否运行正常) ------------------");
+        System.out.println("------------------ test2.有第三方包引入(验证打包后是否运行正常) ------------------");
         compiler_test2();
     }
 
