@@ -5,7 +5,7 @@
 
 # Liquor for java
 
-Java dynamic compilation tool.
+Java dynamic compilation tool. (This tool is compatible with the spring-boot-maven-plugin packaging plug-in)
 
 
 The code for this tool is primarily derived from Arthas. This part of the code is obscure and valuable, but it should only be used in appropriate situations (never overused). In order to facilitate reuse, it is specially arranged into a small tool kit for long-term maintenance.
