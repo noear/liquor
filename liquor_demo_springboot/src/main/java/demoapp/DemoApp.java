@@ -1,7 +1,6 @@
 package demoapp;
 
 import org.noear.liquor.DynamicCompiler;
-import org.noear.solon.Solon;
 import org.noear.solon.Utils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
