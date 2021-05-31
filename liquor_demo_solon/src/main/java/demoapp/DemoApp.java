@@ -20,24 +20,24 @@ public class DemoApp {
     }
 
     public static void compiler_test1() {
-        String fullName = "com.demo.proxy.MyClass";
-        String code = Utils.getResourceAsString("codefile/MyClass1.txt", null);
+        String className = "com.demo.proxy.MyClass";
+        String classCode = Utils.getResourceAsString("codefile/MyClass1.txt", null);
 
-        System.out.println(code);
+        System.out.println(classCode);
         DynamicCompiler de = new DynamicCompiler();
-        de.addSource(fullName, code);
-        Object instance = de.build().get(fullName);
+        de.addSource(className, classCode);
+        Object instance = de.build().get(className);
         System.out.println(instance);
     }
 
     public static void compiler_test2()  {
-        String fullName = "com.demo.proxy.MyClass";
-        String code = Utils.getResourceAsString("codefile/MyClass2.txt", null);
+        String className = "com.demo.proxy.MyClass";
+        String classCode = Utils.getResourceAsString("codefile/MyClass2.txt", null);
 
-        System.out.println(code);
+        System.out.println(classCode);
         DynamicCompiler de = new DynamicCompiler();
-        de.addSource(fullName, code);
-        Object instance = de.build().get(fullName);
+        de.addSource(className, classCode);
+        Object instance = de.build().get(className);
         System.out.println(instance);
     }
 }
