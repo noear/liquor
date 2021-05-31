@@ -24,9 +24,9 @@ public class DemoApp {
         String classCode = Utils.getResourceAsString("codefile/MyClass1.txt", null);
 
         System.out.println(classCode);
-        DynamicCompiler de = new DynamicCompiler();
-        de.addSource(className, classCode);
-        Object instance = de.build().get(className);
+        DynamicCompiler compiler = new DynamicCompiler();
+        compiler.addSource(className, classCode);
+        Object instance = compiler.build().get(className);
         System.out.println(instance);
     }
 
@@ -35,9 +35,9 @@ public class DemoApp {
         String classCode = Utils.getResourceAsString("codefile/MyClass2.txt", null);
 
         System.out.println(classCode);
-        DynamicCompiler de = new DynamicCompiler();
-        de.addSource(className, classCode);
-        Object instance = de.build().get(className);
+        DynamicCompiler compiler = new DynamicCompiler();
+        compiler.addSource(className, classCode);
+        Object instance = compiler.build().get(className);
         System.out.println(instance);
     }
 }

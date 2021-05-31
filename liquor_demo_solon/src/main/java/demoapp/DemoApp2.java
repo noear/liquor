@@ -1,12 +1,13 @@
-# liquor
+package demoapp;
 
-Java 动态编辑工具。
+import org.noear.liquor.DynamicCompiler;
 
+import java.util.Map;
 
-### 演示
-
-```java
-public class DemoApp {
+/**
+ * @author noear 2021/5/31 created
+ */
+public class DemoApp2 {
     public static void main(String[] args) {
         String className = "com.demo.proxy.MyClass";
         String classCode = "package com.demo.proxy;\n" +
@@ -25,4 +26,3 @@ public class DemoApp {
         System.out.println(classMap.get(className));
     }
 }
-```
