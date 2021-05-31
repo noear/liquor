@@ -1,4 +1,9 @@
-# liquor
+
+[![Maven Central](https://img.shields.io/maven-central/v/org.noear/liquor.svg)](https://mvnrepository.com/search?q=g:org.noear%20AND%20liquor)
+
+` QQ交流群：22200020 `
+
+# Liquor for java
 
 Java 动态编辑工具。
 
