@@ -19,7 +19,7 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
     <dependency>
         <groupId>org.noear</groupId>
         <artifactId>liquor</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```

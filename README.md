@@ -18,7 +18,7 @@ The code of this tool mainly comes from Arthas. The relevant knowledge is relati
     <dependency>
         <groupId>org.noear</groupId>
         <artifactId>liquor</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```

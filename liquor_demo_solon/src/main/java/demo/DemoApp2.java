@@ -15,7 +15,7 @@ public class DemoApp2 {
                 "public class MyClass {\n" +
                 "\n" +
                 "    public String say(String str){\n" +
-                "        return \'hello\'+str;\n" +
+                "        return \"hello\"+str;\n" +
                 "    }\n" +
                 "}";
 
