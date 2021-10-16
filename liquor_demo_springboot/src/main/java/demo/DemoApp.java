@@ -5,12 +5,14 @@ import org.noear.solon.Utils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.IOException;
+
 /**
  * @author noear 2021/5/31 created
  */
 @SpringBootApplication
 public class DemoApp {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
 
         SpringApplication.run(DemoApp.class, args);
 
@@ -21,7 +23,7 @@ public class DemoApp {
         compiler_test2();
     }
 
-    public static void compiler_test1() {
+    public static void compiler_test1() throws IOException {
         String className = "com.demo.proxy.MyClass";
         String classCode = Utils.getResourceAsString("codefile/MyClass1.txt", null);
 
@@ -32,7 +34,7 @@ public class DemoApp {
         System.out.println(instance);
     }
 
-    public static void compiler_test2()  {
+    public static void compiler_test2() throws IOException {
         String className = "com.demo.proxy.MyClass";
         String classCode = Utils.getResourceAsString("codefile/MyClass2.txt", null);
 

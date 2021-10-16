@@ -19,7 +19,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>liquor</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
 
         <dependency>
@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon</artifactId>
-            <version>1.4.8</version>
+            <version>1.5.45</version>
         </dependency>
     </dependencies>
 

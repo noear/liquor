@@ -1,6 +1,5 @@
 package org.noear.liquor;
 
-import javax.swing.plaf.TableHeaderUI;
 import javax.tools.*;
 import java.util.*;
 
@@ -152,6 +151,14 @@ public class DynamicCompiler {
 
         return diagnosticMessages;
 
+    }
+
+    public List<Diagnostic<? extends JavaFileObject>> getOriginalErrors(){
+        return Collections.unmodifiableList(errors);
+    }
+
+    public List<Diagnostic<? extends JavaFileObject>> getOriginalWarnings(){
+        return Collections.unmodifiableList(warnings);
     }
 
     public List<String> getErrors() {
