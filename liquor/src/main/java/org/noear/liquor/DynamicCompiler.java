@@ -42,6 +42,9 @@ public class DynamicCompiler {
         compilationUnits.add(javaFileObject);
     }
 
+    /**
+     * 清除添加的源和编译成果
+     * */
     public void clear(){
         compilationUnits.clear();
         dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
