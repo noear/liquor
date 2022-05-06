@@ -10,7 +10,8 @@ public class DynamicCompiler {
     private final JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();
     private final StandardJavaFileManager standardFileManager;
     private final List<String> options = new ArrayList<String>();
-    private final DynamicClassLoader dynamicClassLoader;
+    private DynamicClassLoader dynamicClassLoader;
+    private final ClassLoader parentClassLoader;
 
     private final Collection<JavaFileObject> compilationUnits = new ArrayList<>();
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<>();
@@ -29,7 +30,8 @@ public class DynamicCompiler {
         standardFileManager = javaCompiler.getStandardFileManager(null, null, null);
 
         options.add("-Xlint:unchecked");
-        dynamicClassLoader = new DynamicClassLoader(classLoader);
+        parentClassLoader = classLoader;
+        dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
     }
 
     public void addSource(String className, String source) {
@@ -38,6 +40,11 @@ public class DynamicCompiler {
 
     public void addSource(JavaFileObject javaFileObject) {
         compilationUnits.add(javaFileObject);
+    }
+
+    public void clear(){
+        compilationUnits.clear();
+        dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
     }
 
     public Map<String, Class<?>> build() {
