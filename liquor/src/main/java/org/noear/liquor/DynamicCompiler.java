@@ -43,7 +43,7 @@ public class DynamicCompiler {
     }
 
     /**
-     * 清除添加的源和编译成果
+     * 清除添加的码源和编译成果
      * */
     public void clear(){
         compilationUnits.clear();
