@@ -28,6 +28,7 @@ public class Test1 {
         System.out.println("--> " + classMap.size());
         Class<?> test1Class = classMap.get(className);
 
+        //再次编译前，清理一下
         compiler.clear();
 
         // 增加源码进行编译 TODO 有bug
