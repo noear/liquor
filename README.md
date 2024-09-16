@@ -13,6 +13,8 @@ Java dynamic compilation tool. (This tool is compatible with jar in jar)
 The code of this tool mainly comes from Arthas. The relevant knowledge is relatively unpopular and precious, but it can only be used in appropriate scenes (it must not be abused). For the convenience of reuse, it is organized into a small toolkit for long-term maintenance.
 
 
+Zero dependencies, 24kb of shipped packages.
+
 ### demo
 
 ```xml
