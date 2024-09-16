@@ -3,14 +3,12 @@ package demo;
 import org.noear.liquor.DynamicCompiler;
 import org.noear.solon.Utils;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.IOException;
 
 /**
  * @author noear 2021/5/31 created
  */
-@SpringBootApplication
 public class DemoApp {
     public static void main(String[] args) throws Exception {
 

@@ -3,6 +3,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+        <groupId>org.noear</groupId>
+        <artifactId>solon-parent</artifactId>
+        <version>2.9.3</version>
+        <relativePath />
+    </parent>
+
     <groupId>org.noear</groupId>
     <artifactId>liquor_demo_solon</artifactId>
     <version>demo</version>
@@ -19,55 +26,26 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>liquor</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>solon.boot.jlhttp</artifactId>
-            <version>1.7.5</version>
+            <artifactId>solon</artifactId>
         </dependency>
     </dependencies>
 
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>
+            <!-- 配置打包插件（并打包成胖包） -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
+                <groupId>org.noear</groupId>
+                <artifactId>solon-maven-plugin</artifactId>
                 <configuration>
-                    <compilerArgument>-parameters</compilerArgument>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
+                    <!-- 指定启动主类 -->
+                    <mainClass>demo.DemoApp</mainClass>
                 </configuration>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <finalName>${project.artifactId}</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>demo.DemoApp</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
