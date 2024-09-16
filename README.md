@@ -29,23 +29,22 @@ Zero dependencies, 24kb of shipped packages.
 
 ```java
 public class DemoApp {
-    public static void main(String[] args) {
-        String className = "com.demo.proxy.MyClass";
-        String classCode = "package com.demo.proxy;\n" +
-                "\n" +
-                "public class MyClass {\n" +
-                "\n" +
-                "    public String say(String str){\n" +
-                "        return \"hello\"+str;\n" +
-                "    }\n" +
+    public static void main(String[] args) throws Exception{
+        String className = "HelloWorld";
+        String classCode = "public class HelloWorld { " +
+                "   public static void helloWorld() { " +
+                "       System.out.println(\"Hello, world!\"); " +
+                "   } " +
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        //Add multiple class source code, compile together better performance
-        compiler.addSource(className, classCode); 
-        Map<String, Class<?>> classMap = compiler.build();
+        //Add source code (more than one)
+        compiler.addSource(className, classCode);
+        //Start building
+        compiler.build();
 
-        System.out.println(classMap.get(className));
+        Class<?> clazz = compiler.getClassLoader().loadClass(className);
+        clazz.getMethod("helloWorld").invoke(null);
     }
 }
 ```

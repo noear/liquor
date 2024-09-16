@@ -30,23 +30,22 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
 
 ```java
 public class DemoApp {
-    public static void main(String[] args) {
-        String className = "com.demo.proxy.MyClass";
-        String classCode = "package com.demo.proxy;\n" +
-                "\n" +
-                "public class MyClass {\n" +
-                "\n" +
-                "    public String say(String str){\n" +
-                "        return \"hello\"+str;\n" +
-                "    }\n" +
+    public static void main(String[] args) throws Exception{
+        String className = "HelloWorld";
+        String classCode = "public class HelloWorld { " +
+                "   public static void helloWorld() { " +
+                "       System.out.println(\"Hello, world!\"); " +
+                "   } " +
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        //添加多个类源码，一起编译性能更好
+        //添加源码（可多个）
         compiler.addSource(className, classCode);
-        Map<String, Class<?>> classMap = compiler.build();
+        //开始构建
+        compiler.build();
 
-        System.out.println(classMap.get(className));
+        Class<?> clazz = compiler.getClassLoader().loadClass(className);
+        clazz.getMethod("helloWorld").invoke(null);
     }
 }
 ```

@@ -8,21 +8,21 @@ import java.util.Map;
  * @author noear 2021/5/31 created
  */
 public class DemoApp2 {
-    public static void main(String[] args) {
-        String className = "com.demo.proxy.MyClass";
-        String classCode = "package com.demo.proxy;\n" +
-                "\n" +
-                "public class MyClass {\n" +
-                "\n" +
-                "    public String say(String str){\n" +
-                "        return \"hello\"+str;\n" +
-                "    }\n" +
+    public static void main(String[] args) throws Exception{
+        String className = "HelloWorld";
+        String classCode = "public class HelloWorld { " +
+                "   public static void helloWorld() { " +
+                "       System.out.println(\"Hello, world!\"); " +
+                "   } " +
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
+        //添加源码（可多个）
         compiler.addSource(className, classCode);
-        Map<String, Class<?>> classMap = compiler.build();
+        //开始构建
+        compiler.build();
 
-        System.out.println(classMap.get(className));
+        Class<?> clazz = compiler.getClassLoader().loadClass(className);
+        clazz.getMethod("helloWorld").invoke(null);
     }
 }
