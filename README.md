@@ -18,13 +18,11 @@ Zero dependencies, 24KB of shipped packages.
 ### demo
 
 ```xml
-<dependencies>
-    <dependency>
-        <groupId>org.noear</groupId>
-        <artifactId>liquor</artifactId>
-        <version>1.1.0</version>
-    </dependency>
-</dependencies>
+<dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>liquor</artifactId>
+    <version>1.1.0</version>
+</dependency>
 ```
 
 ```java
