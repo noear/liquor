@@ -22,12 +22,11 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     public DynamicJavaFileManager(JavaFileManager fileManager, DynamicClassLoader classLoader) {
         super(fileManager);
         this.classLoader = classLoader;
-
-        finder = new PackageInternalsFinder(classLoader);
+        this.finder = new PackageInternalsFinder(classLoader);
     }
 
     @Override
-    public JavaFileObject getJavaFileForOutput(Location location, String className,
+    public JavaFileObject getJavaFileForOutput(JavaFileManager.Location location, String className,
                                                JavaFileObject.Kind kind, FileObject sibling) throws IOException {
 
         for (MemoryByteCode byteCode : byteCodes) {
@@ -44,14 +43,14 @@ public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileMa
     }
 
     @Override
-    public ClassLoader getClassLoader(Location location) {
+    public ClassLoader getClassLoader(JavaFileManager.Location location) {
         return classLoader;
     }
 
     @Override
     public String inferBinaryName(Location location, JavaFileObject file) {
         if (file instanceof CustomJavaFileObject) {
-            return ((CustomJavaFileObject) file).binaryName();
+            return ((CustomJavaFileObject) file).getClassName();
         } else {
             /**
              * if it's not CustomJavaFileObject, then it's coming from standard file manager
