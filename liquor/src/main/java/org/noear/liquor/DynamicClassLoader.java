@@ -15,8 +15,12 @@ public class DynamicClassLoader extends ClassLoader {
         super(classLoader);
     }
 
-    public void registerCompiledSource(MemoryByteCode byteCode) {
+    protected void registerCompiledSource(MemoryByteCode byteCode) {
         byteCodes.put(byteCode.getClassName(), byteCode);
+    }
+
+    protected Class<?> defineClass(MemoryByteCode byteCode) {
+        return super.defineClass(byteCode.getClassName(), byteCode.getByteCode(), 0, byteCode.getByteCode().length);
     }
 
     @Override
@@ -26,8 +30,19 @@ public class DynamicClassLoader extends ClassLoader {
             return super.findClass(name);
         }
 
-        return super.defineClass(name, byteCode.getByteCode(), 0, byteCode.getByteCode().length);
+        return defineClass(byteCode);
     }
+
+    protected void prepareClasses() {
+        for (MemoryByteCode byteCode : byteCodes.values()) {
+            if (byteCode.defined == false) {
+                byteCode.defined = true;
+                defineClass(byteCode);
+            }
+        }
+    }
+
+    //================
 
     public Map<String, Class<?>> getClasses() throws ClassNotFoundException {
         Map<String, Class<?>> classes = new HashMap<>();

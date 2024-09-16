@@ -16,6 +16,7 @@ public class MemoryByteCode extends SimpleJavaFileObject {
     private static final String CLASS_FILE_SUFFIX = ".class";
 
     private ByteArrayOutputStream byteArrayOutputStream;
+    protected boolean defined;
 
     public MemoryByteCode(String className) {
         super(URI.create("byte:///" + className.replace(PKG_SEPARATOR, DIR_SEPARATOR)

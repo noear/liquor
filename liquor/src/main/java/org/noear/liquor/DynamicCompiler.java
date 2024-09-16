@@ -89,6 +89,8 @@ public class DynamicCompiler {
                     }
                 }
             }
+
+            dynamicClassLoader.prepareClasses();
         } catch (Throwable e) {
             throw new DynamicCompilerException(e, errors);
         } finally {
