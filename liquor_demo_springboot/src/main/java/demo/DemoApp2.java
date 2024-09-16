@@ -17,10 +17,8 @@ public class DemoApp2 {
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        //添加源码（可多个）
-        compiler.addSource(className, classCode);
-        //开始构建
-        compiler.build();
+        //添加源码（可多个）并构建
+        compiler.addSource(className, classCode).build();
 
         Class<?> clazz = compiler.getClassLoader().loadClass(className);
         clazz.getMethod("helloWorld").invoke(null);

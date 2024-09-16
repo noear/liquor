@@ -23,7 +23,7 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
     <dependency>
         <groupId>org.noear</groupId>
         <artifactId>liquor</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -39,10 +39,8 @@ public class DemoApp {
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        //添加源码（可多个）
-        compiler.addSource(className, classCode);
-        //开始构建
-        compiler.build();
+        //添加源码（可多个）并 构建
+        compiler.addSource(className, classCode).build();
 
         Class<?> clazz = compiler.getClassLoader().loadClass(className);
         clazz.getMethod("helloWorld").invoke(null);

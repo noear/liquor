@@ -2,16 +2,12 @@ package demo;
 
 import org.noear.liquor.DynamicCompiler;
 
-import java.util.Map;
-
 /**
  * @author noear 2022/5/6 created
  */
 public class Test1 {
     public static void main(String[] args) throws Throwable{
         DynamicCompiler compiler = new DynamicCompiler();
-
-        Map<String, Class<?>> classMap;
 
         String className = "com.demo.AClass";
         String classCode = "package com.demo;\n" +
@@ -23,13 +19,11 @@ public class Test1 {
                 "    }\n" +
                 "}";
 
-        compiler.addSource(className, classCode);
-        classMap = compiler.build();
-        System.out.println("--> " + classMap.size());
-        Class<?> test1Class = classMap.get(className);
+        compiler.addSource(className, classCode).build();
 
-        //再次编译前，清理一下
-        compiler.clear();
+        System.out.println("--> " + compiler.getClassLoader().size());
+        Class<?> test1Class = compiler.getClassLoader().loadClass(className);
+        System.out.println("--> " + test1Class.getName());
 
         // 增加源码进行编译 TODO 有bug
         className = "com.demo.BClass";
@@ -42,12 +36,14 @@ public class Test1 {
                 "    }\n" +
                 "}";
 
-        compiler.addSource(className, classCode);
-        classMap = compiler.build();
+        compiler.addSource(className, classCode).build();
 
-        System.out.println("--> " + classMap.size());
+        Class<?> test2Class = compiler.getClassLoader().loadClass(className);
+        System.out.println("--> " + compiler.getClassLoader().size());
 
-        Object tmp = test1Class.newInstance();
-        System.out.println(tmp.toString());
+        Object tmp1 = test1Class.newInstance();
+        Object tmp2 = test2Class.newInstance();
+        System.out.println(tmp1.toString());
+        System.out.println(tmp2.toString());
     }
 }

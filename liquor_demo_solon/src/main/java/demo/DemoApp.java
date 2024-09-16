@@ -21,25 +21,27 @@ public class DemoApp {
         compiler_test2();
     }
 
-    public static void compiler_test1() throws IOException {
+    public static void compiler_test1() throws Exception {
         String className = "com.demo.proxy.MyClass";
         String classCode = Utils.getResourceAsString("codefile/MyClass1.txt", null);
 
         System.out.println(classCode);
         DynamicCompiler compiler = new DynamicCompiler();
-        compiler.addSource(className, classCode);
-        Object instance = compiler.build().get(className);
+        compiler.addSource(className, classCode).build();
+
+        Object instance = compiler.getClassLoader().loadClass(className);
         System.out.println(instance);
     }
 
-    public static void compiler_test2() throws IOException {
+    public static void compiler_test2() throws Exception {
         String className = "com.demo.proxy.MyClass";
         String classCode = Utils.getResourceAsString("codefile/MyClass2.txt", null);
 
         System.out.println(classCode);
         DynamicCompiler compiler = new DynamicCompiler();
-        compiler.addSource(className, classCode);
-        Object instance = compiler.build().get(className);
+        compiler.addSource(className, classCode).build();
+
+        Object instance = compiler.getClassLoader().loadClass(className);
         System.out.println(instance);
     }
 }

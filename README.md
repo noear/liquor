@@ -22,7 +22,7 @@ Zero dependencies, 24kb of shipped packages.
     <dependency>
         <groupId>org.noear</groupId>
         <artifactId>liquor</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -38,10 +38,8 @@ public class DemoApp {
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        //Add source code (more than one)
-        compiler.addSource(className, classCode);
-        //Start building
-        compiler.build();
+        //Add source code (more than one) and build
+        compiler.addSource(className, classCode).build();
 
         Class<?> clazz = compiler.getClassLoader().loadClass(className);
         clazz.getMethod("helloWorld").invoke(null);

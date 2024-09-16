@@ -1,9 +1,9 @@
 package org.noear.liquor;
 
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * This code comes from: Arthas project
@@ -30,18 +30,18 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     public Map<String, Class<?>> getClasses() throws ClassNotFoundException {
-        Map<String, Class<?>> classes = new HashMap<String, Class<?>>();
+        Map<String, Class<?>> classes = new HashMap<>();
         for (MemoryByteCode byteCode : byteCodes.values()) {
-            classes.put(byteCode.getClassName(), findClass(byteCode.getClassName()));
+            classes.put(byteCode.getClassName(), loadClass(byteCode.getClassName()));
         }
         return classes;
     }
 
-    public Map<String, byte[]> getByteCodes() {
-        Map<String, byte[]> result = new HashMap<String, byte[]>(byteCodes.size());
-        for (Entry<String, MemoryByteCode> entry : byteCodes.entrySet()) {
-            result.put(entry.getKey(), entry.getValue().getByteCode());
-        }
-        return result;
+    public Map<String, MemoryByteCode> getByteCodes() {
+        return Collections.unmodifiableMap(byteCodes);
+    }
+
+    public int size() {
+        return byteCodes.size();
     }
 }

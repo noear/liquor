@@ -18,7 +18,7 @@ public class DynamicCompiler {
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<Diagnostic<? extends JavaFileObject>>();
     private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<Diagnostic<? extends JavaFileObject>>();
 
-    public DynamicCompiler(){
+    public DynamicCompiler() {
         this(Thread.currentThread().getContextClassLoader());
     }
 
@@ -36,24 +36,22 @@ public class DynamicCompiler {
         parentClassLoader = classLoader;
     }
 
-    public void addSource(String className, String source) {
+    public DynamicCompiler addSource(String className, String source) {
         addSource(new StringSource(className, source));
+        return this;
     }
 
-    public void addSource(JavaFileObject javaFileObject) {
+    public DynamicCompiler addSource(JavaFileObject javaFileObject) {
         compilationUnits.add(javaFileObject);
+        return this;
     }
 
-    /**
-     * 重置（清理类加载器）
-     * */
-    public void reset(){
+    public void reset() {
         compilationUnits.clear();
         dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
     }
 
-    public Map<String, Class<?>> build() {
-
+    public void build() {
         errors.clear();
         warnings.clear();
 
@@ -91,65 +89,11 @@ public class DynamicCompiler {
                     }
                 }
             }
-
-            return dynamicClassLoader.getClasses();
         } catch (Throwable e) {
             throw new DynamicCompilerException(e, errors);
         } finally {
             compilationUnits.clear();
-
         }
-
-    }
-
-    public Map<String, byte[]> buildByteCodes() {
-
-        errors.clear();
-        warnings.clear();
-
-        JavaFileManager fileManager = new DynamicJavaFileManager(standardFileManager, dynamicClassLoader);
-
-        DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
-        JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
-                compilationUnits);
-
-        try {
-
-            if (!compilationUnits.isEmpty()) {
-                boolean result = task.call();
-
-                if (!result || collector.getDiagnostics().size() > 0) {
-
-                    for (Diagnostic<? extends JavaFileObject> diagnostic : collector.getDiagnostics()) {
-                        switch (diagnostic.getKind()) {
-                            case NOTE:
-                            case MANDATORY_WARNING:
-                            case WARNING:
-                                warnings.add(diagnostic);
-                                break;
-                            case OTHER:
-                            case ERROR:
-                            default:
-                                errors.add(diagnostic);
-                                break;
-                        }
-
-                    }
-
-                    if (!errors.isEmpty()) {
-                        throw new DynamicCompilerException("Compilation Error", errors);
-                    }
-                }
-            }
-
-            return dynamicClassLoader.getByteCodes();
-        } catch (ClassFormatError e) {
-            throw new DynamicCompilerException(e, errors);
-        } finally {
-            compilationUnits.clear();
-
-        }
-
     }
 
     private List<String> diagnosticToString(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
@@ -165,11 +109,11 @@ public class DynamicCompiler {
 
     }
 
-    public List<Diagnostic<? extends JavaFileObject>> getOriginalErrors(){
+    public List<Diagnostic<? extends JavaFileObject>> getOriginalErrors() {
         return Collections.unmodifiableList(errors);
     }
 
-    public List<Diagnostic<? extends JavaFileObject>> getOriginalWarnings(){
+    public List<Diagnostic<? extends JavaFileObject>> getOriginalWarnings() {
         return Collections.unmodifiableList(warnings);
     }
 
@@ -185,4 +129,3 @@ public class DynamicCompiler {
         return dynamicClassLoader;
     }
 }
-
