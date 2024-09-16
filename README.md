@@ -41,7 +41,8 @@ public class DemoApp {
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
-        compiler.addSource(className, classCode);
+        //Add multiple class source code, compile together better performance
+        compiler.addSource(className, classCode); 
         Map<String, Class<?>> classMap = compiler.build();
 
         System.out.println(classMap.get(className));

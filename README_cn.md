@@ -42,6 +42,7 @@ public class DemoApp {
                 "}";
 
         DynamicCompiler compiler = new DynamicCompiler();
+        //添加多个类源码，一起编译性能更好
         compiler.addSource(className, classCode);
         Map<String, Class<?>> classMap = compiler.build();
 
