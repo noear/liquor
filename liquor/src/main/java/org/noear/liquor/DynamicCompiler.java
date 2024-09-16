@@ -44,8 +44,10 @@ public class DynamicCompiler {
         compilationUnits.add(javaFileObject);
     }
 
-
-    public void clear(){
+    /**
+     * 重置（清理类加载器）
+     * */
+    public void reset(){
         compilationUnits.clear();
         dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
     }
@@ -179,7 +181,7 @@ public class DynamicCompiler {
         return diagnosticToString(warnings);
     }
 
-    public ClassLoader getClassLoader() {
+    public DynamicClassLoader getClassLoader() {
         return dynamicClassLoader;
     }
 }
