@@ -21,7 +21,7 @@ Zero dependencies, 24KB of shipped packages.
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
