@@ -107,8 +107,8 @@ public class DemoApp {
         System.out.println(expressionEvaluator.evaluate("1+1"));
 
         //进阶
-        CodeSpec codeSpec = new CodeSpec("$0 + 22").parameters(Integer.class);
-        System.out.println(expressionEvaluator.evaluate(codeSpec, 2));
+        CodeSpec code1 = new CodeSpec("$0 + 22").parameters(Integer.class);
+        System.out.println(expressionEvaluator.evaluate(code1, 2));
     }
 }
 ```
