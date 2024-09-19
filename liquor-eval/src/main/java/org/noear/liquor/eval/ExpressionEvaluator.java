@@ -5,6 +5,8 @@ import org.noear.liquor.DynamicCompiler;
 import java.util.Map;
 
 /**
+ * 表达式评估器（只能写一行代码）
+ *
  * @author noear
  * @since 1.1
  */
@@ -30,6 +32,10 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
             code.append("  }\n");
         }
         code.append("}");
+
+        if (printable) {
+            System.out.println(code.toString());
+        }
 
         DynamicCompiler compiler = getCompiler();
         compiler.addSource(clazzName, code.toString()).build();

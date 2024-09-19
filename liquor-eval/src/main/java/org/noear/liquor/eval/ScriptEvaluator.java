@@ -5,6 +5,8 @@ import org.noear.liquor.DynamicCompiler;
 import java.util.Map;
 
 /**
+ * 脚本评估器
+ *
  * @author noear
  * @since 1.1
  */
@@ -36,6 +38,10 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
             code.append("  }\n");
         }
         code.append("}");
+
+        if (printable) {
+            System.out.println(code.toString());
+        }
 
         DynamicCompiler compiler = getCompiler();
         compiler.addSource(clazzName, code.toString()).build();

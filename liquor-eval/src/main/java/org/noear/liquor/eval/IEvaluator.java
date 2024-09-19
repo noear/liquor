@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
  * 评估器
  *
  * @author noear
- * @since 1.0
+ * @since 1.1
  */
 public interface IEvaluator {
     /**
@@ -18,6 +18,11 @@ public interface IEvaluator {
      * 设置可缓存的（默认为 true）
      */
     void setCacheable(boolean cacheable);
+
+    /**
+     * 设置可打印的（默认为 false）
+     */
+    void setPrintable(boolean printable);
 
     /**
      * 获取类
@@ -44,16 +49,7 @@ public interface IEvaluator {
      * 评估
      *
      * @param codeSpec 代码申明
-     */
-    default Object evaluate(CodeSpec codeSpec) throws InvocationTargetException {
-        return evaluate(codeSpec, new Object[0]);
-    }
-
-    /**
-     * 评估
-     *
-     * @param codeSpec 代码申明
      * @param args     执行参数
      */
-    Object evaluate(CodeSpec codeSpec, Object[] args) throws InvocationTargetException;
+    Object evaluate(CodeSpec codeSpec, Object... args) throws InvocationTargetException;
 }

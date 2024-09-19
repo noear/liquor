@@ -11,9 +11,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 1.1
  */
 public abstract class AbstractEvaluator implements IEvaluator {
-    protected ClassLoader parentClassLoader;
     protected boolean cacheable = true;
+    protected boolean printable = false;
 
+    private ClassLoader parentClassLoader;
     private Map<String, Class<?>> cachedMap = new ConcurrentHashMap<>();
     private DynamicCompiler compiler;
 
@@ -49,6 +50,11 @@ public abstract class AbstractEvaluator implements IEvaluator {
         this.cacheable = cacheable;
     }
 
+    @Override
+    public void setPrintable(boolean printable) {
+        this.printable = printable;
+    }
+
     /**
      * 获取类
      */
@@ -67,7 +73,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
      * @param args     执行参数
      */
     @Override
-    public Object evaluate(CodeSpec codeSpec, Object[] args) throws InvocationTargetException {
+    public Object evaluate(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
         try {
             return getClazz(codeSpec).getMethods()[0].invoke(null, args);
         } catch (InvocationTargetException e) {
