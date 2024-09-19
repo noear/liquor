@@ -1,9 +1,9 @@
 package com.demo.proxy;
 
-import org.noear.solon.core.Props;
+import org.noear.snack.ONode;
 
 public class MyClass {
-    Props props;
+    ONode node = new ONode(); //jar in jar
 
     public String say(String str){
         return "hello"+str;
