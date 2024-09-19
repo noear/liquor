@@ -64,16 +64,44 @@ public class DemoApp {
 </dependency>
 ```
 
+
 ```java
+//Script Evaluator
 public class DemoApp {
-    public static void main(String[] args) throws Exception{
-        //脚本评估器
+    public static void main(String[] args) throws Exception {
         ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        
+        //Basics
         scriptEvaluator.evaluate("System.out.println(\"hello word\");");
 
-        //表达式评估器（只能写一行代码）
+        //Advanced
+        CodeSpec code1 = new CodeSpec("class Demo {\n" +
+                "            public String hello(String word) {\n" +
+                "                return word;\n" +
+                "            }\n" +
+                "        }\n" +
+                "\n" +
+                "        Demo demo = new Demo();\n" +
+                "        return demo.hello(name);") //name 为外部参数
+                .parameters(new String[]{"name"}, new Class[]{String.class})
+                .returnType(String.class);
+        System.out.println(scriptEvaluator.evaluate(code1, "noear"));
+    }
+}
+```
+
+```java
+//Expression Evaluator（You can only write one line of code）
+public class DemoApp {
+    public static void main(String[] args) throws Exception {
         ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        
+        //Basics
         System.out.println(expressionEvaluator.evaluate("1+1"));
+
+        //Advanced
+        CodeSpec codeSpec = new CodeSpec("$0 + 22").parameters(Integer.class);
+        System.out.println(expressionEvaluator.evaluate(codeSpec, 2));
     }
 }
 ```
