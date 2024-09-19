@@ -1,5 +1,6 @@
 package labs;
 
+import org.noear.liquor.CodeSpec;
 import org.noear.liquor.ExpressionEvaluator;
 import org.noear.liquor.ScriptEvaluator;
 
@@ -16,6 +17,20 @@ public class Test1 {
 
         Class<?> clazz1 = scriptEvaluator.getClazz("System.out.println(\"hello word\");");
         clazz1.getMethods()[0].invoke(null);
+
+        CodeSpec code1 = new CodeSpec("class Demo {\n" +
+                "            public String hello(String word) {\n" +
+                "                return word;\n" +
+                "            }\n" +
+                "        }\n" +
+                "\n" +
+                "        Demo demo = new Demo();\n" +
+                "        return demo.hello(\"noear\");").returnType(String.class);
+
+        System.out.println(scriptEvaluator.evaluate(code1)); //直接执行
+
+        clazz1 = scriptEvaluator.getClazz(code1);
+        System.out.println(clazz1.getMethods()[0].invoke(null)); //或转类再执行
 
         //////////////////////////
 

@@ -6,6 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * 代码申明
+ *
  * @author noear
  * @since 1.1
  */
@@ -13,17 +15,24 @@ public class CodeSpec {
     private final String code;
     private final String codeKey;
     private Map<String, Class<?>> parameters;
+    private Class<?> returnType;
 
     public CodeSpec(String code) {
         this.code = code;
         this.codeKey = generateMD5(code);
     }
 
+    /**
+     * 配置参数类型
+     */
     public CodeSpec parameters(Map<String, Class<?>> parameters) {
         this.parameters = parameters;
         return this;
     }
 
+    /**
+     * 配置参数类型
+     */
     public CodeSpec parameters(String[] names, Class<?>[] types) {
         assert names.length == types.length;
 
@@ -34,12 +43,35 @@ public class CodeSpec {
         return this;
     }
 
+    /**
+     * 配置返回类型
+     */
+    public CodeSpec returnType(Class<?> returnType) {
+        this.returnType = returnType;
+        return this;
+    }
+
+    //////////////////
+
+    /**
+     * 获取代码
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * 获取参数类型
+     */
     public Map<String, Class<?>> getParameters() {
         return parameters;
+    }
+
+    /**
+     * 获取返回类型
+     */
+    public Class<?> getReturnType() {
+        return returnType;
     }
 
     protected String getCodeKey() {

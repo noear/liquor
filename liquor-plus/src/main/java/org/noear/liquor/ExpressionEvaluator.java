@@ -18,7 +18,7 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
             code.append("  public static Object main(");
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
-                    code.append(kv.getValue()).append(" ").append(kv.getKey()).append(",");
+                    code.append(kv.getValue().getName()).append(" ").append(kv.getKey()).append(",");
                 }
                 code.setLength(code.length() - 1);
             }
