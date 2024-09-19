@@ -1,4 +1,4 @@
-package labs;
+package demo;
 
 import org.noear.liquor.eval.ExpressionEvaluator;
 import org.noear.liquor.eval.ScriptEvaluator;
@@ -7,7 +7,7 @@ import org.noear.liquor.eval.ScriptEvaluator;
  * @author noear
  * @since 1.1
  */
-public class Case1 {
+public class Case21 {
     public static void main(String[] args) throws Exception {
         ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
         scriptEvaluator.evaluate("System.out.println(\"hello word\");");

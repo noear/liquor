@@ -5,7 +5,7 @@ import org.noear.liquor.DynamicCompiler;
 /**
  * @author noear 2022/5/6 created
  */
-public class Test1 {
+public class Case11 {
     public static void main(String[] args) throws Throwable{
         DynamicCompiler compiler = new DynamicCompiler();
 
