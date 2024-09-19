@@ -1,14 +1,47 @@
+<h1 align="center" style="text-align:center;">
+Liquor for java
+</h1>
+<p align="center">
+	<strong>Java dynamic compilation tool. (This tool is compatible with jar in jar)</strong>
+</p>
+<p align="center">
+    <a target="_blank" href="https://central.sonatype.com/search?q=org.noear%liquor">
+        <img src="https://img.shields.io/maven-central/v/org.noear/liquor.svg?label=Maven%20Central" alt="Maven" />
+    </a>
+    <a target="_blank" href="LICENSE">
+		<img src="https://img.shields.io/:License-Apache2-blue.svg" alt="Apache 2" />
+	</a>
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-8-green.svg" alt="jdk-8" />
+	</a>
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk11-archive-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-11-green.svg" alt="jdk-11" />
+	</a>
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-17-green.svg" alt="jdk-17" />
+	</a>
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-21-green.svg" alt="jdk-21" />
+	</a>
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk22-archive-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-22-green.svg" alt="jdk-22" />
+	</a>
+    <br />
+    <a target="_blank" href='https://gitee.com/noear/liquor/stargazers'>
+		<img src='https://gitee.com/noear/liquor/badge/star.svg' alt='gitee star'/>
+	</a>
+    <a target="_blank" href='https://github.com/noear/liquor/stargazers'>
+		<img src="https://img.shields.io/github/stars/noear/liquor.svg?style=flat&logo=github" alt="github star"/>
+	</a>
+</p>
 
-[![Maven Central](https://img.shields.io/maven-central/v/org.noear/liquor.svg)](https://mvnrepository.com/search?q=g:org.noear%20AND%20liquor)
-[![Apache 2.0](https://img.shields.io/:license-Apache2-blue.svg)](https://license.coscl.org.cn/Apache2/)
-[![JDK-8+](https://img.shields.io/badge/JDK-8+-green.svg)](https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html)
-[![QQ交流群](https://img.shields.io/badge/QQ交流群-22200020-orange)](https://jq.qq.com/?_wv=1027&k=kjB5JNiC)
+<br/>
+<p align="center">
+	<a href="https://jq.qq.com/?_wv=1027&k=kjB5JNiC">
+	<img src="https://img.shields.io/badge/QQ交流群-22200020-orange"/></a>
+</p>
 
-
-# Liquor for java
-
-Java dynamic compilation tool. (This tool is compatible with jar in jar)
-
+<hr>
 
 The compiler code for this tool is mainly derived from arthas. The relevant knowledge is relatively unpopular and precious, but it can only be used in appropriate scenes (it must not be abused). For the convenience of reuse, it is organized into a small toolkit for long-term maintenance.
 
@@ -20,9 +53,7 @@ Zero dependencies, 24KB of shipped packages.
 | liquor                       | compiler    | 24KB |
 | liquor-eval                  | evaluator   | 10KB |
 
-## demo
-
-* compiler-demo
+## Compiler demo
 
 ```xml
 <dependency>
@@ -54,7 +85,7 @@ public class DemoApp {
 
 
 
-* liquor-eval-demo
+## Evaluator demo
 
 ```xml
 <dependency>
@@ -65,8 +96,28 @@ public class DemoApp {
 ```
 
 
+* Expression Evaluator（You can only write one line of code）
+
+
 ```java
-//Script Evaluator
+public class DemoApp {
+    public static void main(String[] args) throws Exception {
+        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        
+        //Basics
+        System.out.println(expressionEvaluator.evaluate("1+1"));
+
+        //Advanced
+        CodeSpec codeSpec = new CodeSpec("$0 + 22").parameters(Integer.class);
+        System.out.println(expressionEvaluator.evaluate(codeSpec, 2));
+    }
+}
+```
+
+
+* Script Evaluator
+
+```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
@@ -86,22 +137,6 @@ public class DemoApp {
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
         System.out.println(scriptEvaluator.evaluate(code1, "noear"));
-    }
-}
-```
-
-```java
-//Expression Evaluator（You can only write one line of code）
-public class DemoApp {
-    public static void main(String[] args) throws Exception {
-        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-        
-        //Basics
-        System.out.println(expressionEvaluator.evaluate("1+1"));
-
-        //Advanced
-        CodeSpec codeSpec = new CodeSpec("$0 + 22").parameters(Integer.class);
-        System.out.println(expressionEvaluator.evaluate(codeSpec, 2));
     }
 }
 ```
