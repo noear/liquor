@@ -6,7 +6,7 @@ import java.lang.reflect.InvocationTargetException;
  * 评估器
  *
  * @author noear
- * @since 1.1
+ * @since 1.2
  */
 public interface IEvaluator {
     /**

@@ -8,7 +8,7 @@ import java.util.Map;
  * 表达式评估器（只能写一行代码）
  *
  * @author noear
- * @since 1.1
+ * @since 1.2
  */
 public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator {
 

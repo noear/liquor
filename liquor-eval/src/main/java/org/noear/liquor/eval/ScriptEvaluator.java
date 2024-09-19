@@ -8,7 +8,7 @@ import java.util.Map;
  * 脚本评估器
  *
  * @author noear
- * @since 1.1
+ * @since 1.2
  */
 public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
     @Override

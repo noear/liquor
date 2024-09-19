@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author noear
- * @since 1.1
+ * @since 1.2
  */
 public abstract class AbstractEvaluator implements IEvaluator {
     protected boolean cacheable = true;

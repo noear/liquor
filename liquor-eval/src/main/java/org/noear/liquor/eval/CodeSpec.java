@@ -9,7 +9,7 @@ import java.util.Map;
  * 代码申明
  *
  * @author noear
- * @since 1.1
+ * @since 1.2
  */
 public class CodeSpec {
     private final String code;
