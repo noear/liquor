@@ -14,10 +14,10 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
 
 
 
-| 发布包（零依赖）      | 描述  | 大小   |
-|---------------|-----|------|
-| liquor        | 编译器 | 24kb |
-| liquor-eval   | 评估器 | 10kb |
+| 发布包（零依赖）      | 描述   | 大小     |
+|---------------|------|--------|
+| liquor        | 编译器  | 24KB   |
+| liquor-eval   | 评估器  | 10KB   |
 
 
 ## 演示
@@ -28,7 +28,7 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.1.3</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -58,7 +58,7 @@ public class DemoApp {
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId>
-    <version>1.1.3</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 

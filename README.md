@@ -15,10 +15,10 @@ The code of this tool mainly comes from Arthas. The relevant knowledge is relati
 
 Zero dependencies, 24KB of shipped packages.
 
-| Packages (zero dependencies) | Description         | Size |
-|------------------------------|------------|------|
-| liquor                       | compiler   | 24kb |
-| liquor-eval                  | evaluator        | 10kb |
+| Packages (zero dependencies) | Description | Size |
+|------------------------------|-------------|------|
+| liquor                       | compiler    | 24KB |
+| liquor-eval                  | evaluator   | 10KB |
 
 ## demo
 
@@ -28,7 +28,7 @@ Zero dependencies, 24KB of shipped packages.
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.1.3</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ public class DemoApp {
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId>
-    <version>1.1.3</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
