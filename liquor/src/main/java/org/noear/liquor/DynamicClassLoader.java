@@ -3,13 +3,14 @@ package org.noear.liquor;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * This code comes from: Arthas project
  * */
 public class DynamicClassLoader extends ClassLoader {
-    private final Map<String, MemoryByteCode> byteCodes = new HashMap<>();
+    private final Map<String, MemoryByteCode> byteCodes = new LinkedHashMap<>();
 
     public DynamicClassLoader(ClassLoader classLoader) {
         super(classLoader);
