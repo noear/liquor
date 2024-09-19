@@ -12,17 +12,21 @@ public class DynamicCompiler {
     private final List<String> options = new ArrayList<String>();
     private final ClassLoader parentClassLoader;
 
-    private DynamicClassLoader dynamicClassLoader;
-
     private final Collection<JavaFileObject> compilationUnits = new ArrayList<JavaFileObject>();
     private final List<Diagnostic<? extends JavaFileObject>> errors = new ArrayList<Diagnostic<? extends JavaFileObject>>();
     private final List<Diagnostic<? extends JavaFileObject>> warnings = new ArrayList<Diagnostic<? extends JavaFileObject>>();
 
+    private DynamicClassLoader dynamicClassLoader;
+
     public DynamicCompiler() {
-        this(Thread.currentThread().getContextClassLoader());
+        this(null);
     }
 
     public DynamicCompiler(ClassLoader classLoader) {
+        if (classLoader == null) {
+            classLoader = Thread.currentThread().getContextClassLoader();
+        }
+
         if (javaCompiler == null) {
             throw new IllegalStateException(
                     "Can not load JavaCompiler from javax.tools.ToolProvider#getSystemJavaCompiler(),"
@@ -32,9 +36,17 @@ public class DynamicCompiler {
 
         options.add("-Xlint:unchecked");
         options.add("-g");
-        dynamicClassLoader = new DynamicClassLoader(classLoader);
         parentClassLoader = classLoader;
     }
+
+    public DynamicClassLoader getClassLoader() {
+        if(dynamicClassLoader == null) {
+            dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
+        }
+
+        return dynamicClassLoader;
+    }
+
 
     public DynamicCompiler addSource(String className, String source) {
         addSource(new StringSource(className, source));
@@ -48,14 +60,14 @@ public class DynamicCompiler {
 
     public void reset() {
         compilationUnits.clear();
-        dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
+        dynamicClassLoader = null;
     }
 
     public void build() {
         errors.clear();
         warnings.clear();
 
-        JavaFileManager fileManager = new DynamicJavaFileManager(standardFileManager, dynamicClassLoader);
+        JavaFileManager fileManager = new DynamicJavaFileManager(standardFileManager, getClassLoader());
 
         DiagnosticCollector<JavaFileObject> collector = new DiagnosticCollector<JavaFileObject>();
         JavaCompiler.CompilationTask task = javaCompiler.getTask(null, fileManager, collector, options, null,
@@ -90,7 +102,7 @@ public class DynamicCompiler {
                 }
             }
 
-            dynamicClassLoader.prepareClasses();
+            getClassLoader().prepareClasses();
         } catch (Throwable e) {
             throw new DynamicCompilerException(e, errors);
         } finally {
@@ -125,9 +137,5 @@ public class DynamicCompiler {
 
     public List<String> getWarnings() {
         return diagnosticToString(warnings);
-    }
-
-    public DynamicClassLoader getClassLoader() {
-        return dynamicClassLoader;
     }
 }

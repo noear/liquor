@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.noear</groupId>
-    <artifactId>liquor</artifactId>
+    <artifactId>liquor-plus</artifactId>
     <version>1.1.1</version>
 
     <name>${project.artifactId}</name>
@@ -39,6 +39,14 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>liquor</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 
     <profiles>
         <profile>
