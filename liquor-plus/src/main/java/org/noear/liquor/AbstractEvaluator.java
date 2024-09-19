@@ -32,17 +32,6 @@ public abstract class AbstractEvaluator implements IEvaluator {
     protected abstract Class<?> build(CodeSpec codeSpec);
 
     /**
-     * 获取类
-     */
-    protected Class<?> getClazz(CodeSpec codeSpec) {
-        if (cacheable) {
-            return cachedMap.computeIfAbsent(codeSpec.getCodeKey(), k -> build(codeSpec));
-        } else {
-            return build(codeSpec);
-        }
-    }
-
-    /**
      * 设置父类加载器
      */
     @Override
@@ -59,17 +48,18 @@ public abstract class AbstractEvaluator implements IEvaluator {
     }
 
     /**
-     * 执行
-     *
-     * @param codeSpec 代码申明
+     * 获取类
      */
-    @Override
-    public Object evaluate(CodeSpec codeSpec) throws InvocationTargetException {
-        return evaluate(codeSpec, new Object[0]);
+    public Class<?> getClazz(CodeSpec codeSpec) {
+        if (cacheable) {
+            return cachedMap.computeIfAbsent(codeSpec.getCodeKey(), k -> build(codeSpec));
+        } else {
+            return build(codeSpec);
+        }
     }
 
     /**
-     * 执行
+     * 评估
      *
      * @param codeSpec 代码申明
      * @param args     执行参数
