@@ -46,7 +46,7 @@ Liquor for java
 The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance.
 
 
-| Packages (zero dependencies) | Description | Size |
+| Artifact (zero dependencies) | Description | Size |
 |------------------------------|-------------|------|
 | liquor                       | compiler    | 24KB |
 | liquor-eval                  | evaluator   | 10KB |
