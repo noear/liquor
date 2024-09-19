@@ -43,10 +43,8 @@ Liquor for java
 
 <hr>
 
-The compiler code for this tool is mainly derived from arthas. The relevant knowledge is relatively unpopular and precious, but it can only be used in appropriate scenes (it must not be abused). For the convenience of reuse, it is organized into a small toolkit for long-term maintenance.
+The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance.
 
-
-Zero dependencies, 24KB of shipped packages.
 
 | Packages (zero dependencies) | Description | Size |
 |------------------------------|-------------|------|
