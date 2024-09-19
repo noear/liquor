@@ -41,5 +41,10 @@ public class Case22 {
 
         System.out.println(expressionEvaluator.evaluate(code2, 2));
         assert 3 == (int) expressionEvaluator.evaluate(code2, 2);
+
+        ///////////////
+
+        System.out.println(expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 2));
+        assert 24 == (int) expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 2);
     }
 }

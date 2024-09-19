@@ -44,6 +44,17 @@ public class CodeSpec {
     }
 
     /**
+     * 配置参数类型
+     */
+    public CodeSpec parameters(Class<?>... types) {
+        this.parameters = new LinkedHashMap<>();
+        for (int i = 0; i < types.length; i++) {
+            this.parameters.put("$" + i, types[i]);
+        }
+        return this;
+    }
+
+    /**
      * 配置返回类型
      */
     public CodeSpec returnType(Class<?> returnType) {
