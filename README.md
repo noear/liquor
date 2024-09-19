@@ -108,8 +108,8 @@ public class DemoApp {
         System.out.println(expressionEvaluator.evaluate("1+1"));
 
         //Advanced
-        CodeSpec codeSpec = new CodeSpec("$0 + 22").parameters(Integer.class);
-        System.out.println(expressionEvaluator.evaluate(codeSpec, 2));
+        CodeSpec code1 = new CodeSpec("$0 + 22").parameters(Integer.class);
+        System.out.println(expressionEvaluator.evaluate(code1, 2));
     }
 }
 ```
@@ -133,7 +133,7 @@ public class DemoApp {
                 "        }\n" +
                 "\n" +
                 "        Demo demo = new Demo();\n" +
-                "        return demo.hello(name);") //name 为外部参数
+                "        return demo.hello(name);") //name is an external parameter
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
         System.out.println(scriptEvaluator.evaluate(code1, "noear"));
