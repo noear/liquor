@@ -13,16 +13,22 @@ Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)
 本工具的代码主要源自 arthas。相关的知识点比较冷门，甚是珍贵，但也只能用在合适的场景上（切不可滥用）。为了复用方便，特整理成一个小工具包进行长期维护。
 
 
-零依赖，发布包仅 24KB。
 
-### 演示
+| 发布包（零依赖）      | 描述  | 大小   |
+|---------------|-----|------|
+| liquor        | 编译器 | 24kb |
+| liquor-eval   | 评估器 | 10kb |
 
+
+## 演示
+
+* 编译器演示
 
 ```xml
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 
@@ -42,6 +48,30 @@ public class DemoApp {
 
         Class<?> clazz = compiler.getClassLoader().loadClass(className);
         clazz.getMethod("helloWorld").invoke(null);
+    }
+}
+```
+
+* 评估器演示
+
+```xml
+<dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>liquor-eval</artifactId>
+    <version>1.1.3</version>
+</dependency>
+```
+
+```java
+public class DemoApp {
+    public static void main(String[] args) throws Exception{
+        //脚本评估器
+        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        scriptEvaluator.evaluate("System.out.println(\"hello word\");");
+
+        //表达式评估器（只能写一行代码）
+        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        System.out.println(expressionEvaluator.evaluate("1+1"));
     }
 }
 ```

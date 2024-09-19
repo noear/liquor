@@ -15,13 +15,20 @@ The code of this tool mainly comes from Arthas. The relevant knowledge is relati
 
 Zero dependencies, 24KB of shipped packages.
 
-### demo
+| Packages (zero dependencies) | Description         | Size |
+|------------------------------|------------|------|
+| liquor                       | compiler   | 24kb |
+| liquor-eval                  | evaluator        | 10kb |
+
+## demo
+
+* compiler-demo
 
 ```xml
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
 </dependency>
 ```
 
@@ -41,6 +48,32 @@ public class DemoApp {
 
         Class<?> clazz = compiler.getClassLoader().loadClass(className);
         clazz.getMethod("helloWorld").invoke(null);
+    }
+}
+```
+
+
+
+* liquor-eval-demo
+
+```xml
+<dependency>
+    <groupId>org.noear</groupId>
+    <artifactId>liquor-eval</artifactId>
+    <version>1.1.3</version>
+</dependency>
+```
+
+```java
+public class DemoApp {
+    public static void main(String[] args) throws Exception{
+        //脚本评估器
+        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        scriptEvaluator.evaluate("System.out.println(\"hello word\");");
+
+        //表达式评估器（只能写一行代码）
+        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        System.out.println(expressionEvaluator.evaluate("1+1"));
     }
 }
 ```
