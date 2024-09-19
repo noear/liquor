@@ -57,7 +57,7 @@ public class DemoApp {
         DynamicCompiler compiler = new DynamicCompiler();
         compiler.addSource(className, classCode).build();
 
-        Object instance = compiler.getClassLoader().loadClass(className);
-        System.out.println(instance);
+        Class<?> clazz = compiler.getClassLoader().loadClass(className);
+        System.out.println("Say: " + clazz.getMethod("say").invoke(null));
     }
 }

@@ -1,11 +1,24 @@
 package com.demo.proxy;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.noear.snack.ONode;
 
 public class MyClass {
     ONode node = new ONode(); //jar in jar
 
-    public String say(String str){
-        return "hello"+str;
+    public static String say() {
+        //泛型
+        List<String> list = new ArrayList<>();
+        list.add("cs");
+        list.add("java");
+        list.add("cpp");
+        list.add("python");
+
+        //表达式
+        list.stream().forEach(System.out::println);
+
+        return "hello";
     }
 }
