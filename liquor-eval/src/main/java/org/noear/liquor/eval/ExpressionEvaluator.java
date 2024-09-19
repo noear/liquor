@@ -1,4 +1,6 @@
-package org.noear.liquor;
+package org.noear.liquor.eval;
+
+import org.noear.liquor.DynamicCompiler;
 
 import java.util.Map;
 
@@ -6,22 +8,16 @@ import java.util.Map;
  * @author noear
  * @since 1.1
  */
-public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
+public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator {
+
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
-        String clazzName = "Script$" + codeSpec.getCodeKey();
+        String clazzName = "Expression$" + codeSpec.getCodeKey();
 
         StringBuilder code = new StringBuilder();
         code.append("public class ").append(clazzName).append(" {\n");
         {
-            code.append("  public static ");
-            if (codeSpec.getReturnType() != null) {
-                code.append(codeSpec.getReturnType().getName());
-            } else {
-                code.append("void");
-            }
-            code.append(" main(");
-
+            code.append("  public static Object main(");
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
                     code.append(kv.getValue().getName()).append(" ").append(kv.getKey()).append(",");
@@ -30,7 +26,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
             }
             code.append(")\n");
             code.append("  {\n");
-            code.append("    ").append(codeSpec.getCode()).append("\n");
+            code.append("    return ").append(codeSpec.getCode()).append(";\n");
             code.append("  }\n");
         }
         code.append("}");

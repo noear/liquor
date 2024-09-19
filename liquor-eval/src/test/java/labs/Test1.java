@@ -1,8 +1,8 @@
 package labs;
 
-import org.noear.liquor.CodeSpec;
-import org.noear.liquor.ExpressionEvaluator;
-import org.noear.liquor.ScriptEvaluator;
+import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.ExpressionEvaluator;
+import org.noear.liquor.eval.ScriptEvaluator;
 
 /**
  * @author noear

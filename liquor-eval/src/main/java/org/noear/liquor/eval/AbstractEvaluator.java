@@ -1,4 +1,6 @@
-package org.noear.liquor;
+package org.noear.liquor.eval;
+
+import org.noear.liquor.DynamicCompiler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;

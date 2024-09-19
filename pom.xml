@@ -18,7 +18,7 @@
 
     <modules>
         <module>liquor</module>
-        <module>liquor-plus</module>
+        <module>liquor-eval</module>
         <module>liquor_demo_solon</module>
         <module>liquor_demo_springboot</module>
     </modules>
