@@ -10,16 +10,16 @@ import org.noear.liquor.eval.ScriptEvaluator;
 public class Case22 {
     public static void main(String[] args) throws Exception {
         ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
-        //scriptEvaluator.setPrintable(true);
+        scriptEvaluator.setPrintable(true);
 
         CodeSpec code1 = new CodeSpec("class Demo {\n" +
-                "            public String hello(String word) {\n" +
-                "                return word;\n" +
-                "            }\n" +
-                "        }\n" +
+                "      public String hello(String word) {\n" +
+                "        return word;\n" +
+                "      }\n" +
+                "    }\n" +
                 "\n" +
-                "        Demo demo = new Demo();\n" +
-                "        return demo.hello(name);") //name 为外部参数
+                "    Demo demo = new Demo();\n" +
+                "    return demo.hello(name);") //name 为外部参数
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
 
@@ -35,7 +35,7 @@ public class Case22 {
         ///////////////
 
         ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
-        //expressionEvaluator.setPrintable(true);
+        expressionEvaluator.setPrintable(true);
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new String[]{"a"}, new Class[]{Integer.class});
 

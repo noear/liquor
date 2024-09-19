@@ -125,13 +125,13 @@ public class DemoApp {
 
         //Advanced
         CodeSpec code1 = new CodeSpec("class Demo {\n" +
-                "            public String hello(String word) {\n" +
-                "                return word;\n" +
-                "            }\n" +
-                "        }\n" +
+                "      public String hello(String word) {\n" +
+                "        return word;\n" +
+                "      }\n" +
+                "    }\n" +
                 "\n" +
-                "        Demo demo = new Demo();\n" +
-                "        return demo.hello(name);") //name is an external parameter
+                "    Demo demo = new Demo();\n" +
+                "    return demo.hello(name);") //name is an external parameter
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
         System.out.println(scriptEvaluator.evaluate(code1, "noear"));
