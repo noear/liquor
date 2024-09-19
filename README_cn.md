@@ -62,7 +62,7 @@ Liquor for java
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
@@ -92,7 +92,7 @@ public class DemoApp {
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </dependency>
 ```
 
