@@ -108,7 +108,10 @@ public class DemoApp {
 
         //进阶
         CodeSpec code1 = new CodeSpec("$0 + 22").parameters(Integer.class);
-        System.out.println(expressionEvaluator.evaluate(code1, 2));
+        System.out.println(expressionEvaluator.evaluate(code1, 2)); //=> 24
+
+        CodeSpec code2 = new CodeSpec("aa + 22").parameters(new String[]{"aa"}, new Class[]{Integer.class});
+        System.out.println(expressionEvaluator.evaluate(code2, 2)); //=> 24
     }
 }
 ```
@@ -134,7 +137,7 @@ public class DemoApp {
                 "    return demo.hello(name);") //name 为外部参数
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
-        System.out.println(scriptEvaluator.evaluate(code1, "noear"));
+        System.out.println(scriptEvaluator.evaluate(code1, "noear")); //=>noear
     }
 }
 ```
