@@ -25,7 +25,7 @@
     <dependencies>
         <dependency>
             <groupId>org.noear</groupId>
-            <artifactId>liquor</artifactId>
+            <artifactId>liquor-eval</artifactId>
             <version>1.2.1</version>
         </dependency>
 
