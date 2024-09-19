@@ -3,7 +3,7 @@
 Liquor for java
 </h1>
 <p align="center">
-	<strong>Java 动态编译小工具。(此工具可兼容 jar in jar 的情况)</strong>
+	<strong>Java 动态编译、表达式、脚本工具（兼容 jar in jar）</strong>
 </p>
 <p align="center">
     <a target="_blank" href="https://central.sonatype.com/search?q=org.noear%liquor">

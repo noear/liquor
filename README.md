@@ -2,7 +2,7 @@
 Liquor for java
 </h1>
 <p align="center">
-	<strong>Java dynamic compilation tool. (This tool is compatible with jar in jar)</strong>
+	<strong>Java dynamic compiler, expression, scripting tool (jar in jar compatible)</strong>
 </p>
 <p align="center">
     <a target="_blank" href="https://central.sonatype.com/search?q=org.noear%liquor">
