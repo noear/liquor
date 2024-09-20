@@ -96,7 +96,7 @@ public class DemoApp {
 ## Evaluator demo
 
 
-* Expression Evaluator（You can only write one line of code）
+* Expression Evaluator（You can only write one line of code）// Internally compile the expression to a static function
 
 
 ```java
@@ -122,7 +122,7 @@ public class DemoApp {
 ```
 
 
-* Script Evaluator
+* Script Evaluator // Internally compile the script to a static function
 
 ```java
 public class DemoApp {

@@ -95,7 +95,7 @@ public class DemoApp {
 
 ## 评估器演示
 
-* 表达式评估器（只能写一行代码）
+* 表达式评估器（只能写一行代码）//内部会把表达式编译为一个静态函数
 
 ```java
 public class DemoApp {
@@ -119,7 +119,7 @@ public class DemoApp {
 }
 ```
 
-* 脚本评估器
+* 脚本评估器 //内部会把脚本编译为一个静态函数
 
 ```java
 public class DemoApp {
