@@ -20,6 +20,7 @@ import org.noear.liquor.DynamicCompiler;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author noear
@@ -30,8 +31,11 @@ public abstract class AbstractEvaluator implements IEvaluator {
     protected boolean printable = false;
 
     private ClassLoader parentClassLoader;
-    private Map<String, Class<?>> cachedMap = new ConcurrentHashMap<>();
     private DynamicCompiler compiler;
+
+    private final Map<CodeSpec, Class<?>> cachedMap = new ConcurrentHashMap<>();
+    private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
+    private final AtomicLong nameCounter = new AtomicLong(0L);
 
     /**
      * 获取编译器
@@ -71,11 +75,19 @@ public abstract class AbstractEvaluator implements IEvaluator {
     }
 
     /**
+     * 获取标记
+     * */
+    protected String getKey(CodeSpec codeSpec) {
+        //中转一下，可避免有相同 hash 的情况
+        return nameMap.computeIfAbsent(codeSpec, k -> String.valueOf(nameCounter.incrementAndGet()));
+    }
+
+    /**
      * 获取类
      */
     public Class<?> getClazz(CodeSpec codeSpec) {
         if (cacheable) {
-            return cachedMap.computeIfAbsent(codeSpec.getCodeKey(), k -> build(codeSpec));
+            return cachedMap.computeIfAbsent(codeSpec, k -> build(codeSpec));
         } else {
             return build(codeSpec);
         }

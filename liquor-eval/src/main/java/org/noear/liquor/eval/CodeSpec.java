@@ -15,10 +15,9 @@
  */
 package org.noear.liquor.eval;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 代码申明
@@ -117,43 +116,18 @@ public class CodeSpec {
         return returnType;
     }
 
+    //////////////////
 
-    private String codeKey;
-
-    protected String getCodeKey() {
-        if (codeKey == null) {
-            if (parameters != null && parameters.size() > 0) {
-                StringBuilder buf = new StringBuilder();
-                buf.append(code).append(";");
-                for (Map.Entry<String, Class<?>> entry : parameters.entrySet()) {
-                    buf.append(entry.getValue().getCanonicalName()).append(";");
-                }
-                codeKey = generateMD5(buf.toString());
-            } else {
-                codeKey = generateMD5(code);
-            }
-        }
-
-
-        return codeKey;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CodeSpec)) return false;
+        CodeSpec codeSpec = (CodeSpec) o;
+        return Objects.equals(code, codeSpec.code) && Objects.equals(parameters, codeSpec.parameters);
     }
 
-    private static String generateMD5(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : messageDigest) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException(e);
-        }
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, parameters);
     }
 }

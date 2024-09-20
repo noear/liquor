@@ -77,7 +77,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
 
         //2.构建代码申明
 
-        String clazzName = "Script$" + codeSpec.getCodeKey();
+        String clazzName = "Script$" + getKey(codeSpec);
 
         StringBuilder code = new StringBuilder();
 

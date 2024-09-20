@@ -40,7 +40,7 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
 
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
-        String clazzName = "Expression$" + codeSpec.getCodeKey();
+        String clazzName = "Expression$" + getKey(codeSpec);
 
         StringBuilder code = new StringBuilder();
 
