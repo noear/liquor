@@ -17,6 +17,9 @@ package org.noear.liquor.eval;
 
 import org.noear.liquor.DynamicCompiler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +32,6 @@ import java.util.concurrent.atomic.AtomicLong;
  * @since 1.2
  */
 public abstract class AbstractEvaluator implements IEvaluator {
-    protected boolean cacheable = true;
     protected boolean printable = false;
 
     private ClassLoader parentClassLoader;
@@ -43,7 +45,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
      * 获取编译器
      */
     protected DynamicCompiler getCompiler() {
-        if (compiler == null || cacheable == false) {
+        if (compiler == null) {
             compiler = new DynamicCompiler(parentClassLoader);
         }
 
@@ -53,7 +55,96 @@ public abstract class AbstractEvaluator implements IEvaluator {
     /**
      * 构建类
      */
-    protected abstract Class<?> build(CodeSpec codeSpec);
+    protected Class<?> build(CodeSpec codeSpec) {
+        //1.分离导入代码
+
+        StringBuilder importBuilder = new StringBuilder();
+        StringBuilder codeBuilder = new StringBuilder();
+
+        if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
+            for (Class<?> clz : codeSpec.getImports()) {
+                importBuilder.append("import ").append(clz.getCanonicalName()).append(";\n");
+            }
+        }
+
+        if (codeSpec.getCode().contains("import ")) {
+            BufferedReader reader = new BufferedReader(new StringReader(codeSpec.getCode()));
+
+            try {
+                String line;
+                String lineTrim;
+                while ((line = reader.readLine()) != null) {
+                    lineTrim = line.trim();
+                    if (lineTrim.startsWith("import ")) {
+                        importBuilder.append(lineTrim).append("\n");
+                    } else {
+                        codeBuilder.append(line).append("\n");
+                    }
+                }
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+        } else {
+            codeBuilder.append(codeSpec.getCode());
+        }
+
+
+        //2.构建代码申明
+
+        String clazzName = "Script$" + getKey(codeSpec);
+
+        StringBuilder code = new StringBuilder();
+
+        if (importBuilder.length() > 0) {
+            code.append(importBuilder).append("\n");
+        }
+
+        code.append("public class ").append(clazzName).append(" {\n");
+        {
+            code.append("  public static ");
+            if (codeSpec.getReturnType() != null) {
+                code.append(codeSpec.getReturnType().getCanonicalName());
+            } else {
+                code.append("void");
+            }
+            code.append(" _main$(");
+
+            if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
+                for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
+                    code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
+                }
+                code.setLength(code.length() - 1);
+            }
+            code.append(")\n");
+            code.append("  {\n");
+
+
+            if (codeSpec.getCode().indexOf(';') < 0) {
+                //没有 ";" 号（支持表达式）
+                code.append("    return ").append(codeSpec.getCode()).append(";\n");
+            } else {
+                //有 ";" 号，说明是完整的语句
+                code.append("    ").append(codeBuilder).append("\n");
+            }
+
+
+            code.append("  }\n");
+        }
+        code.append("}");
+
+        if (printable) {
+            System.out.println(code.toString());
+        }
+
+        DynamicCompiler compiler = getCompiler();
+        compiler.addSource(clazzName, code.toString()).build();
+
+        try {
+            return compiler.getClassLoader().loadClass(clazzName);
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
     /**
      * 设置父类加载器
@@ -61,14 +152,6 @@ public abstract class AbstractEvaluator implements IEvaluator {
     @Override
     public void setParentClassLoader(ClassLoader parentClassLoader) {
         this.parentClassLoader = parentClassLoader;
-    }
-
-    /**
-     * 设置可缓存的（默认为 true）
-     */
-    @Override
-    public void setCacheable(boolean cacheable) {
-        this.cacheable = cacheable;
     }
 
     @Override
@@ -93,11 +176,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
     public IExecutable compile(CodeSpec codeSpec) {
         assert codeSpec != null;
 
-        if (cacheable) {
-            return cachedMap.computeIfAbsent(codeSpec, k -> new ExecutableImpl(build(codeSpec), codeSpec));
-        } else {
-            return new ExecutableImpl(build(codeSpec), codeSpec);
-        }
+        return cachedMap.computeIfAbsent(codeSpec, k -> new ExecutableImpl(build(codeSpec)));
     }
 
     /**

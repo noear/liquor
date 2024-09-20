@@ -10,11 +10,9 @@ import java.lang.reflect.Method;
  * @since 1.2
  */
 public class ExecutableImpl implements IExecutable {
-    private final CodeSpec codeSpec; //调试时可以看到
     private final Method method;
 
-    public ExecutableImpl(Class<?> clazz, CodeSpec codeSpec) {
-        this.codeSpec = codeSpec;
+    public ExecutableImpl(Class<?> clazz) {
         this.method = clazz.getDeclaredMethods()[0];
     }
 

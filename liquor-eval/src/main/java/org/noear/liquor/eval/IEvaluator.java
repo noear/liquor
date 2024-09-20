@@ -30,11 +30,6 @@ public interface IEvaluator {
     void setParentClassLoader(ClassLoader parentClassLoader);
 
     /**
-     * 设置可缓存的（默认为 true）
-     */
-    void setCacheable(boolean cacheable);
-
-    /**
      * 设置可打印的（默认为 false）
      */
     void setPrintable(boolean printable);

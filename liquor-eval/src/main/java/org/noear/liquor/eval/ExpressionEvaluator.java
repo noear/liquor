@@ -15,13 +15,11 @@
  */
 package org.noear.liquor.eval;
 
-import org.noear.liquor.DynamicCompiler;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
- * 表达式评估器（只能写一行代码）
+ * 表达式评估器（必须有估评结果）
  *
  * @author noear
  * @since 1.2
@@ -40,54 +38,12 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
 
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
-        String clazzName = "Expression$" + getKey(codeSpec);
-
-        StringBuilder code = new StringBuilder();
-
-        //构建导入
-        if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
-            for (Class<?> clz : codeSpec.getImports()) {
-                code.append("import ").append(clz.getCanonicalName()).append(";\n");
-            }
-            code.append("\n");
+        //必须有估评结果
+        if (codeSpec.getReturnType() == null) {
+            codeSpec.returnType(Object.class);
         }
 
-        //构建主体
-        code.append("public class ").append(clazzName).append(" {\n");
-        {
-            code.append("  public static Object _main$(");
-            if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
-                for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
-                    code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
-                }
-                code.setLength(code.length() - 1);
-            }
-            code.append(")\n");
-            code.append("  {\n");
-
-            if (codeSpec.getCode().contains(" return ")) {
-                //如果有 return，则自己要带 ";"
-                code.append("    ").append(codeSpec.getCode()).append("\n");
-            } else {
-                code.append("    return ").append(codeSpec.getCode()).append(";\n");
-            }
-
-            code.append("  }\n");
-        }
-        code.append("}");
-
-        if (printable) {
-            System.out.println(code.toString());
-        }
-
-        DynamicCompiler compiler = getCompiler();
-        compiler.addSource(clazzName, code.toString()).build();
-
-        try {
-            return compiler.getClassLoader().loadClass(clazzName);
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+        return super.build(codeSpec);
     }
 
 
