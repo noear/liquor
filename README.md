@@ -57,7 +57,7 @@ Reference dependency:
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.2.5</version>
+    <version>1.2.6</version>
 </dependency>
 ```
 
@@ -78,7 +78,8 @@ public class DemoApp {
         DynamicCompiler compiler = new DynamicCompiler();
         
         String className = "HelloWorld";
-        String classCode = "public class HelloWorld { " +
+        String classCode = "import java.util.HashMap;\n\n"+
+                "public class HelloWorld { " +
                 "   public static void helloWorld() { " +
                 "       System.out.println(\"Hello, world!\"); " +
                 "   } " +

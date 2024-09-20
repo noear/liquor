@@ -10,6 +10,7 @@ public class Case12 {
         DynamicCompiler compiler = new DynamicCompiler();
 
         compiler.addSource("com.demo.UserDo", "package com.demo;\n" +
+                "import java.util.HashMap;\n\n"+
                 "public class UserDo{\n" +
                 "    private String name;\n" +
                 "\n" +
