@@ -17,6 +17,7 @@ package org.noear.liquor.eval;
 
 import org.noear.liquor.DynamicCompiler;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
@@ -60,5 +61,26 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         } catch (Exception e) {
             throw new IllegalStateException(e);
         }
+    }
+
+
+    /**
+     * 评估
+     *
+     * @param code 代码
+     */
+    public Object evaluate(String code, Map<String, Object> bindings) throws InvocationTargetException {
+        String[] argsNames = new String[bindings.size()];
+        Class[] argsTypes = new Class[bindings.size()];
+        Object[] args = new Object[bindings.size()];
+
+        int idx = 0;
+        for (Map.Entry<String, Object> entry : bindings.entrySet()) {
+            argsNames[idx] = entry.getKey();
+            argsTypes[idx] = entry.getValue().getClass();
+            args[idx] = entry.getValue();
+        }
+
+        return evaluate(new CodeSpec(code).parameters(argsNames, argsTypes), args);
     }
 }

@@ -4,6 +4,9 @@ import org.noear.liquor.eval.CodeSpec;
 import org.noear.liquor.eval.ExpressionEvaluator;
 import org.noear.liquor.eval.ScriptEvaluator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author noear 2024/9/19 created
  */
@@ -44,7 +47,11 @@ public class Case22 {
 
         ///////////////
 
-        System.out.println(expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 2));
+        System.out.println(expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 1));
         assert 24 == (int) expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 2);
+
+        Map<String, Object> bings = new HashMap<>();
+        bings.put("aa", 3);
+        System.out.println(expressionEvaluator.evaluate("aa + 22", bings));
     }
 }
