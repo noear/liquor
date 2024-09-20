@@ -126,7 +126,7 @@ public class CodeSpec {
                 StringBuilder buf = new StringBuilder();
                 buf.append(code).append(";");
                 for (Map.Entry<String, Class<?>> entry : parameters.entrySet()) {
-                    buf.append(entry.getValue().getName()).append(";");
+                    buf.append(entry.getValue().getCanonicalName()).append(";");
                 }
                 codeKey = generateMD5(buf.toString());
             } else {
