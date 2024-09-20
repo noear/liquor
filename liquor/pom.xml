@@ -5,7 +5,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>liquor</artifactId>
-    <version>1.2.4</version>
+    <version>1.2.5</version>
 
     <name>${project.artifactId}</name>
     <description>Java project for liquor</description>

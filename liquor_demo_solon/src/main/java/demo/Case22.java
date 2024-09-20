@@ -15,7 +15,8 @@ public class Case22 {
         ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
         scriptEvaluator.setPrintable(true);
 
-        CodeSpec code1 = new CodeSpec("class Demo {\n" +
+        CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
+                "    class Demo {\n" +
                 "      public String hello(String word) {\n" +
                 "        return word;\n" +
                 "      }\n" +
