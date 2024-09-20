@@ -1,6 +1,7 @@
 package demo;
 
 import org.noear.liquor.eval.ExpressionEvaluator;
+import org.noear.liquor.eval.IExecutable;
 import org.noear.liquor.eval.ScriptEvaluator;
 
 /**
@@ -17,8 +18,8 @@ public class Case21 {
         scriptEvaluator.compile("System.out.println(\"hello word1\");").exec();
 
         //不推荐
-        Class<?> clazz1 = scriptEvaluator.getClazz("System.out.println(\"hello word\");");
-        clazz1.getMethods()[0].invoke(null);
+        IExecutable executable1 = scriptEvaluator.compile("System.out.println(\"hello word\");");
+        executable1.exec();
 
         //////////////////////////
 
@@ -30,7 +31,7 @@ public class Case21 {
         System.out.println(expressionEvaluator.compile("1+22222").exec());
 
         //不推荐
-        Class<?> clazz2 = expressionEvaluator.getClazz("1+1");
-        System.out.println(clazz2.getMethods()[0].invoke(null));
+        IExecutable executable2 = expressionEvaluator.compile("1+1");
+        System.out.println(executable2.exec());
     }
 }

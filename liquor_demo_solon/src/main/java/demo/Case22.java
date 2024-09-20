@@ -2,6 +2,7 @@ package demo;
 
 import org.noear.liquor.eval.CodeSpec;
 import org.noear.liquor.eval.ExpressionEvaluator;
+import org.noear.liquor.eval.IExecutable;
 import org.noear.liquor.eval.ScriptEvaluator;
 
 import java.util.HashMap;
@@ -15,7 +16,7 @@ public class Case22 {
         ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
 
-        CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
+        CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n" +
                 "    class Demo {\n" +
                 "      public String hello(String word) {\n" +
                 "        return word;\n" +
@@ -33,8 +34,8 @@ public class Case22 {
         assert "solon".equals(scriptEvaluator.eval(code1, "solon"));
 
         //转类再执行
-        Class<?> clazz1 = scriptEvaluator.getClazz(code1);
-        System.out.println(clazz1.getMethods()[0].invoke(null, "noear"));
+        IExecutable executable1 = scriptEvaluator.compile(code1);
+        System.out.println(executable1.exec("noear"));
 
         ///////////////
 

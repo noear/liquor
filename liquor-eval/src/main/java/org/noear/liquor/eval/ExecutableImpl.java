@@ -1,6 +1,7 @@
 package org.noear.liquor.eval;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.Map;
 
@@ -10,12 +11,14 @@ import java.util.Map;
  * @author noear
  * @since 1.2
  */
-public class ExecutableImpl implements IExecutable{
+public class ExecutableImpl implements IExecutable {
     private final Class<?> clazz;
     private final CodeSpec codeSpec;
+    private final Method method;
 
     public ExecutableImpl(Class<?> clazz, CodeSpec codeSpec) {
         this.clazz = clazz;
+        this.method = clazz.getDeclaredMethods()[0];
         this.codeSpec = codeSpec;
     }
 
@@ -24,6 +27,13 @@ public class ExecutableImpl implements IExecutable{
      */
     public Class<?> getClazz() {
         return clazz;
+    }
+
+    /**
+     * 获取方法
+     */
+    public Method getMethod() {
+        return method;
     }
 
     /**
@@ -49,7 +59,7 @@ public class ExecutableImpl implements IExecutable{
      */
     public Object exec(Object... args) throws InvocationTargetException {
         try {
-            return getClazz().getMethods()[0].invoke(null, args);
+            return method.invoke(null, args);
         } catch (InvocationTargetException e) {
             throw e;
         } catch (Exception e) {

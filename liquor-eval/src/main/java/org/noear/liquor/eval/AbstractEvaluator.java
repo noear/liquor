@@ -35,7 +35,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
     private ClassLoader parentClassLoader;
     private DynamicCompiler compiler;
 
-    private final Map<CodeSpec, Class<?>> cachedMap = new ConcurrentHashMap<>();
+    private final Map<CodeSpec, IExecutable> cachedMap = new ConcurrentHashMap<>();
     private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
     private final AtomicLong nameCounter = new AtomicLong(0L);
 
@@ -85,22 +85,19 @@ public abstract class AbstractEvaluator implements IEvaluator {
     }
 
     /**
-     * 获取类
+     * 编译
+     *
+     * @param codeSpec 代码申明
      */
-    public Class<?> getClazz(CodeSpec codeSpec) {
-        if (cacheable) {
-            return cachedMap.computeIfAbsent(codeSpec, k -> build(codeSpec));
-        } else {
-            return build(codeSpec);
-        }
-    }
-
     @Override
     public IExecutable compile(CodeSpec codeSpec) {
         assert codeSpec != null;
 
-        Class<?> clazz = getClazz(codeSpec);
-        return new ExecutableImpl(clazz, codeSpec);
+        if (cacheable) {
+            return cachedMap.computeIfAbsent(codeSpec, k -> new ExecutableImpl(build(codeSpec), codeSpec));
+        } else {
+            return new ExecutableImpl(build(codeSpec), codeSpec);
+        }
     }
 
     /**
@@ -114,7 +111,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
         assert codeSpec != null;
 
         try {
-            return getClazz(codeSpec).getMethods()[0].invoke(null, args);
+            return compile(codeSpec).exec(args);
         } catch (InvocationTargetException e) {
             throw e;
         } catch (Exception e) {

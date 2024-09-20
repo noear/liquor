@@ -39,17 +39,6 @@ public interface IEvaluator {
      */
     void setPrintable(boolean printable);
 
-    /**
-     * 获取类
-     */
-    default Class<?> getClazz(String code) {
-        return getClazz(new CodeSpec(code));
-    }
-
-    /**
-     * 获取类
-     */
-    Class<?> getClazz(CodeSpec codeSpec);
 
     /**
      * 编译

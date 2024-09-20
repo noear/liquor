@@ -64,7 +64,14 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
             }
             code.append(")\n");
             code.append("  {\n");
-            code.append("    return ").append(codeSpec.getCode()).append(";\n");
+
+            if (codeSpec.getCode().contains(" return ")) {
+                //如果有 return ?
+                code.append("    ").append(codeSpec.getCode()).append("\n");
+            } else {
+                code.append("    return ").append(codeSpec.getCode()).append(";\n");
+            }
+
             code.append("  }\n");
         }
         code.append("}");
