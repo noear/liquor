@@ -53,5 +53,9 @@ public class Case22 {
         Map<String, Object> bings = new HashMap<>();
         bings.put("aa", 3);
         System.out.println(expressionEvaluator.eval("aa + 22", bings));
+
+        Map<String, Object> bings2 = new HashMap<>();
+        bings2.put("aa", 4L);
+        System.out.println(expressionEvaluator.eval("aa + 22", bings2));
     }
 }

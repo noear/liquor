@@ -28,13 +28,11 @@ import java.util.Map;
  */
 public class CodeSpec {
     private final String code;
-    private final String codeKey;
     private Map<String, Class<?>> parameters;
     private Class<?> returnType;
 
     public CodeSpec(String code) {
         this.code = code;
-        this.codeKey = generateMD5(code);
     }
 
     /**
@@ -103,7 +101,23 @@ public class CodeSpec {
         return returnType;
     }
 
+
+    private String codeKey;
     protected String getCodeKey() {
+        if (codeKey == null) {
+            if (parameters != null && parameters.size() > 0) {
+                StringBuilder buf = new StringBuilder();
+                buf.append(code).append(";");
+                for (Map.Entry<String, Class<?>> entry : parameters.entrySet()) {
+                    buf.append(entry.getValue().getName()).append(";");
+                }
+                codeKey = generateMD5(buf.toString());
+            } else {
+                codeKey = generateMD5(code);
+            }
+        }
+
+
         return codeKey;
     }
 
