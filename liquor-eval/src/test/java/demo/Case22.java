@@ -27,9 +27,9 @@ public class Case22 {
                 .returnType(String.class);
 
         //直接执行
-        System.out.println(scriptEvaluator.evaluate(code1, "noear"));
-        assert "noear".equals(scriptEvaluator.evaluate(code1, "noear"));
-        assert "solon".equals(scriptEvaluator.evaluate(code1, "solon"));
+        System.out.println(scriptEvaluator.eval(code1, "noear"));
+        assert "noear".equals(scriptEvaluator.eval(code1, "noear"));
+        assert "solon".equals(scriptEvaluator.eval(code1, "solon"));
 
         //转类再执行
         Class<?> clazz1 = scriptEvaluator.getClazz(code1);
@@ -42,16 +42,16 @@ public class Case22 {
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new String[]{"a"}, new Class[]{Integer.class});
 
-        System.out.println(expressionEvaluator.evaluate(code2, 2));
-        assert 3 == (int) expressionEvaluator.evaluate(code2, 2);
+        System.out.println(expressionEvaluator.eval(code2, 2));
+        assert 3 == (int) expressionEvaluator.eval(code2, 2);
 
         ///////////////
 
-        System.out.println(expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 1));
-        assert 24 == (int) expressionEvaluator.evaluate(new CodeSpec("$0 + 22").parameters(Integer.class), 2);
+        System.out.println(expressionEvaluator.eval(new CodeSpec("$0 + 22").parameters(Integer.class), 1));
+        assert 24 == (int) expressionEvaluator.eval(new CodeSpec("$0 + 22").parameters(Integer.class), 2);
 
         Map<String, Object> bings = new HashMap<>();
         bings.put("aa", 3);
-        System.out.println(expressionEvaluator.evaluate("aa + 22", bings));
+        System.out.println(expressionEvaluator.eval("aa + 22", bings));
     }
 }

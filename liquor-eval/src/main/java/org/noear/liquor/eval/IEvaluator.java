@@ -56,8 +56,8 @@ public interface IEvaluator {
      *
      * @param code 代码
      */
-    default Object evaluate(String code) throws InvocationTargetException {
-        return evaluate(new CodeSpec(code));
+    default Object eval(String code) throws InvocationTargetException {
+        return eval(new CodeSpec(code));
     }
 
     /**
@@ -66,5 +66,5 @@ public interface IEvaluator {
      * @param codeSpec 代码申明
      * @param args     执行参数
      */
-    Object evaluate(CodeSpec codeSpec, Object... args) throws InvocationTargetException;
+    Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException;
 }

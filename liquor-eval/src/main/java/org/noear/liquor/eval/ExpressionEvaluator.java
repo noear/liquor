@@ -69,7 +69,7 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
      *
      * @param code 代码
      */
-    public Object evaluate(String code, Map<String, Object> bindings) throws InvocationTargetException {
+    public Object eval(String code, Map<String, Object> bindings) throws InvocationTargetException {
         String[] argsNames = new String[bindings.size()];
         Class[] argsTypes = new Class[bindings.size()];
         Object[] args = new Object[bindings.size()];
@@ -81,6 +81,6 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
             args[idx] = entry.getValue();
         }
 
-        return evaluate(new CodeSpec(code).parameters(argsNames, argsTypes), args);
+        return eval(new CodeSpec(code).parameters(argsNames, argsTypes), args);
     }
 }
