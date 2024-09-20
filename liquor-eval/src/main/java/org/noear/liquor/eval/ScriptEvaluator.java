@@ -41,9 +41,11 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
 
             try {
                 String line;
+                String lineTrim;
                 while ((line = reader.readLine()) != null) {
-                    if (line.trim().startsWith("import ")) {
-                        importBuilder.append(line).append("\n");
+                    lineTrim = line.trim();
+                    if (lineTrim.startsWith("import ")) {
+                        importBuilder.append(lineTrim).append("\n");
                     } else {
                         codeBuilder.append(line).append("\n");
                     }
