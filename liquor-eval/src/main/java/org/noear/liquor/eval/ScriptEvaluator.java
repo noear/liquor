@@ -74,7 +74,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
             } else {
                 code.append("void");
             }
-            code.append(" main(");
+            code.append(" _main$(");
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {

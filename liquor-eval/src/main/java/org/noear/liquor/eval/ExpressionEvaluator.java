@@ -35,7 +35,7 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         StringBuilder code = new StringBuilder();
         code.append("public class ").append(clazzName).append(" {\n");
         {
-            code.append("  public static Object main(");
+            code.append("  public static Object _main$(");
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
                     code.append(kv.getValue().getName()).append(" ").append(kv.getKey()).append(",");
