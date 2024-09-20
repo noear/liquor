@@ -23,6 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 /**
+ * 虚拟评估器
+ *
  * @author noear
  * @since 1.2
  */
@@ -76,7 +78,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
 
     /**
      * 获取标记
-     * */
+     */
     protected String getKey(CodeSpec codeSpec) {
         //中转一下，可避免有相同 hash 的情况
         return nameMap.computeIfAbsent(codeSpec, k -> String.valueOf(nameCounter.incrementAndGet()));
@@ -91,6 +93,14 @@ public abstract class AbstractEvaluator implements IEvaluator {
         } else {
             return build(codeSpec);
         }
+    }
+
+    @Override
+    public IExecutable compile(CodeSpec codeSpec) {
+        assert codeSpec != null;
+
+        Class<?> clazz = getClazz(codeSpec);
+        return new ExecutableImpl(clazz, codeSpec);
     }
 
     /**

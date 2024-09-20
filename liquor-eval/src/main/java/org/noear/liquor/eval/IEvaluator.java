@@ -52,6 +52,24 @@ public interface IEvaluator {
     Class<?> getClazz(CodeSpec codeSpec);
 
     /**
+     * 编译
+     *
+     * @param code 代码
+     */
+    default IExecutable compile(String code) {
+        assert code != null;
+        return compile(new CodeSpec(code));
+    }
+
+    /**
+     * 编译
+     *
+     * @param codeSpec 代码申明
+     */
+    IExecutable compile(CodeSpec codeSpec);
+
+
+    /**
      * 评估
      *
      * @param code 代码
