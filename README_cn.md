@@ -129,7 +129,7 @@ public class DemoApp {
         //基础
         evaluator.eval("System.out.println(\"hello word\");");
 
-        //进阶
+        //进阶（如果有内部类，不要加 public）
         CodeSpec code1 = new CodeSpec("class Demo {\n" +
                 "      public String hello(String word) {\n" +
                 "        return word;\n" +

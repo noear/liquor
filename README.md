@@ -132,7 +132,7 @@ public class DemoApp {
         //Basics
         evaluator.eval("System.out.println(\"hello word\");");
 
-        //Advanced
+        //Advanced (Don't add public if you have an inner class)
         CodeSpec code1 = new CodeSpec("class Demo {\n" +
                 "      public String hello(String word) {\n" +
                 "        return word;\n" +
