@@ -27,6 +27,12 @@
             <artifactId>janino</artifactId>
             <version>3.1.12</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.aviator</groupId>
+            <artifactId>aviator</artifactId>
+            <version>5.3.3</version>
+        </dependency>
     </dependencies>
 
 </project>
