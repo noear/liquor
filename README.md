@@ -136,7 +136,7 @@ public class DemoApp {
 
 ### 2) Script Evaluator // Internally compile the script to a static function
 
-* Can import classes; It cannot have a package name.
+* Can import classes; It cannot have a package name
 * Don't use "public" when using inner classes
 * Using CodeSpec::imports to import the classes required by the expression; Or add an "import" statement to your code
 
