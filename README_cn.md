@@ -121,6 +121,8 @@ public class DemoApp {
         Map<String, Object> bindings3 = new HashMap<>();
         bindings3.put("bb", 3);
         System.out.println(evaluator.eval("bb + 22", bindings3)); //=>25
+
+        System.out.println(evaluator.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
     }
 }
 ```
