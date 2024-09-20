@@ -2,8 +2,6 @@ package org.noear.liquor.eval;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Collections;
-import java.util.Map;
 
 /**
  * 可执行的
@@ -12,21 +10,12 @@ import java.util.Map;
  * @since 1.2
  */
 public class ExecutableImpl implements IExecutable {
-    private final Class<?> clazz;
-    private final CodeSpec codeSpec;
+    private final CodeSpec codeSpec; //调试时可以看到
     private final Method method;
 
     public ExecutableImpl(Class<?> clazz, CodeSpec codeSpec) {
-        this.clazz = clazz;
-        this.method = clazz.getDeclaredMethods()[0];
         this.codeSpec = codeSpec;
-    }
-
-    /**
-     * 获取类
-     */
-    public Class<?> getClazz() {
-        return clazz;
+        this.method = clazz.getDeclaredMethods()[0];
     }
 
     /**
@@ -34,24 +23,6 @@ public class ExecutableImpl implements IExecutable {
      */
     public Method getMethod() {
         return method;
-    }
-
-    /**
-     * 获取参数
-     */
-    public Map<String, Class<?>> getParameters() {
-        if (codeSpec.getParameters() == null) {
-            return null;
-        }
-
-        return Collections.unmodifiableMap(codeSpec.getParameters());
-    }
-
-    /**
-     * 获取返回类型
-     */
-    public Class<?> getReturnType() {
-        return codeSpec.getReturnType();
     }
 
     /**
