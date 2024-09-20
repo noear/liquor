@@ -36,6 +36,12 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
         StringBuilder importBuilder = new StringBuilder();
         StringBuilder codeBuilder = new StringBuilder();
 
+        if(codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
+            for (Class<?> clz : codeSpec.getImports()) {
+                importBuilder.append("import ").append(clz.getCanonicalName()).append(";\n");
+            }
+        }
+
         if (codeSpec.getCode().contains("import ")) {
             BufferedReader reader = new BufferedReader(new StringReader(codeSpec.getCode()));
 
@@ -72,7 +78,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
         {
             code.append("  public static ");
             if (codeSpec.getReturnType() != null) {
-                code.append(codeSpec.getReturnType().getName());
+                code.append(codeSpec.getReturnType().getCanonicalName());
             } else {
                 code.append("void");
             }
@@ -80,7 +86,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
-                    code.append(kv.getValue().getName()).append(" ").append(kv.getKey()).append(",");
+                    code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
                 }
                 code.setLength(code.length() - 1);
             }

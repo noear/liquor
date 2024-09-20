@@ -28,6 +28,7 @@ import java.util.Map;
  */
 public class CodeSpec {
     private final String code;
+    private Class<?>[] imports;
     private Map<String, Class<?>> parameters;
     private Class<?> returnType;
 
@@ -40,6 +41,14 @@ public class CodeSpec {
      */
     public CodeSpec parameters(Map<String, Class<?>> parameters) {
         this.parameters = parameters;
+        return this;
+    }
+
+    /**
+     * 配置导入
+     */
+    public CodeSpec imports(Class<?>... imports) {
+        this.imports = imports;
         return this;
     }
 
@@ -88,6 +97,13 @@ public class CodeSpec {
     }
 
     /**
+     * 获取导入
+     */
+    public Class<?>[] getImports() {
+        return imports;
+    }
+
+    /**
      * 获取参数类型
      */
     public Map<String, Class<?>> getParameters() {
@@ -103,6 +119,7 @@ public class CodeSpec {
 
 
     private String codeKey;
+
     protected String getCodeKey() {
         if (codeKey == null) {
             if (parameters != null && parameters.size() > 0) {

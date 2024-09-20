@@ -33,12 +33,22 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         String clazzName = "Expression$" + codeSpec.getCodeKey();
 
         StringBuilder code = new StringBuilder();
+
+        //构建导入
+        if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
+            for (Class<?> clz : codeSpec.getImports()) {
+                code.append("import ").append(clz.getCanonicalName()).append(";\n");
+            }
+            code.append("\n");
+        }
+
+        //构建主体
         code.append("public class ").append(clazzName).append(" {\n");
         {
             code.append("  public static Object _main$(");
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
-                    code.append(kv.getValue().getName()).append(" ").append(kv.getKey()).append(",");
+                    code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
                 }
                 code.setLength(code.length() - 1);
             }

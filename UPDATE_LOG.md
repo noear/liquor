@@ -1,6 +1,7 @@
 ### 1.2.7
 
 * 修复 ScriptEvaluator import 前面有空隔时，会出错的问题
+* 添加 CodeSpec::imports
 
 ### 1.2.6
 
