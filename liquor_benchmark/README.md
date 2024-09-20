@@ -1,12 +1,12 @@
 
 特点比较：
 
-|   | liquor    | janino    |
-|---|-----------|-----------|
-| 1 | 可以复用编译器   | 每次要新建     | 
-| 2 | 新建编译器，成本高 | 新建编译器，成本低 |
+|   | liquor        | janino    | aviator |
+|---|---------------|-----------|---------|
+| 1 | 可以复用编译器       | 每次要新建     | 全局单例    | 
+| 2 | 新建编译器，成本高     | 新建编译器，成本低 |   全局单例      | 
 
-实现以下效果，liquor 比 janino 快10多倍。
+实现以下效果；liquor 比 janino 快20多倍，与 aviator 相关。
 
 ```java
 public static void expr_liquor_11(int count) throws Exception {
@@ -25,5 +25,5 @@ public static void expr_liquor_11(int count) throws Exception {
     System.out.println("liquor::" + (System.currentTimeMillis() - start));
 }
 
-expr_liquor_11(1000);
+expr_liquor_11(10000);
 ```
