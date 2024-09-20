@@ -49,22 +49,29 @@ Liquor for java
 
 
 
-| 工件（零依赖）     | 描述   | 大小     |
-|-------------|------|--------|
-| liquor      | 编译器  | 24KB   |
-| liquor-eval | 评估器  | 10KB   |
+| 工件（零依赖）     | 描述    | 大小     | 功能                                 |
+|-------------|-------|--------|----------------------------------------|
+| liquor      | 编译器   | 24KB   | DynamicCompiler                        |
+| liquor-eval | 评估器   | 10KB   | ExpressionEvaluator<br>ScriptEvaluator |
 
 
-
-## 编译器演示
+引用依赖：
 
 ```xml
 <dependency>
     <groupId>org.noear</groupId>
-    <artifactId>liquor</artifactId>
+    <artifactId>liquor-eval</artifactId> <!-- or liquor -->
     <version>1.2.2</version>
 </dependency>
 ```
+
+示例参考：
+
+* [liquor_demo_solon](liquor_demo_solon)
+* [liquor_demo_springboot](liquor_demo_springboot)
+
+
+## 编译器演示
 
 ```java
 public class DemoApp {
@@ -87,14 +94,6 @@ public class DemoApp {
 ```
 
 ## 评估器演示
-
-```xml
-<dependency>
-    <groupId>org.noear</groupId>
-    <artifactId>liquor-eval</artifactId>
-    <version>1.2.2</version>
-</dependency>
-```
 
 * 表达式评估器（只能写一行代码）
 

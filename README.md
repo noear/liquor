@@ -46,20 +46,31 @@ Liquor for java
 The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance.
 
 
-| Artifact (zero dependencies) | Description | Size |
-|------------------------------|-------------|------|
-| liquor                       | compiler    | 24KB |
-| liquor-eval                  | evaluator   | 10KB |
+| Artifact (zero dependencies) | Description | Size | Features                                  |
+|------------------------------|-------------|------|-----------------------------------------|
+| liquor                       | compiler    | 24KB | DynamicCompiler                         |
+| liquor-eval                  | evaluator   | 10KB | ExpressionEvaluator<br>ScriptEvaluator  |
 
-## Compiler demo
+
+Reference dependency:
 
 ```xml
 <dependency>
     <groupId>org.noear</groupId>
-    <artifactId>liquor</artifactId>
+    <artifactId>liquor-eval</artifactId> <!-- or liquor -->
     <version>1.2.2</version>
 </dependency>
 ```
+
+Example reference:
+
+* [liquor_demo_solon](liquor_demo_solon)
+* [liquor_demo_springboot](liquor_demo_springboot)
+
+
+
+## Compiler demo
+
 
 ```java
 public class DemoApp {
@@ -84,14 +95,6 @@ public class DemoApp {
 
 
 ## Evaluator demo
-
-```xml
-<dependency>
-    <groupId>org.noear</groupId>
-    <artifactId>liquor-eval</artifactId>
-    <version>1.2.2</version>
-</dependency>
-```
 
 
 * Expression Evaluator（You can only write one line of code）
