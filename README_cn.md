@@ -71,6 +71,10 @@ Liquor
 * [liquor_demo_springboot](liquor_demo_springboot)
 
 
+性能表现（第三方性能测试，榜首）：
+
+* [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
+
 ## 编译器演示
 
 可以有包名；可以导入类；跟平常写 java 类一样。
