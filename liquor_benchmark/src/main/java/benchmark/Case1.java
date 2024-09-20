@@ -4,14 +4,11 @@ package benchmark;
 
 public class Case1 {
     public static void main(String[] args) throws Exception {
-        expr_janino_11(1000);
-        expr_liquor_11(1000);
+        expr_janino_11(10000);
+        expr_liquor_11(10000);
 
-        expr_janino_11(1000);
-        expr_liquor_11(1000);
-
-        expr_janino_11(1000);
-        expr_liquor_11(1000);
+        expr_janino_11(10000);
+        expr_liquor_11(10000);
     }
 
     public static void expr_janino_11(int count) throws Exception {
