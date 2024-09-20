@@ -8,7 +8,7 @@ import org.noear.liquor.eval.ScriptEvaluator;
  */
 public class Case23 {
     public static void main(String[] args) throws Exception {
-        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
 
         CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n" +

@@ -1,5 +1,5 @@
 <h1 align="center" style="text-align:center;">
-Liquor for java
+Liquor
 </h1>
 <p align="center">
 	<strong>Java dynamic compiler, expression, scripting tool (jar in jar compatible)</strong>
@@ -107,7 +107,7 @@ public class DemoApp {
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         // reusable (don't, keep creating)
-        ExpressionEvaluator evaluator = new ExpressionEvaluator();
+        ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
         
         //Basics
         System.out.println(evaluator.eval("1+1"));
@@ -137,7 +137,7 @@ You can import classes. It cannot have a package name.
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         // reusable (don't, keep creating)
-        ScriptEvaluator evaluator = new ScriptEvaluator();
+        ScriptEvaluator evaluator = ScriptEvaluator.getInstance();
         
         //Basics
         evaluator.eval("System.out.println(\"hello word\");");

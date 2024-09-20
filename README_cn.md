@@ -1,6 +1,6 @@
 
 <h1 align="center" style="text-align:center;">
-Liquor for java
+Liquor
 </h1>
 <p align="center">
 	<strong>Java 动态编译、表达式、脚本工具（兼容 jar in jar）</strong>
@@ -106,7 +106,7 @@ public class DemoApp {
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //可以复用（不要，不断的新建）
-        ExpressionEvaluator evaluator = new ExpressionEvaluator();
+        ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
         
         //基础
         System.out.println(evaluator.eval("1+1"));
@@ -135,7 +135,7 @@ public class DemoApp {
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //可以复用（不要，不断的新建）
-        ScriptEvaluator evaluator = new ScriptEvaluator();
+        ScriptEvaluator evaluator = ScriptEvaluator.getInstance();
         
         //基础
         evaluator.eval("System.out.println(\"hello word\");");

@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public class Case22 {
     public static void main(String[] args) throws Exception {
-        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
 
         CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
@@ -38,7 +38,7 @@ public class Case22 {
 
         ///////////////
 
-        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        ExpressionEvaluator expressionEvaluator = ExpressionEvaluator.getInstance();
         expressionEvaluator.setPrintable(true);
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new String[]{"a"}, new Class[]{Integer.class});

@@ -9,7 +9,7 @@ import org.noear.liquor.eval.ScriptEvaluator;
  */
 public class Case21 {
     public static void main(String[] args) throws Exception {
-        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.eval("System.out.println(\"hello word\");");
         scriptEvaluator.eval("System.out.println(\"hello word\");"); //cached
         scriptEvaluator.eval("System.out.println(\"hello word1\");");
@@ -20,7 +20,7 @@ public class Case21 {
 
         //////////////////////////
 
-        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        ExpressionEvaluator expressionEvaluator = ExpressionEvaluator.getInstance();
         System.out.println(expressionEvaluator.eval("1+1"));
         System.out.println(expressionEvaluator.eval("1+1")); //cached
         System.out.println(expressionEvaluator.eval("1+2"));

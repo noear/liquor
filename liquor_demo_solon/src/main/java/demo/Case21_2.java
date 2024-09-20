@@ -9,7 +9,7 @@ import org.noear.liquor.eval.ScriptEvaluator;
  */
 public class Case21_2 {
     public static void main(String[] args) throws Exception {
-        ExpressionEvaluator evaluator = new ExpressionEvaluator();
+        ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
         evaluator.setPrintable(true);
 
         // 数学运算 (Long)
@@ -37,7 +37,7 @@ public class Case21_2 {
         System.out.println(evaluator.eval(exp5));
 
 
-        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
         scriptEvaluator.eval(new CodeSpec("System.out.println(Math.min(11,21));").imports(Math.class));
     }
