@@ -61,7 +61,7 @@ Liquor for java
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ```
 
@@ -100,17 +100,21 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        ExpressionEvaluator evaluator = new ExpressionEvaluator();
         
         //基础
-        System.out.println(expressionEvaluator.evaluate("1+1"));
+        System.out.println(evaluator.eval("1+1"));
 
         //进阶
         CodeSpec code1 = new CodeSpec("$0 + 22").parameters(Integer.class);
-        System.out.println(expressionEvaluator.evaluate(code1, 2)); //=> 24
+        System.out.println(evaluator.eval(code1, 1)); //=> 23
 
         CodeSpec code2 = new CodeSpec("aa + 22").parameters(new String[]{"aa"}, new Class[]{Integer.class});
-        System.out.println(expressionEvaluator.evaluate(code2, 2)); //=> 24
+        System.out.println(evaluator.eval(code2, 2)); //=> 24
+
+        Map<String, Object> bindings3 = new HashMap<>();
+        bindings3.put("bb", 3);
+        System.out.println(evaluator.eval("bb + 22", bindings3)); //=>25
     }
 }
 ```
@@ -120,10 +124,10 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        ScriptEvaluator scriptEvaluator = new ScriptEvaluator();
+        ScriptEvaluator evaluator = new ScriptEvaluator();
         
         //基础
-        scriptEvaluator.evaluate("System.out.println(\"hello word\");");
+        evaluator.eval("System.out.println(\"hello word\");");
 
         //进阶
         CodeSpec code1 = new CodeSpec("class Demo {\n" +
@@ -136,7 +140,7 @@ public class DemoApp {
                 "    return demo.hello(name);") //name 为外部参数
                 .parameters(new String[]{"name"}, new Class[]{String.class})
                 .returnType(String.class);
-        System.out.println(scriptEvaluator.evaluate(code1, "noear")); //=>noear
+        System.out.println(evaluator.eval(code1, "noear")); //=>noear
     }
 }
 ```
