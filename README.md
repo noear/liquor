@@ -137,7 +137,8 @@ public class DemoApp {
         evaluator.eval("System.out.println(\"hello word\");");
 
         //Advanced (Don't add public if you have an inner class)
-        CodeSpec code1 = new CodeSpec("class Demo {\n" +
+        CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
+                "    class Demo {\n" +
                 "      public String hello(String word) {\n" +
                 "        return word;\n" +
                 "      }\n" +

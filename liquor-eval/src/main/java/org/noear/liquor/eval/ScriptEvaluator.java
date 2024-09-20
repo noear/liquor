@@ -17,6 +17,9 @@ package org.noear.liquor.eval;
 
 import org.noear.liquor.DynamicCompiler;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.Map;
 
 /**
@@ -28,9 +31,41 @@ import java.util.Map;
 public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
+        //1.分离导入代码
+
+        StringBuilder importBuilder = new StringBuilder();
+        StringBuilder codeBuilder = new StringBuilder();
+
+        if (codeSpec.getCode().contains("import ")) {
+            BufferedReader reader = new BufferedReader(new StringReader(codeSpec.getCode()));
+
+            try {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    if (line.startsWith("import ")) {
+                        importBuilder.append(line).append("\n");
+                    } else {
+                        codeBuilder.append(line).append("\n");
+                    }
+                }
+            } catch (IOException e) {
+                throw new IllegalStateException(e);
+            }
+        } else {
+            codeBuilder.append(codeSpec.getCode());
+        }
+
+
+        //2.构建代码申明
+
         String clazzName = "Script$" + codeSpec.getCodeKey();
 
         StringBuilder code = new StringBuilder();
+
+        if (importBuilder.length() > 0) {
+            code.append(importBuilder).append("\n");
+        }
+
         code.append("public class ").append(clazzName).append(" {\n");
         {
             code.append("  public static ");
@@ -49,7 +84,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
             }
             code.append(")\n");
             code.append("  {\n");
-            code.append("    ").append(codeSpec.getCode()).append("\n");
+            code.append("    ").append(codeBuilder).append("\n");
             code.append("  }\n");
         }
         code.append("}");
