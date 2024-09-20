@@ -104,8 +104,7 @@ public class DemoApp {
 
 
 * Something must be returned
-* when there is no return in the expression; The evaluator automatically adds "return" and ";"
-* when there is a return;" There must be a space around the return" and a ";". End
+* No ";" in the expression , the evaluator automatically adds "return" and ";". . Otherwise, make sure your statements are complete
 * Use CodeSpec::imports to import the classes required by the expression
 
 
@@ -140,6 +139,7 @@ public class DemoApp {
 * Can import classes; It cannot have a package name.
 * Don't use "public" when using inner classes
 * Using CodeSpec::imports to import the classes required by the expression; Or add an "import" statement to your code
+
 
 ```java
 public class DemoApp {
