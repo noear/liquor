@@ -91,7 +91,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
 
         //2.构建代码申明
 
-        String clazzName = "Script$" + getKey(codeSpec);
+        String clazzName = "Executable$" + getKey(codeSpec);
 
         StringBuilder code = new StringBuilder();
 
@@ -133,7 +133,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
         code.append("}");
 
         if (printable) {
-            System.out.println(code.toString());
+            System.out.println(code);
         }
 
         DynamicCompiler compiler = getCompiler();
