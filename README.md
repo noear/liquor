@@ -70,6 +70,7 @@ Example reference:
 
 ## Compiler demo
 
+You can have package names. You can import classes. Just like you would write a java class.
 
 ```java
 public class DemoApp {
@@ -127,6 +128,8 @@ public class DemoApp {
 
 
 * Script Evaluator // Internally compile the script to a static function
+
+You can import classes. It cannot have a package name.
 
 ```java
 public class DemoApp {

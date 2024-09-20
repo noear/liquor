@@ -73,6 +73,8 @@ Liquor for java
 
 ## 编译器演示
 
+可以有包名；可以导入类；跟平常写 java 类一样。
+
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception{
@@ -124,6 +126,8 @@ public class DemoApp {
 ```
 
 * 脚本评估器 //内部会把脚本编译为一个静态函数
+
+可以导入类；不能有包名；
 
 ```java
 public class DemoApp {
