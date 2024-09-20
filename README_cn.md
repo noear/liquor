@@ -49,10 +49,10 @@ Liquor for java
 
 
 
-| 工件（零依赖）     | 描述    | 大小     | 功能                                 |
-|-------------|-------|--------|----------------------------------------|
-| liquor      | 编译器   | 24KB   | DynamicCompiler                        |
-| liquor-eval | 评估器   | 10KB   | ExpressionEvaluator<br>ScriptEvaluator |
+| 工件     | 描述 | 大小     | 功能                                      | 功能描述                             |
+|-------------|----|--------|-----------------------------------------|----------------------------------|
+| liquor      | 编译器 | 24KB   | DynamicCompiler                         | 编译一个或多个类（可相互依赖，可多次不重复编译）         |
+| liquor-eval | 评估器 | 10KB   | ExpressionEvaluator<br/>ScriptEvaluator | 评估一行表达式（可多次评估）<br/>评估一块脚本（可多次评估） |
 
 
 引用依赖：

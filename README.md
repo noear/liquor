@@ -45,10 +45,10 @@ Liquor for java
 
 The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance. Expressions and scripting support were added later.
 
-| Artifact (zero dependencies) | Description | Size | Features                                  |
-|------------------------------|-------------|------|-----------------------------------------|
-| liquor                       | compiler    | 24KB | DynamicCompiler                         |
-| liquor-eval                  | evaluator   | 10KB | ExpressionEvaluator<br>ScriptEvaluator  |
+| Artifact            | Description | Size | Features                                  | Functional Description                     |
+|---------------------|-------------|------|-----------------------------------------|--------------------------|
+| liquor              | compiler    | 24KB | DynamicCompiler                         | Compile one or more classes (can depend on each other, can be compiled multiple times) |
+| liquor-eval         | evaluator   | 10KB | ExpressionEvaluator<br>ScriptEvaluator  | Evaluate a one-line expression (multiple evaluations)<br/>Evaluate a script (can be evaluated multiple times) |
 
 
 Reference dependency:
