@@ -49,6 +49,9 @@ public class CodeSpec {
      * 配置参数类型
      */
     public CodeSpec parameters(String[] names, Class<?>[] types) {
+        assert names != null;
+        assert types != null;
+
         assert names.length == types.length;
 
         this.parameters = new LinkedHashMap<>();

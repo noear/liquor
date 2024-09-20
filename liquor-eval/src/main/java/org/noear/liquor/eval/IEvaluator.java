@@ -57,6 +57,7 @@ public interface IEvaluator {
      * @param code 代码
      */
     default Object eval(String code) throws InvocationTargetException {
+        assert code != null;
         return eval(new CodeSpec(code));
     }
 

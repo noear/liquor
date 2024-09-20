@@ -89,6 +89,8 @@ public abstract class AbstractEvaluator implements IEvaluator {
      */
     @Override
     public Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
+        assert codeSpec != null;
+
         try {
             return getClazz(codeSpec).getMethods()[0].invoke(null, args);
         } catch (InvocationTargetException e) {

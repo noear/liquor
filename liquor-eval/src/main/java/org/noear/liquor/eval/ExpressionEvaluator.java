@@ -70,6 +70,8 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
      * @param code 代码
      */
     public Object eval(String code, Map<String, Object> bindings) throws InvocationTargetException {
+        assert bindings != null;
+
         String[] argsNames = new String[bindings.size()];
         Class[] argsTypes = new Class[bindings.size()];
         Object[] args = new Object[bindings.size()];
