@@ -2,7 +2,7 @@
 
 * 调整 用 hash 方案替代 md5 方案。改进复用性能
 * 添加 IEvaluator::compile() -> IExecutable 预编译支持
-* 优化 性能
+* 优化 反射执行性能，避免 Method 拷贝
 
 ### 1.2.7
 
