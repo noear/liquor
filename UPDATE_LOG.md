@@ -1,3 +1,7 @@
+### 1.2.7
+
+* 修复 ScriptEvaluator import 前面有空隔时，会出错的问题
+
 ### 1.2.6
 
 * 添加 ScriptEvaluator import 导入语法支持（自动分离，加到新类的头部）
