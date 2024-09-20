@@ -64,7 +64,7 @@ public class Case1 {
         long start = System.currentTimeMillis();
 
         //可以复用
-        org.noear.liquor.eval.ExpressionEvaluator evaluator = new org.noear.liquor.eval.ExpressionEvaluator();
+        org.noear.liquor.eval.ExpressionEvaluator evaluator = org.noear.liquor.eval.ExpressionEvaluator.getInstance();
         for (int i = 0; i < count; i++) {
             evaluator.eval("1+1");
             evaluator.eval("1+2");
