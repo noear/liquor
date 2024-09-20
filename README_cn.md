@@ -76,14 +76,16 @@ Liquor for java
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception{
+        //可以复用（不要，不断的新建）
+        DynamicCompiler compiler = new DynamicCompiler();
+        
         String className = "HelloWorld";
         String classCode = "public class HelloWorld { " +
                 "   public static void helloWorld() { " +
                 "       System.out.println(\"Hello, world!\"); " +
                 "   } " +
                 "}";
-
-        DynamicCompiler compiler = new DynamicCompiler();
+        
         //添加源码（可多个）并 构建
         compiler.addSource(className, classCode).build();
 
@@ -100,6 +102,7 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
+        //可以复用（不要，不断的新建）
         ExpressionEvaluator evaluator = new ExpressionEvaluator();
         
         //基础
@@ -124,6 +127,7 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
+        //可以复用（不要，不断的新建）
         ScriptEvaluator evaluator = new ScriptEvaluator();
         
         //基础

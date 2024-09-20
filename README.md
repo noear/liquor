@@ -74,14 +74,16 @@ Example reference:
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception{
+        // reusable (don't, keep creating)
+        DynamicCompiler compiler = new DynamicCompiler();
+        
         String className = "HelloWorld";
         String classCode = "public class HelloWorld { " +
                 "   public static void helloWorld() { " +
                 "       System.out.println(\"Hello, world!\"); " +
                 "   } " +
                 "}";
-
-        DynamicCompiler compiler = new DynamicCompiler();
+        
         //Add source code (more than one) and build
         compiler.addSource(className, classCode).build();
 
@@ -102,6 +104,7 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
+        // reusable (don't, keep creating)
         ExpressionEvaluator evaluator = new ExpressionEvaluator();
         
         //Basics
@@ -127,6 +130,7 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
+        // reusable (don't, keep creating)
         ScriptEvaluator evaluator = new ScriptEvaluator();
         
         //Basics
