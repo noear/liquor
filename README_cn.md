@@ -61,7 +61,7 @@ Liquor for java
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.2.7-SNAPSHOT</version>
+    <version>1.2.7</version>
 </dependency>
 ```
 
