@@ -100,7 +100,13 @@ public class DemoApp {
 
 ## 评估器演示
 
-* 表达式评估器（只能写一行代码）//内部会把表达式编译为一个静态函数
+
+### 1) 表达式评估器（只能写一行代码）//内部会把表达式编译为一个静态函数
+
+* 必须有结果返回
+* 表达式中没有 return 时；评估器会自动添加 "return" 和 ";"
+* 有 return 时；"return" 的左右必须要有空隔，且要添加 ";" 结尾
+* 使用 CodeSpec::imports 导入表达式需要的类
 
 ```java
 public class DemoApp {
@@ -127,9 +133,11 @@ public class DemoApp {
 }
 ```
 
-* 脚本评估器 //内部会把脚本编译为一个静态函数
+### 2) 脚本评估器 //内部会把脚本编译为一个静态函数
 
-可以导入类；不能有包名；
+* 可以导入类；不能有包名；
+* 使用内部类时不要加 "public" 修饰
+* 使用 CodeSpec::imports 导入表达式需要的类；或者在代码里添加 "import" 语句
 
 ```java
 public class DemoApp {

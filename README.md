@@ -100,7 +100,13 @@ public class DemoApp {
 ## Evaluator demo
 
 
-* Expression Evaluator（You can only write one line of code）// Internally compile the expression to a static function
+### 1) Expression Evaluator（You can only write one line of code）// Internally compile the expression to a static function
+
+
+* Something must be returned
+* when there is no return in the expression; The evaluator automatically adds "return" and ";"
+* when there is a return;" There must be a space around the return" and a ";". End
+* Use CodeSpec::imports to import the classes required by the expression
 
 
 ```java
@@ -129,9 +135,11 @@ public class DemoApp {
 ```
 
 
-* Script Evaluator // Internally compile the script to a static function
+### 2) Script Evaluator // Internally compile the script to a static function
 
-You can import classes. It cannot have a package name.
+* Can import classes; It cannot have a package name.
+* Don't use "public" when using inner classes
+* Using CodeSpec::imports to import the classes required by the expression; Or add an "import" statement to your code
 
 ```java
 public class DemoApp {
