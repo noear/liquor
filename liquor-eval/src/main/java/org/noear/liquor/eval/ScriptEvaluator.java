@@ -29,6 +29,17 @@ import java.util.Map;
  * @since 1.2
  */
 public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
+    private static final ScriptEvaluator instance = new ScriptEvaluator();
+
+    /**
+     * 获取快捷实例
+     */
+    public static ScriptEvaluator getInstance() {
+        return instance;
+    }
+
+    //////////////////////
+
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
         //1.分离导入代码
@@ -36,7 +47,7 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
         StringBuilder importBuilder = new StringBuilder();
         StringBuilder codeBuilder = new StringBuilder();
 
-        if(codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
+        if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
             for (Class<?> clz : codeSpec.getImports()) {
                 importBuilder.append("import ").append(clz.getCanonicalName()).append(";\n");
             }

@@ -27,6 +27,16 @@ import java.util.Map;
  * @since 1.2
  */
 public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator {
+    private static final ExpressionEvaluator instance = new ExpressionEvaluator();
+
+    /**
+     * 获取快捷实例
+     */
+    public static ExpressionEvaluator getInstance() {
+        return instance;
+    }
+
+    //////////////////////
 
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
