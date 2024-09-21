@@ -52,14 +52,14 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
      *
      * @param code 代码
      */
-    public Object eval(String code, Map<String, Object> bindings) throws InvocationTargetException {
-        assert bindings != null;
+    public Object eval(String code, Map<String, Object> context) throws InvocationTargetException {
+        assert context != null;
 
-        ParamSpec[] parameters = new ParamSpec[bindings.size()];
-        Object[] args = new Object[bindings.size()];
+        ParamSpec[] parameters = new ParamSpec[context.size()];
+        Object[] args = new Object[context.size()];
 
         int idx = 0;
-        for (Map.Entry<String, Object> entry : bindings.entrySet()) {
+        for (Map.Entry<String, Object> entry : context.entrySet()) {
             parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
             args[idx] = entry.getValue();
         }

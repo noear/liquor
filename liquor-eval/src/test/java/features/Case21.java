@@ -20,7 +20,7 @@ public class Case21 {
         scriptEvaluator.compile("System.out.println(\"hello word1\");").exec();
 
         //不推荐
-        IExecutable executable1 = scriptEvaluator.compile("System.out.println(\"hello word\");");
+        IExecutable executable1 = scriptEvaluator.compile("System.out.println(\"hello word2\");");
         executable1.exec();
 
         //////////////////////////

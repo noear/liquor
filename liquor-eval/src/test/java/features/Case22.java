@@ -51,12 +51,12 @@ public class Case22 {
         System.out.println(expressionEvaluator.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 1));
         assert 24 == (int) expressionEvaluator.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 2);
 
-        Map<String, Object> bings = new HashMap<>();
-        bings.put("aa", 3);
-        System.out.println(expressionEvaluator.eval("aa + 22", bings));
+        Map<String, Object> context1 = new HashMap<>();
+        context1.put("aa", 3);
+        System.out.println(expressionEvaluator.eval("aa + 22", context1));
 
-        Map<String, Object> bings2 = new HashMap<>();
-        bings2.put("aa", 4L);
-        System.out.println(expressionEvaluator.eval("aa + 22", bings2));
+        Map<String, Object> context2 = new HashMap<>();
+        context2.put("aa", 4L);
+        System.out.println(expressionEvaluator.eval("aa + 22", context2));
     }
 }
