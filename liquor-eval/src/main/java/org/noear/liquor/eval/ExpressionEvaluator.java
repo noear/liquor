@@ -15,9 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Map;
-
 /**
  * 表达式评估器（必须有估评结果）
  *
@@ -44,26 +41,5 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         }
 
         return super.build(codeSpec);
-    }
-
-
-    /**
-     * 评估
-     *
-     * @param code 代码
-     */
-    public Object eval(String code, Map<String, Object> context) throws InvocationTargetException {
-        assert context != null;
-
-        ParamSpec[] parameters = new ParamSpec[context.size()];
-        Object[] args = new Object[context.size()];
-
-        int idx = 0;
-        for (Map.Entry<String, Object> entry : context.entrySet()) {
-            parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
-            args[idx] = entry.getValue();
-        }
-
-        return eval(new CodeSpec(code).parameters(parameters), args);
     }
 }

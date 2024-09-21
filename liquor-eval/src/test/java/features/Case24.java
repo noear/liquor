@@ -2,7 +2,7 @@ package features;
 
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
-import org.noear.liquor.eval.ScriptEvaluator;
+import org.noear.liquor.eval.Scripts;
 
 /**
  * @author noear 2024/9/20 created
@@ -10,9 +10,6 @@ import org.noear.liquor.eval.ScriptEvaluator;
 public class Case24 {
     @Test
     public void test() throws Exception {
-        ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
-        scriptEvaluator.setPrintable(true);
-
         CodeSpec code1 = new CodeSpec("import features.Case24.Person;\n" +
                 "    import java.util.Arrays;\n" +
                 "    import java.util.List;\n" +
@@ -26,7 +23,7 @@ public class Case24 {
                 "        System.out.println(totalSalary);" +
                 "    "); //name 为外部参数
 
-        scriptEvaluator.eval(code1);
+        Scripts.eval(code1);
     }
 
     /**
