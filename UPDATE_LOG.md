@@ -1,6 +1,6 @@
 ### 1.3.0
 
-* 新增 Expr，Script 快捷方式
+* 新增 Exprs，Scripts 快捷工具类
 * 优化 DynamicClassLoader 内存（删除副本，减少拷贝）
 * 优化 AbstractEvaluator 线程安全
 * 优化 ParamSpec 与 CodeSpec hashCode 算法
