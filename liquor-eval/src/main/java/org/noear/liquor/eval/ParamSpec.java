@@ -1,12 +1,15 @@
 package org.noear.liquor.eval;
 
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * 参数申明
  *
  * @author noear
  * @since 1.2
  */
-public class ParamSpec {
+public class ParamSpec implements Map.Entry<String,Class<?>> {
     private String name;
     private Class<?> type;
 
@@ -15,11 +18,32 @@ public class ParamSpec {
         this.type = type;
     }
 
-    public String getName() {
+
+    @Override
+    public String getKey() {
         return name;
     }
 
-    public Class<?> getType() {
+    @Override
+    public Class<?> getValue() {
         return type;
+    }
+
+    @Override
+    public Class<?> setValue(Class<?> value) {
+        return this.type = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ParamSpec)) return false;
+        ParamSpec paramSpec = (ParamSpec) o;
+        return Objects.equals(name, paramSpec.name) && Objects.equals(type, paramSpec.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, type);
     }
 }

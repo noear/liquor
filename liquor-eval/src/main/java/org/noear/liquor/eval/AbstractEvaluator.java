@@ -109,8 +109,9 @@ public abstract class AbstractEvaluator implements IEvaluator {
             }
             code.append(" _main$(");
 
-            if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
-                for (Map.Entry<String, Class<?>> kv : codeSpec.getParameters().entrySet()) {
+            if (codeSpec.getParameters() != null && codeSpec.getParameters().length > 0) {
+                for (int i = 0; i < codeSpec.getParameters().length; i++) {
+                    Map.Entry<String, Class<?>> kv = codeSpec.getParameters()[i];
                     code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
                 }
                 code.setLength(code.length() - 1);

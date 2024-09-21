@@ -15,7 +15,7 @@
  */
 package org.noear.liquor.eval;
 
-import java.util.LinkedHashMap;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
@@ -28,7 +28,7 @@ import java.util.Objects;
 public class CodeSpec {
     private final String code;
     private Class<?>[] imports;
-    private Map<String, Class<?>> parameters;
+    private Map.Entry<String, Class<?>>[] parameters;
     private Class<?> returnType;
 
     public CodeSpec(String code) {
@@ -46,11 +46,8 @@ public class CodeSpec {
     /**
      * 配置参数申明
      */
-    public CodeSpec parameters(ParamSpec... parameters) {
-        this.parameters = new LinkedHashMap<>();
-        for (ParamSpec spec : parameters) {
-            this.parameters.put(spec.getName(), spec.getType());
-        }
+    public CodeSpec parameters(Map.Entry<String, Class<?>>... parameters) {
+        this.parameters = parameters;
         return this;
     }
 
@@ -81,7 +78,7 @@ public class CodeSpec {
     /**
      * 获取参数申明
      */
-    public Map<String, Class<?>> getParameters() {
+    public Map.Entry<String, Class<?>>[] getParameters() {
         return parameters;
     }
 
@@ -94,16 +91,35 @@ public class CodeSpec {
 
     //////////////////
 
+    private boolean deepEquals(Map.Entry<String, Class<?>>[] a, Map.Entry<String, Class<?>>[] b) {
+        if (a == b)
+            return true;
+        else if (a == null || b == null)
+            return false;
+        else if (a.length != b.length)
+            return false;
+        else {
+            for (int i = 0; i < a.length; i++) {
+                if (Objects.equals(a[i], b[i]) == false) {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof CodeSpec)) return false;
         CodeSpec codeSpec = (CodeSpec) o;
-        return Objects.equals(code, codeSpec.code) && Objects.equals(parameters, codeSpec.parameters);
+        return Objects.equals(code, codeSpec.code) && this.deepEquals(parameters, codeSpec.parameters);
     }
+
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, parameters);
+        return Objects.hash(code, Arrays.hashCode(parameters));
     }
 }
