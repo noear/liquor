@@ -36,14 +36,6 @@ public class CodeSpec {
     }
 
     /**
-     * 配置参数类型
-     */
-    public CodeSpec parameters(Map<String, Class<?>> parameters) {
-        this.parameters = parameters;
-        return this;
-    }
-
-    /**
      * 配置导入
      */
     public CodeSpec imports(Class<?>... imports) {
@@ -52,28 +44,12 @@ public class CodeSpec {
     }
 
     /**
-     * 配置参数类型
+     * 配置参数申明
      */
-    public CodeSpec parameters(String[] names, Class<?>[] types) {
-        assert names != null;
-        assert types != null;
-
-        assert names.length == types.length;
-
+    public CodeSpec parameters(ParamSpec... parameters) {
         this.parameters = new LinkedHashMap<>();
-        for (int i = 0; i < names.length; i++) {
-            this.parameters.put(names[i], types[i]);
-        }
-        return this;
-    }
-
-    /**
-     * 配置参数类型
-     */
-    public CodeSpec parameters(Class<?>... types) {
-        this.parameters = new LinkedHashMap<>();
-        for (int i = 0; i < types.length; i++) {
-            this.parameters.put("$" + i, types[i]);
+        for (ParamSpec spec : parameters) {
+            this.parameters.put(spec.getName(), spec.getType());
         }
         return this;
     }
@@ -103,7 +79,7 @@ public class CodeSpec {
     }
 
     /**
-     * 获取参数类型
+     * 获取参数申明
      */
     public Map<String, Class<?>> getParameters() {
         return parameters;

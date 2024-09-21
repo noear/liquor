@@ -1,9 +1,6 @@
 package demo;
 
-import org.noear.liquor.eval.CodeSpec;
-import org.noear.liquor.eval.ExpressionEvaluator;
-import org.noear.liquor.eval.IExecutable;
-import org.noear.liquor.eval.ScriptEvaluator;
+import org.noear.liquor.eval.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +22,7 @@ public class Case22 {
                 "\n" +
                 "    Demo demo = new Demo();\n" +
                 "    return demo.hello(name);") //name 为外部参数
-                .parameters(new String[]{"name"}, new Class[]{String.class})
+                .parameters(new ParamSpec("name", String.class))
                 .returnType(String.class);
 
         //直接执行
@@ -42,15 +39,15 @@ public class Case22 {
         ExpressionEvaluator expressionEvaluator = ExpressionEvaluator.getInstance();
         expressionEvaluator.setPrintable(true);
 
-        CodeSpec code2 = new CodeSpec("a+1").parameters(new String[]{"a"}, new Class[]{Integer.class});
+        CodeSpec code2 = new CodeSpec("a+1").parameters(new ParamSpec("a", Integer.class));
 
         System.out.println(expressionEvaluator.eval(code2, 2));
         assert 3 == (int) expressionEvaluator.eval(code2, 2);
 
         ///////////////
 
-        System.out.println(expressionEvaluator.eval(new CodeSpec("$0 + 22").parameters(Integer.class), 1));
-        assert 24 == (int) expressionEvaluator.eval(new CodeSpec("$0 + 22").parameters(Integer.class), 2);
+        System.out.println(expressionEvaluator.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 1));
+        assert 24 == (int) expressionEvaluator.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 2);
 
         Map<String, Object> bings = new HashMap<>();
         bings.put("aa", 3);

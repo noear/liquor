@@ -118,15 +118,12 @@ public class DemoApp {
         System.out.println(evaluator.eval("1+1"));
 
         //Advanced
-        CodeSpec code1 = new CodeSpec("$0 + 22").parameters(Integer.class);
+        CodeSpec code1 = new CodeSpec("aa + 22").parameters(new ParamSpec("aa", Integer.class));
         System.out.println(evaluator.eval(code1, 1)); //=> 23
-
-        CodeSpec code2 = new CodeSpec("aa + 22").parameters(new String[]{"aa"}, new Class[]{Integer.class});
-        System.out.println(evaluator.eval(code2, 2)); //=> 24
-
-        Map<String, Object> bindings3 = new HashMap<>();
-        bindings3.put("bb", 3);
-        System.out.println(evaluator.eval("bb + 22", bindings3)); //=>25
+        
+        Map<String, Object> bindings2 = new HashMap<>();
+        bindings2.put("bb", 3);
+        System.out.println(evaluator.eval("bb + 22", bindings2)); //=>25
 
         System.out.println(evaluator.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
     }
@@ -160,7 +157,7 @@ public class DemoApp {
                 "\n" +
                 "    Demo demo = new Demo();\n" +
                 "    return demo.hello(name);") //name is an external parameter
-                .parameters(new String[]{"name"}, new Class[]{String.class})
+                .parameters(new ParamSpec("name", String.class))
                 .returnType(String.class);
         System.out.println(evaluator.eval(code1, "noear")); //=>noear
     }

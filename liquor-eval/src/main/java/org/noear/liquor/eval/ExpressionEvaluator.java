@@ -55,17 +55,15 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
     public Object eval(String code, Map<String, Object> bindings) throws InvocationTargetException {
         assert bindings != null;
 
-        String[] argsNames = new String[bindings.size()];
-        Class[] argsTypes = new Class[bindings.size()];
+        ParamSpec[] parameters = new ParamSpec[bindings.size()];
         Object[] args = new Object[bindings.size()];
 
         int idx = 0;
         for (Map.Entry<String, Object> entry : bindings.entrySet()) {
-            argsNames[idx] = entry.getKey();
-            argsTypes[idx] = entry.getValue().getClass();
+            parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
             args[idx] = entry.getValue();
         }
 
-        return eval(new CodeSpec(code).parameters(argsNames, argsTypes), args);
+        return eval(new CodeSpec(code).parameters(parameters), args);
     }
 }
