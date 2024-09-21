@@ -49,10 +49,10 @@ Liquor
 
 
 
-| 工件             | 大小   | 功能                                                      | 功能描述                         |
-|----------------|------|---------------------------------------------------------|------------------------------|
-| liquor         | 24KB | DynamicCompiler                                         | 编译一个或多个类         |
-| liquor-eval    | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts | 评估表达式（可多次评估）<br/>评估脚本（可多次评估） |
+| 工件             | 大小   | 功能                                                      | 功能描述                  |
+|----------------|------|---------------------------------------------------------|-----------------------|
+| liquor         | 24KB | DynamicCompiler                                         | 编译一个或多个类              |
+| liquor-eval    | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts | 评估表达式（就是，运行）<br/>评估脚本 |
 
 
 引用依赖：
