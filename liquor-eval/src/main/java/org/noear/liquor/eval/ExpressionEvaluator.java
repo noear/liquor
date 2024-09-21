@@ -31,11 +31,9 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         return instance;
     }
 
-    //////////////////////
-
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
-        //必须有估评结果
+        //强制有估评结果
         if (codeSpec.getReturnType() == null) {
             codeSpec.returnType(Object.class);
         }

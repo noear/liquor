@@ -2,7 +2,7 @@ package features;
 
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
-import org.noear.liquor.eval.Script;
+import org.noear.liquor.eval.Scripts;
 
 /**
  * @author noear 2024/9/20 created
@@ -23,7 +23,7 @@ public class Case24 {
                 "        System.out.println(totalSalary);" +
                 "    "); //name 为外部参数
 
-        Script.eval(code1);
+        Scripts.eval(code1);
     }
 
     /**

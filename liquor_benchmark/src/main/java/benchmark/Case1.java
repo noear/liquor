@@ -2,6 +2,7 @@ package benchmark;
 
 
 import com.googlecode.aviator.AviatorEvaluator;
+import org.noear.liquor.eval.Exprs;
 
 public class Case1 {
     public static void main(String[] args) throws Exception {
@@ -64,13 +65,12 @@ public class Case1 {
         long start = System.currentTimeMillis();
 
         //可以复用
-        org.noear.liquor.eval.ExpressionEvaluator evaluator = org.noear.liquor.eval.ExpressionEvaluator.getInstance();
         for (int i = 0; i < count; i++) {
-            evaluator.eval("1+1");
-            evaluator.eval("1+2");
-            evaluator.eval("1+3");
-            evaluator.eval("1+4");
-            evaluator.eval("1+5");
+            Exprs.eval("1+1");
+            Exprs.eval("1+2");
+            Exprs.eval("1+3");
+            Exprs.eval("1+4");
+            Exprs.eval("1+5");
         }
 
         System.out.println("liquor::" + (System.currentTimeMillis() - start));

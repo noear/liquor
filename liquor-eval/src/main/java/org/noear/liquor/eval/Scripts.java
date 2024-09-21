@@ -3,12 +3,12 @@ package org.noear.liquor.eval;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * 脚本快捷方法
+ * 脚本工具类
  *
  * @author noear
  * @since 1.3
  */
-public interface Script {
+public interface Scripts {
     /**
      * 编译
      *

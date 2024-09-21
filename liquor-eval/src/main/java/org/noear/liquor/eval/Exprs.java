@@ -4,12 +4,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 /**
- * 表达式快捷方法
+ * 表达式工具类
  *
  * @author noear
  * @since 1.3
  */
-public interface Expr {
+public interface Exprs {
     /**
      * 编译
      *
