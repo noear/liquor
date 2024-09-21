@@ -5,7 +5,7 @@ import javax.tools.JavaFileObject;
 import java.util.*;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class DynamicCompilerException extends RuntimeException {
     private static final long serialVersionUID = 1L;

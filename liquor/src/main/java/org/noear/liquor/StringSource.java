@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class StringSource extends SimpleJavaFileObject {
     private final String contents;

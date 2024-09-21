@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class DynamicJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
     private static final String[] superLocationNames = { StandardLocation.PLATFORM_CLASS_PATH.name(),

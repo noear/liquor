@@ -1,12 +1,11 @@
 package org.noear.liquor;
 
-
-import java.util.Collections;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class DynamicClassLoader extends ClassLoader {
     private final Map<String, MemoryByteCode> byteCodes = new HashMap<>();
@@ -21,13 +20,17 @@ public class DynamicClassLoader extends ClassLoader {
 
     protected Class<?> defineClass(MemoryByteCode byteCode) {
         byteCode.defined = true;
-        return super.defineClass(byteCode.getClassName(), byteCode.getByteCode(), 0, byteCode.getByteCode().length);
+        MemoryByteCode.BufOutputStream tmp = (MemoryByteCode.BufOutputStream) byteCode.openOutputStream();
+        //减少内存副本
+        byteCode.delByteCode();
+        //减少内存拷贝
+        return super.defineClass(byteCode.getClassName(), tmp.getBuf(), 0, tmp.size());
     }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
         MemoryByteCode byteCode = byteCodes.get(name);
-        if (byteCode == null) {
+        if (byteCode == null || byteCode.defined) {
             return super.findClass(name);
         }
 
@@ -47,18 +50,16 @@ public class DynamicClassLoader extends ClassLoader {
 
     //================
 
-    public Map<String, Class<?>> getClasses() throws ClassNotFoundException {
-        Map<String, Class<?>> classes = new HashMap<>();
-        for (MemoryByteCode byteCode : byteCodes.values()) {
-            classes.put(byteCode.getClassName(), loadClass(byteCode.getClassName()));
-        }
-        return classes;
+    /**
+     * 获取类名集合
+     */
+    public Collection<String> getClassNames() {
+        return byteCodes.keySet();
     }
 
-    public Map<String, MemoryByteCode> getByteCodes() {
-        return Collections.unmodifiableMap(byteCodes);
-    }
-
+    /**
+     * 获取集合大小
+     */
     public int size() {
         return byteCodes.size();
     }

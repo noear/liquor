@@ -2,20 +2,18 @@ package org.noear.liquor;
 
 import javax.tools.SimpleJavaFileObject;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class MemoryByteCode extends SimpleJavaFileObject {
     private static final char PKG_SEPARATOR = '.';
     private static final char DIR_SEPARATOR = '/';
     private static final String CLASS_FILE_SUFFIX = ".class";
 
-    private ByteArrayOutputStream byteArrayOutputStream;
+    private ByteArrayOutputStream outputStream;
     protected boolean defined;
 
     public MemoryByteCode(String className) {
@@ -23,29 +21,44 @@ public class MemoryByteCode extends SimpleJavaFileObject {
                 + Kind.CLASS.extension), Kind.CLASS);
     }
 
-    public MemoryByteCode(String className, ByteArrayOutputStream byteArrayOutputStream)
-            throws URISyntaxException {
-        this(className);
-        this.byteArrayOutputStream = byteArrayOutputStream;
-    }
-
     @Override
-    public OutputStream openOutputStream() throws IOException {
-        if (byteArrayOutputStream == null) {
-            byteArrayOutputStream = new ByteArrayOutputStream();
+    public OutputStream openOutputStream() {
+        if (outputStream == null) {
+            outputStream = new BufOutputStream();
         }
-        return byteArrayOutputStream;
+        return outputStream;
     }
 
     public byte[] getByteCode() {
-        return byteArrayOutputStream.toByteArray();
+        return outputStream.toByteArray();
     }
 
+    /**
+     * 移除字节码（以减少内存副本）
+     */
+    protected void delByteCode() {
+        outputStream = null;
+    }
+
+    private String className;
+
     public String getClassName() {
-        String className = getName();
-        className = className.replace(DIR_SEPARATOR, PKG_SEPARATOR);
-        className = className.substring(1, className.indexOf(CLASS_FILE_SUFFIX));
+        if (className == null) {
+            //缓存，减少计算
+            className = getName();
+            className = className.replace(DIR_SEPARATOR, PKG_SEPARATOR);
+            className = className.substring(1, className.indexOf(CLASS_FILE_SUFFIX));
+        }
+
         return className;
     }
 
+    public static class BufOutputStream extends ByteArrayOutputStream {
+        /**
+         * 可减少一次内存拷贝
+         */
+        public byte[] getBuf() {
+            return buf;
+        }
+    }
 }

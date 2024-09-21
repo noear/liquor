@@ -13,7 +13,7 @@ import java.util.jar.JarEntry;
 import java.util.stream.Collectors;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class PackageInternalsFinder {
     private final ClassLoader classLoader;

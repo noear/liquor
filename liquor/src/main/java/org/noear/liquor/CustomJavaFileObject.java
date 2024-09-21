@@ -8,7 +8,7 @@ import java.io.*;
 import java.net.URI;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class CustomJavaFileObject implements JavaFileObject {
     private final String className;

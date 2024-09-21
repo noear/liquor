@@ -4,7 +4,7 @@ import javax.tools.*;
 import java.util.*;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class DynamicCompiler {
     private final JavaCompiler javaCompiler = ToolProvider.getSystemJavaCompiler();

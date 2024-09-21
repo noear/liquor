@@ -3,7 +3,7 @@ package org.noear.liquor;
 import java.net.URI;
 
 /**
- * This code comes from: Arthas project
+ * This code mainly from: Arthas project
  * */
 public class ClassUriWrapper {
     private final URI uri;
