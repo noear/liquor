@@ -1,5 +1,6 @@
-package demo;
+package features;
 
+import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
 import org.noear.liquor.eval.ScriptEvaluator;
 
@@ -7,11 +8,12 @@ import org.noear.liquor.eval.ScriptEvaluator;
  * @author noear 2024/9/20 created
  */
 public class Case24 {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test() throws Exception {
         ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
 
-        CodeSpec code1 = new CodeSpec("import demo.Case24.Person;\n" +
+        CodeSpec code1 = new CodeSpec("import features.Case24.Person;\n" +
                 "    import java.util.Arrays;\n" +
                 "    import java.util.List;\n" +
 
@@ -27,6 +29,9 @@ public class Case24 {
         scriptEvaluator.eval(code1);
     }
 
+    /**
+     * 被脚本引用
+     * */
     public static class Person {
         private String name;
         private int salary;

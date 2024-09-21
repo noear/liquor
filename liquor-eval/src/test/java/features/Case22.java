@@ -1,5 +1,6 @@
-package demo;
+package features;
 
+import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.*;
 
 import java.util.HashMap;
@@ -9,7 +10,8 @@ import java.util.Map;
  * @author noear 2024/9/19 created
  */
 public class Case22 {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test() throws Exception {
         ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.setPrintable(true);
 

@@ -19,13 +19,6 @@ public class DemoApp {
 
         System.out.println("------------------ test2.有第三方包引入(验证 spring-boot-maven-plugin 打包是否运行正常) ------------------");
         compiler_test2();
-
-        //============
-        Case11.main(args);
-        Case12.main(args);
-        Case21.main(args);
-        Case21_2.main(args);
-        Case22.main(args);
     }
 
     public static void compiler_test0() throws Exception {

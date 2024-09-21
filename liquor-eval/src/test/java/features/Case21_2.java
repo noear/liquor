@@ -1,5 +1,6 @@
-package demo;
+package features;
 
+import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
 import org.noear.liquor.eval.ExpressionEvaluator;
 import org.noear.liquor.eval.ScriptEvaluator;
@@ -8,7 +9,8 @@ import org.noear.liquor.eval.ScriptEvaluator;
  * @author noear 2024/9/20 created
  */
 public class Case21_2 {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test() throws Exception {
         ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
         evaluator.setPrintable(true);
 

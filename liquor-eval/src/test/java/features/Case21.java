@@ -1,5 +1,6 @@
-package demo;
+package features;
 
+import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.ExpressionEvaluator;
 import org.noear.liquor.eval.IExecutable;
 import org.noear.liquor.eval.ScriptEvaluator;
@@ -9,7 +10,8 @@ import org.noear.liquor.eval.ScriptEvaluator;
  * @since 1.1
  */
 public class Case21 {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test() throws Exception {
         ScriptEvaluator scriptEvaluator = ScriptEvaluator.getInstance();
         scriptEvaluator.eval("System.out.println(\"hello word\");");
         scriptEvaluator.eval("System.out.println(\"hello word\");"); //cached

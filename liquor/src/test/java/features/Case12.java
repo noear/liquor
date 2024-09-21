@@ -1,12 +1,14 @@
-package demo;
+package features;
 
+import org.junit.jupiter.api.Test;
 import org.noear.liquor.DynamicCompiler;
 
 /**
  * @author noear 2024/9/20 created
  */
 public class Case12 {
-    public static void main(String[] args) throws Exception {
+    @Test
+    public void test() throws Exception{
         DynamicCompiler compiler = new DynamicCompiler();
 
         compiler.addSource("com.demo.UserDo", "package com.demo;\n" +
