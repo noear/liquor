@@ -8,7 +8,7 @@ import java.lang.reflect.InvocationTargetException;
  * @author noear
  * @since 1.3
  */
-public interface Scripts {
+public interface Script {
     /**
      * 编译
      *

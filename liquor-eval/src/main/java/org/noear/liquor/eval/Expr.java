@@ -9,7 +9,7 @@ import java.util.Map;
  * @author noear
  * @since 1.3
  */
-public interface Express {
+public interface Expr {
     /**
      * 编译
      *
