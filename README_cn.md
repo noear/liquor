@@ -49,10 +49,10 @@ Liquor
 
 
 
-| 工件             | 大小   | 功能                                   | 功能描述                             |
-|----------------|------|--------------------------------------|----------------------------------|
-| liquor         | 24KB | DynamicCompiler                      | 编译一个或多个类（可相互依赖，可多次不重复编译）         |
-| liquor-eval    | 16KB | ExpressionEvaluator<br/>ScriptEvaluator | 评估一行表达式（可多次评估）<br/>评估一块脚本（可多次评估） |
+| 工件             | 大小   | 功能                                                      | 功能描述                         |
+|----------------|------|---------------------------------------------------------|------------------------------|
+| liquor         | 24KB | DynamicCompiler                                         | 编译一个或多个类         |
+| liquor-eval    | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts | 评估表达式（可多次评估）<br/>评估脚本（可多次评估） |
 
 
 引用依赖：
@@ -65,19 +65,13 @@ Liquor
 </dependency>
 ```
 
-示例参考：
-
-* [liquor_demo_solon](liquor_demo_solon)
-* [liquor_demo_springboot](liquor_demo_springboot)
-
-
 性能表现（第三方性能测试，榜首）：
 
 * [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
 
 ## 编译器演示
 
-可以有包名；可以导入类；跟平常写 java 类一样。
+可以有包名；可以导入类；可相互依赖；可多次不重复编译；跟平常写 java 类一样。
 
 ```java
 public class DemoApp {
@@ -104,8 +98,10 @@ public class DemoApp {
 
 ## 评估器演示
 
+内部会把评估代码编译为一个静态方法
 
-### 1) 表达式评估器（只能写一行代码）//内部会把表达式编译为一个静态函数
+
+### 1) 表达式评估器（只能写一行代码）
 
 * 必须有结果返回
 * 表达式中没有 ";" 时，评估器会自动添加 "return" 和 ";"。否则要自己确保语句完整
@@ -130,7 +126,7 @@ public class DemoApp {
 }
 ```
 
-### 2) 脚本评估器 //内部会把脚本编译为一个静态函数
+### 2) 脚本评估器
 
 * 可以导入类；不能有包名
 * 使用内部类时不要加 "public" 修饰

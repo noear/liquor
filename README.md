@@ -45,10 +45,10 @@ Liquor
 
 The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance. Expressions and scripting support were added later.
 
-| Artifact             | Size | Features                                  | Functional Description                     |
-|----------------------|------|-----------------------------------------|--------------------------|
-| liquor               | 24KB | DynamicCompiler                         | Compile one or more classes (can depend on each other, can be compiled multiple times) |
-| liquor-eval          | 16KB | ExpressionEvaluator<br>ScriptEvaluator  | Evaluate a one-line expression (multiple evaluations)<br/>Evaluate a script (can be evaluated multiple times) |
+| Artifact             | Size | Features                                  | Functional Description                   |
+|----------------------|------|-----------------------------------------|------------------------------------------|
+| liquor               | 24KB | DynamicCompiler                         | Compile one or more classes              |
+| liquor-eval          | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts  | Evaluate expression<br/>Evaluate script  |
 
 
 Reference dependency:
@@ -61,16 +61,9 @@ Reference dependency:
 </dependency>
 ```
 
-Example reference:
-
-* [liquor_demo_solon](liquor_demo_solon)
-* [liquor_demo_springboot](liquor_demo_springboot)
-
-
-
 ## Compiler demo
 
-You can have package names. You can import classes. Just like you would write a java class.
+You can have package names. You can import classes. Interdependent; Can not repeat compilation; Just like you would write a java class.
 
 ```java
 public class DemoApp {
@@ -99,8 +92,10 @@ public class DemoApp {
 
 ## Evaluator demo
 
+Internally, the evaluation code is compiled into a static method
 
-### 1) Expression Evaluator（You can only write one line of code）// Internally compile the expression to a static function
+
+### 1) Expression Evaluator（You can only write one line of code）
 
 
 * Something must be returned
@@ -128,7 +123,7 @@ public class DemoApp {
 ```
 
 
-### 2) Script Evaluator // Internally compile the script to a static function
+### 2) Script Evaluator
 
 * Can import classes; It cannot have a package name
 * Don't use "public" when using inner classes
