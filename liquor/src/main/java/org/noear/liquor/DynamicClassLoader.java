@@ -34,6 +34,9 @@ public class DynamicClassLoader extends ClassLoader {
         return defineClass(byteCode);
     }
 
+    /**
+     * 预处理类（完成批量定义）
+     */
     protected void prepareClasses() {
         for (MemoryByteCode byteCode : byteCodes.values()) {
             if (byteCode.defined == false) {

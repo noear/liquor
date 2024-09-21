@@ -40,7 +40,7 @@ public class DynamicCompiler {
     }
 
     public DynamicClassLoader getClassLoader() {
-        if(dynamicClassLoader == null) {
+        if (dynamicClassLoader == null) {
             dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
         }
 
@@ -48,21 +48,33 @@ public class DynamicCompiler {
     }
 
 
+    /**
+     * 添加源码
+     */
     public DynamicCompiler addSource(String className, String source) {
         addSource(new StringSource(className, source));
         return this;
     }
 
+    /**
+     * 添加源码
+     */
     public DynamicCompiler addSource(JavaFileObject javaFileObject) {
         compilationUnits.add(javaFileObject);
         return this;
     }
 
+    /**
+     * 重置
+     */
     public void reset() {
         compilationUnits.clear();
         dynamicClassLoader = null;
     }
 
+    /**
+     * 构建
+     */
     public void build() {
         errors.clear();
         warnings.clear();
