@@ -52,7 +52,7 @@ Liquor
 | 工件             | 大小   | 功能                                   | 功能描述                             |
 |----------------|------|--------------------------------------|----------------------------------|
 | liquor         | 24KB | DynamicCompiler                      | 编译一个或多个类（可相互依赖，可多次不重复编译）         |
-| liquor-eval    | 14KB | ExpressionEvaluator<br/>ScriptEvaluator | 评估一行表达式（可多次评估）<br/>评估一块脚本（可多次评估） |
+| liquor-eval    | 16KB | ExpressionEvaluator<br/>ScriptEvaluator | 评估一行表达式（可多次评估）<br/>评估一块脚本（可多次评估） |
 
 
 引用依赖：
@@ -61,7 +61,7 @@ Liquor
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.2.9</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -114,21 +114,18 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        //可以复用（不要，不断的新建）
-        ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
-        
         //基础
-        System.out.println(evaluator.eval("1+1"));
+        System.out.println(Exprs.eval("1+1"));
 
         //进阶
         CodeSpec code1 = new CodeSpec("aa + 22").parameters(new ParamSpec("aa", Integer.class));
-        System.out.println(evaluator.eval(code1, 1)); //=> 23
+        System.out.println(Exprs.eval(code1, 1)); //=> 23
 
-        Map<String, Object> bindings2 = new HashMap<>();
-        bindings2.put("bb", 3);
-        System.out.println(evaluator.eval("bb + 22", bindings2)); //=>25
+        Map<String, Object> context2 = new HashMap<>();
+        context2.put("bb", 3);
+        System.out.println(Exprs.eval("bb + 22", context2)); //=>25
 
-        System.out.println(evaluator.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
+        System.out.println(Exprs.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
     }
 }
 ```
@@ -142,11 +139,8 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        //可以复用（不要，不断的新建）
-        ScriptEvaluator evaluator = ScriptEvaluator.getInstance();
-        
         //基础
-        evaluator.eval("System.out.println(\"hello word\");");
+        Scripts.eval("System.out.println(\"hello word\");");
 
         //进阶（如果有内部类，不要加 public）
         CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
@@ -160,7 +154,7 @@ public class DemoApp {
                 "    return demo.hello(name);") //name 为外部参数
                 .parameters(new ParamSpec("name", String.class))
                 .returnType(String.class);
-        System.out.println(evaluator.eval(code1, "noear")); //=>noear
+        System.out.println(Scripts.eval(code1, "noear")); //=>noear
     }
 }
 ```

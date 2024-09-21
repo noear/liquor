@@ -1,3 +1,12 @@
+### 1.3.0
+
+* 新增 Expr，Script 快捷方式
+* 优化 DynamicClassLoader 内存（删除副本，减少拷贝）
+* 优化 AbstractEvaluator 线程安全
+* 优化 ParamSpec 与 CodeSpec hashCode 算法
+* 简化 CodeSpec 参数配置
+* 简化 ExpressionEvaluator 与 ScriptEvaluator，合用公共代码
+
 ### 1.2.9
 
 * 调整 用 hash 方案替代 md5 方案。改进复用性能

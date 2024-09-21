@@ -48,7 +48,7 @@ The compiler code for this tool is mainly derived from arthas. Related knowledge
 | Artifact             | Size | Features                                  | Functional Description                     |
 |----------------------|------|-----------------------------------------|--------------------------|
 | liquor               | 24KB | DynamicCompiler                         | Compile one or more classes (can depend on each other, can be compiled multiple times) |
-| liquor-eval          | 14KB | ExpressionEvaluator<br>ScriptEvaluator  | Evaluate a one-line expression (multiple evaluations)<br/>Evaluate a script (can be evaluated multiple times) |
+| liquor-eval          | 16KB | ExpressionEvaluator<br>ScriptEvaluator  | Evaluate a one-line expression (multiple evaluations)<br/>Evaluate a script (can be evaluated multiple times) |
 
 
 Reference dependency:
@@ -57,7 +57,7 @@ Reference dependency:
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.2.9</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -111,21 +111,18 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        // reusable (don't, keep creating)
-        ExpressionEvaluator evaluator = ExpressionEvaluator.getInstance();
-        
         //Basics
-        System.out.println(evaluator.eval("1+1"));
+        System.out.println(Exprs.eval("1+1"));
 
         //Advanced
         CodeSpec code1 = new CodeSpec("aa + 22").parameters(new ParamSpec("aa", Integer.class));
-        System.out.println(evaluator.eval(code1, 1)); //=> 23
+        System.out.println(Exprs.eval(code1, 1)); //=> 23
         
-        Map<String, Object> bindings2 = new HashMap<>();
-        bindings2.put("bb", 3);
-        System.out.println(evaluator.eval("bb + 22", bindings2)); //=>25
+        Map<String, Object> context2 = new HashMap<>();
+        context2.put("bb", 3);
+        System.out.println(Exprs.eval("bb + 22", context2)); //=>25
 
-        System.out.println(evaluator.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
+        System.out.println(Exprs.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
     }
 }
 ```
@@ -141,11 +138,8 @@ public class DemoApp {
 ```java
 public class DemoApp {
     public static void main(String[] args) throws Exception {
-        // reusable (don't, keep creating)
-        ScriptEvaluator evaluator = ScriptEvaluator.getInstance();
-        
         //Basics
-        evaluator.eval("System.out.println(\"hello word\");");
+        Scripts.eval("System.out.println(\"hello word\");");
 
         //Advanced (Don't add public if you have an inner class)
         CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n\n"+
@@ -159,7 +153,7 @@ public class DemoApp {
                 "    return demo.hello(name);") //name is an external parameter
                 .parameters(new ParamSpec("name", String.class))
                 .returnType(String.class);
-        System.out.println(evaluator.eval(code1, "noear")); //=>noear
+        System.out.println(Scripts.eval(code1, "noear")); //=>noear
     }
 }
 ```
