@@ -4,6 +4,8 @@ import javax.tools.*;
 import java.util.*;
 
 /**
+ * 动态编译器（线程不安全）
+ *
  * This code mainly from: Arthas project
  * */
 public class DynamicCompiler {

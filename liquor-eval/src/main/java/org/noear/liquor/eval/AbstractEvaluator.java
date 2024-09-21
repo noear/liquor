@@ -24,9 +24,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 虚拟评估器
+ * 虚拟评估器（线程安全）
  *
  * @author noear
  * @since 1.2
@@ -40,6 +41,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
     private final Map<CodeSpec, IExecutable> cachedMap = new ConcurrentHashMap<>();
     private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
     private final AtomicLong nameCounter = new AtomicLong(0L);
+    private final ReentrantLock lock = new ReentrantLock();
 
     /**
      * 获取编译器
@@ -137,13 +139,18 @@ public abstract class AbstractEvaluator implements IEvaluator {
             System.out.println(code);
         }
 
-        DynamicCompiler compiler = getCompiler();
-        compiler.addSource(clazzName, code.toString()).build();
+        //添加编译锁
+        lock.tryLock();
 
         try {
+            DynamicCompiler compiler = getCompiler();
+            compiler.addSource(clazzName, code.toString()).build();
+
             return compiler.getClassLoader().loadClass(clazzName);
         } catch (Exception e) {
             throw new IllegalStateException(e);
+        } finally {
+            lock.unlock();
         }
     }
 
