@@ -20,8 +20,8 @@
         <module>liquor</module>
         <module>liquor-eval</module>
         <module>liquor_benchmark</module>
-        <module>liquor_demo_solon_jarinjar</module>
-        <module>liquor_demo_springboot_jarinjar</module>
+        <module>demo_solon_jarinjar</module>
+        <module>demo_springboot_jarinjar</module>
     </modules>
 
     <build>
