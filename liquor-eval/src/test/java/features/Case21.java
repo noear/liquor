@@ -22,14 +22,14 @@ public class Case21 {
 
         //////////////////////////
 
-        System.out.println(Expressions.eval("1+1"));
-        System.out.println(Expressions.eval("1+1")); //cached
-        System.out.println(Expressions.eval("1+2"));
+        System.out.println(Express.eval("1+1"));
+        System.out.println(Express.eval("1+1")); //cached
+        System.out.println(Express.eval("1+2"));
 
-        System.out.println(Expressions.compile("1+22222").exec());
+        System.out.println(Express.compile("1+22222").exec());
 
         //不推荐
-        IExecutable executable2 = Expressions.compile("1+1");
+        IExecutable executable2 = Express.compile("1+1");
         System.out.println(executable2.exec());
     }
 }

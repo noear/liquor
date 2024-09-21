@@ -38,20 +38,20 @@ public class Case22 {
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new ParamSpec("a",Integer.class));
 
-        System.out.println(Expressions.eval(code2, 2));
-        assert 3 == (int) Expressions.eval(code2, 2);
+        System.out.println(Express.eval(code2, 2));
+        assert 3 == (int) Express.eval(code2, 2);
 
         ///////////////
 
-        System.out.println(Expressions.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 1));
-        assert 24 == (int) Expressions.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 2);
+        System.out.println(Express.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 1));
+        assert 24 == (int) Express.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 2);
 
         Map<String, Object> context1 = new HashMap<>();
         context1.put("aa", 3);
-        System.out.println(Expressions.eval("aa + 22", context1));
+        System.out.println(Express.eval("aa + 22", context1));
 
         Map<String, Object> context2 = new HashMap<>();
         context2.put("aa", 4L);
-        System.out.println(Expressions.eval("aa + 22", context2));
+        System.out.println(Express.eval("aa + 22", context2));
     }
 }
