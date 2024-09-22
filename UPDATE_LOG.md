@@ -1,3 +1,10 @@
+### 1.3.1
+
+* 合并 ScriptEvaluator,ExpressionEvaluator,AbstractEvaluator 为一个类：LiquorEvaluator
+* 调整 parentClassLoader 的配置方式
+* 增加 CodeSpec 字符串形式导入
+* 增加 LiquorEvaluator 全局导入支持
+
 ### 1.3.0
 
 * 新增 Exprs，Scripts 快捷工具类
