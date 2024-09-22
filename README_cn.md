@@ -45,14 +45,14 @@ Liquor
 <hr>
 
 
-本工具的编译器代码主要源自 arthas。相关的知识点比较冷门，甚是珍贵。为了复用方便，特整理成一个小工具包进行长期维护。后来又增加了表达式、脚本支持。
+本工具的编译器代码主要源自 arthas。相关的知识点比较冷门，甚是珍贵。为了复用方便，特整理成一个小工具包进行长期维护。后来又增加了评估器，用于运行表达式和脚本。
 
 
 
-| 工件             | 大小   | 功能                                                      | 功能描述                  |
-|----------------|------|---------------------------------------------------------|-----------------------|
-| liquor         | 24KB | DynamicCompiler                                         | 编译一个或多个类              |
-| liquor-eval    | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts | 评估表达式（就是，运行）<br/>评估脚本 |
+| 工件             | 大小   | 功能                              | 功能描述     |
+|----------------|------|---------------------------------|----------|
+| liquor         | 24KB | DynamicCompiler                 | 编译类      |
+| liquor-eval    | 16KB | LiquorEvaluator (Exprs,Scripts) | 运行表达式和脚本 |
 
 
 引用依赖：
@@ -61,7 +61,7 @@ Liquor
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.3.0</version>
+    <version>1.3.1</version>
 </dependency>
 ```
 

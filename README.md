@@ -43,12 +43,12 @@ Liquor
 
 <hr>
 
-The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance. Expressions and scripting support were added later.
+The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance. Evaluators were added later to run expressions and scripts.
 
-| Artifact             | Size | Features                                  | Functional Description                   |
-|----------------------|------|-----------------------------------------|------------------------------------------|
-| liquor               | 24KB | DynamicCompiler                         | Compile one or more classes              |
-| liquor-eval          | 16KB | ExpressionEvaluator, Exprs<br/>ScriptEvaluator, Scripts  | Evaluate expression<br/>Evaluate script  |
+| Artifact             | Size | Features                                  | Functional Description         |
+|----------------------|------|-----------------------------------------|--------------------------------|
+| liquor               | 24KB | DynamicCompiler                         | Compiling classes              |
+| liquor-eval          | 14KB | LiquorEvaluator (Exprs,Scripts)  | Evaluate expression and script |
 
 
 Reference dependency:
@@ -57,7 +57,7 @@ Reference dependency:
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.3.0</version>
+    <version>1.3.1</version>
 </dependency>
 ```
 
