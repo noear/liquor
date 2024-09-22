@@ -3,7 +3,11 @@ package features;
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
 import org.noear.liquor.eval.Exprs;
+import org.noear.liquor.eval.LiquorEvaluator;
 import org.noear.liquor.eval.Scripts;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author noear 2024/9/20 created
@@ -40,5 +44,13 @@ public class Case21_2 {
 
         CodeSpec exp6 = new CodeSpec("min(22,12)").imports("static java.lang.Math.*");
         System.out.println(Exprs.eval(exp6));
+
+
+        Map<String, Object> context = new HashMap<>();
+        context.put("a", 1);
+        context.put("b", 2);
+
+        LiquorEvaluator.getInstance().printable(true);
+        Exprs.eval("if (a < 0) { return b; } else { return 0; }", context);
     }
 }

@@ -48,10 +48,12 @@ public class Case22 {
 
         Map<String, Object> context1 = new HashMap<>();
         context1.put("aa", 3);
+        context1.put("bb", 3L);
         System.out.println(Exprs.eval("aa + 22", context1));
 
         Map<String, Object> context2 = new HashMap<>();
         context2.put("aa", 4L);
+        context1.put("bb", 4);
         System.out.println(Exprs.eval("aa + 22", context2));
     }
 }

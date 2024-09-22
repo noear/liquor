@@ -88,6 +88,7 @@ public interface Exprs {
         for (Map.Entry<String, Object> entry : context.entrySet()) {
             parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
             args[idx] = entry.getValue();
+            idx++;
         }
 
         return eval(new CodeSpec(code).parameters(parameters), args);
