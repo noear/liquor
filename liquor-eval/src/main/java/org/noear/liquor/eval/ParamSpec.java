@@ -46,7 +46,8 @@ public class ParamSpec implements Map.Entry<String,Class<?>> {
 
     @Override
     public Class<?> setValue(Class<?> value) {
-        return this.type = value;
+        //禁止修改
+        throw new UnsupportedOperationException();
     }
 
     @Override
