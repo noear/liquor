@@ -15,9 +15,7 @@
  */
 package org.noear.liquor.eval;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 代码申明
@@ -27,7 +25,7 @@ import java.util.Objects;
  */
 public class CodeSpec {
     private final String code;
-    private Class<?>[] imports;
+    private List<String> imports = new ArrayList<>();
     private Map.Entry<String, Class<?>>[] parameters;
     private Class<?> returnType;
 
@@ -39,7 +37,19 @@ public class CodeSpec {
      * 配置导入
      */
     public CodeSpec imports(Class<?>... imports) {
-        this.imports = imports;
+        for (Class<?> imp : imports) {
+            this.imports.add(imp.getCanonicalName());
+        }
+        return this;
+    }
+
+    /**
+     * 配置导入
+     */
+    public CodeSpec imports(String... imports) {
+        for (String imp : imports) {
+            this.imports.add(imp);
+        }
         return this;
     }
 
@@ -71,7 +81,7 @@ public class CodeSpec {
     /**
      * 获取导入
      */
-    public Class<?>[] getImports() {
+    public Collection<String> getImports() {
         return imports;
     }
 
