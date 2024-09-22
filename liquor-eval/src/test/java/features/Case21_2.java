@@ -36,5 +36,9 @@ public class Case21_2 {
         System.out.println(Exprs.eval(exp5));
 
         Scripts.eval(new CodeSpec("System.out.println(Math.min(11,21));").imports(Math.class));
+
+
+        CodeSpec exp6 = new CodeSpec("min(22,12)").imports("static java.lang.Math.*");
+        System.out.println(Exprs.eval(exp6));
     }
 }
