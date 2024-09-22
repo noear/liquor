@@ -38,6 +38,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class LiquorEvaluator implements Evaluator {
     //默认实例（也可定制自己的实例，增加全局导入）
     private static final Evaluator instance = new LiquorEvaluator(null);
+
     public static Evaluator getInstance() {
         return instance;
     }
@@ -48,10 +49,10 @@ public class LiquorEvaluator implements Evaluator {
     private ClassLoader parentClassLoader;
     private DynamicCompiler compiler;
 
-    private final List<String> importAry = new ArrayList<>();
+    private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
     private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
-    private final AtomicLong nameCounter = new AtomicLong(0L);
+    private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
@@ -78,16 +79,17 @@ public class LiquorEvaluator implements Evaluator {
         StringBuilder importBuilder = new StringBuilder();
         StringBuilder codeBuilder = new StringBuilder();
 
-        for (String imp : importAry) {
+        //全局导入
+        for (String imp : globalImports) {
             importBuilder.append("import ").append(imp).append(";\n");
         }
 
-        if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
-            for (Class<?> clz : codeSpec.getImports()) {
-                importBuilder.append("import ").append(clz.getCanonicalName()).append(";\n");
-            }
+        //申明导入
+        for (String imp : codeSpec.getImports()) {
+            importBuilder.append("import ").append(imp).append(";\n");
         }
 
+        //代码导入
         if (codeSpec.getCode().contains("import ")) {
             BufferedReader reader = new BufferedReader(new StringReader(codeSpec.getCode()));
 
@@ -155,7 +157,9 @@ public class LiquorEvaluator implements Evaluator {
         code.append("}");
 
         if (printable) {
+            System.out.println("-- Start(" + clazzName + ") --");
             System.out.println(code);
+            System.out.println("-- End(" + clazzName + ") --");
         }
 
         //添加编译锁
@@ -174,27 +178,27 @@ public class LiquorEvaluator implements Evaluator {
     }
 
     /**
-     * 设置可打印的
+     * 配置可打印的
      */
-    public void setPrintable(boolean printable) {
+    public void printable(boolean printable) {
         this.printable = printable;
     }
 
     /**
-     * 添加全局导入
+     * 配置全局导入
      */
-    public void addImports(Class<?>... classes) {
+    public void globalImports(Class<?>... classes) {
         for (Class<?> clz : classes) {
-            importAry.add(clz.getCanonicalName());
+            globalImports.add(clz.getCanonicalName());
         }
     }
 
     /**
-     * 添加全局导入
+     * 配置全局导入
      */
-    public void addImports(String... imports) {
+    public void globalImports(String... imports) {
         for (String imp : imports) {
-            importAry.add(imp);
+            globalImports.add(imp);
         }
     }
 
@@ -203,7 +207,7 @@ public class LiquorEvaluator implements Evaluator {
      */
     protected String getKey(CodeSpec codeSpec) {
         //中转一下，可避免有相同 hash 的情况
-        return nameMap.computeIfAbsent(codeSpec, k -> String.valueOf(nameCounter.incrementAndGet()));
+        return nameMap.computeIfAbsent(codeSpec, k -> String.valueOf(nameIdx.incrementAndGet()));
     }
 
     /**

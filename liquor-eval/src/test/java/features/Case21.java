@@ -3,6 +3,8 @@ package features;
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.*;
 
+import java.util.List;
+
 /**
  * @author noear
  * @since 1.1
@@ -10,6 +12,14 @@ import org.noear.liquor.eval.*;
 public class Case21 {
     @Test
     public void test() throws Exception {
+        //测试全局导入功能
+        LiquorEvaluator tmp = ((LiquorEvaluator)LiquorEvaluator.getInstance());
+        tmp.globalImports(List.class);
+        tmp.globalImports("java.util.*");
+        tmp.printable(true);
+
+        /////////
+
         Scripts.eval("System.out.println(\"hello word\");");
         Scripts.eval("System.out.println(\"hello word\");"); //cached
         Scripts.eval("System.out.println(\"hello word---x\");");
