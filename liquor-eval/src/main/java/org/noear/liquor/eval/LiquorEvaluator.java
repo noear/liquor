@@ -21,29 +21,40 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * 虚拟评估器（线程安全）
+ * Liquor 评估器（线程安全）
  *
  * @author noear
  * @since 1.2
+ * @since 1.4
  */
-public abstract class AbstractEvaluator implements IEvaluator {
-    protected boolean printable = false;
+public class LiquorEvaluator implements Evaluator {
+    //默认实例（也可定制自己的实例，增加全局导入）
+    private static final Evaluator instance = new LiquorEvaluator(null);
+    public static Evaluator getInstance() {
+        return instance;
+    }
+
+
+    private boolean printable = false;
 
     private ClassLoader parentClassLoader;
     private DynamicCompiler compiler;
 
-    private final Map<CodeSpec, IExecutable> cachedMap = new ConcurrentHashMap<>();
+    private final List<String> importAry = new ArrayList<>();
+    private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
     private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
     private final AtomicLong nameCounter = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
-    public AbstractEvaluator(ClassLoader parentClassLoader){
+    public LiquorEvaluator(ClassLoader parentClassLoader) {
         this.parentClassLoader = parentClassLoader;
     }
 
@@ -66,6 +77,10 @@ public abstract class AbstractEvaluator implements IEvaluator {
 
         StringBuilder importBuilder = new StringBuilder();
         StringBuilder codeBuilder = new StringBuilder();
+
+        for (String imp : importAry) {
+            importBuilder.append("import ").append(imp).append(";\n");
+        }
 
         if (codeSpec.getImports() != null && codeSpec.getImports().length > 0) {
             for (Class<?> clz : codeSpec.getImports()) {
@@ -97,7 +112,7 @@ public abstract class AbstractEvaluator implements IEvaluator {
 
         //2.构建代码申明
 
-        String clazzName = "Executable$" + getKey(codeSpec);
+        String clazzName = "Execable$" + getKey(codeSpec);
 
         StringBuilder code = new StringBuilder();
 
@@ -161,9 +176,26 @@ public abstract class AbstractEvaluator implements IEvaluator {
     /**
      * 设置可打印的
      */
-    @Override
     public void setPrintable(boolean printable) {
         this.printable = printable;
+    }
+
+    /**
+     * 添加全局导入
+     */
+    public void addImports(Class<?>... classes) {
+        for (Class<?> clz : classes) {
+            importAry.add(clz.getCanonicalName());
+        }
+    }
+
+    /**
+     * 添加全局导入
+     */
+    public void addImports(String... imports) {
+        for (String imp : imports) {
+            importAry.add(imp);
+        }
     }
 
     /**
@@ -180,10 +212,10 @@ public abstract class AbstractEvaluator implements IEvaluator {
      * @param codeSpec 代码申明
      */
     @Override
-    public IExecutable compile(CodeSpec codeSpec) {
+    public Execable compile(CodeSpec codeSpec) {
         assert codeSpec != null;
 
-        return cachedMap.computeIfAbsent(codeSpec, k -> new ExecutableImpl(build(codeSpec)));
+        return cachedMap.computeIfAbsent(codeSpec, k -> new ExecableImpl(build(codeSpec)));
     }
 
     /**

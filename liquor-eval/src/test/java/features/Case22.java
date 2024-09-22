@@ -30,8 +30,8 @@ public class Case22 {
         assert "solon".equals(Scripts.eval(code1, "solon"));
 
         //转类再执行
-        IExecutable executable1 = Scripts.compile(code1);
-        System.out.println(executable1.exec( "noear"));
+        Execable execable1 = Scripts.compile(code1);
+        System.out.println(execable1.exec( "noear"));
 
         ///////////////
 

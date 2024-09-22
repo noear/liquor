@@ -17,8 +17,8 @@ public class Case21 {
         Scripts.compile("System.out.println(\"hello word1\");").exec();
 
         //不推荐
-        IExecutable executable1 = Scripts.compile("System.out.println(\"hello word2\");");
-        executable1.exec();
+        Execable execable1 = Scripts.compile("System.out.println(\"hello word2\");");
+        execable1.exec();
 
         //////////////////////////
 
@@ -29,7 +29,7 @@ public class Case21 {
         System.out.println(Exprs.compile("1+22222").exec());
 
         //不推荐
-        IExecutable executable2 = Exprs.compile("1+1");
-        System.out.println(executable2.exec());
+        Execable execable2 = Exprs.compile("1+1");
+        System.out.println(execable2.exec());
     }
 }

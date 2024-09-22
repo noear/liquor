@@ -15,27 +15,39 @@
  */
 package org.noear.liquor.eval;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
- * 脚本评估器
+ * 可执行的
  *
  * @author noear
  * @since 1.2
  */
-public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
-    private static final ScriptEvaluator instance = new ScriptEvaluator();
+public class ExecableImpl implements Execable {
+    private final Method method;
+
+    public ExecableImpl(Class<?> clazz) {
+        this.method = clazz.getDeclaredMethods()[0];
+    }
 
     /**
-     * 获取快捷实例
+     * 获取方法
      */
-    public static ScriptEvaluator getInstance() {
-        return instance;
+    public Method getMethod() {
+        return method;
     }
 
-    public ScriptEvaluator() {
-        super(null);
-    }
-
-    public ScriptEvaluator(ClassLoader parentClassLoader) {
-        super(parentClassLoader);
+    /**
+     * 执行
+     */
+    public Object exec(Object... args) throws InvocationTargetException {
+        try {
+            return method.invoke(null, args);
+        } catch (InvocationTargetException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new InvocationTargetException(e);
+        }
     }
 }

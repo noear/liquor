@@ -22,41 +22,15 @@ import java.lang.reflect.InvocationTargetException;
  *
  * @author noear
  * @since 1.2
+ * @since 1.4
  */
-public interface IEvaluator {
+public interface Evaluator {
     /**
-     * 设置可打印的（默认为 false）
-     */
-    void setPrintable(boolean printable);
-
-
-    /**
-     * 编译
-     *
-     * @param code 代码
-     */
-    default IExecutable compile(String code) {
-        assert code != null;
-        return compile(new CodeSpec(code));
-    }
-
-    /**
-     * 编译
+     * 预编译
      *
      * @param codeSpec 代码申明
      */
-    IExecutable compile(CodeSpec codeSpec);
-
-
-    /**
-     * 评估
-     *
-     * @param code 代码
-     */
-    default Object eval(String code) throws InvocationTargetException {
-        assert code != null;
-        return eval(new CodeSpec(code));
-    }
+    Execable compile(CodeSpec codeSpec);
 
     /**
      * 评估
