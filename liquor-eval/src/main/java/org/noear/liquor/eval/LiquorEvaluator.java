@@ -46,8 +46,7 @@ public class LiquorEvaluator implements Evaluator {
 
     private boolean printable = false;
 
-    private ClassLoader parentClassLoader;
-    private DynamicCompiler compiler;
+    private final DynamicCompiler compiler;
 
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
@@ -56,18 +55,7 @@ public class LiquorEvaluator implements Evaluator {
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
-        this.parentClassLoader = parentClassLoader;
-    }
-
-    /**
-     * 获取编译器
-     */
-    protected DynamicCompiler getCompiler() {
-        if (compiler == null) {
-            compiler = new DynamicCompiler(parentClassLoader);
-        }
-
-        return compiler;
+        this.compiler = new DynamicCompiler(parentClassLoader);
     }
 
     /**
@@ -166,7 +154,6 @@ public class LiquorEvaluator implements Evaluator {
         lock.tryLock();
 
         try {
-            DynamicCompiler compiler = getCompiler();
             compiler.addSource(clazzName, code.toString()).build();
 
             return compiler.getClassLoader().loadClass(clazzName);
