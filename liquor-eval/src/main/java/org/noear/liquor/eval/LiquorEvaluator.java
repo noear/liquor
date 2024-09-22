@@ -21,9 +21,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -64,17 +62,17 @@ public class LiquorEvaluator implements Evaluator {
     protected Class<?> build(CodeSpec codeSpec) {
         //1.分离导入代码
 
-        StringBuilder importBuilder = new StringBuilder();
+        Set<String> importBuilder = new TreeSet<>();
         StringBuilder codeBuilder = new StringBuilder();
 
         //全局导入
         for (String imp : globalImports) {
-            importBuilder.append("import ").append(imp).append(";\n");
+            importBuilder.add("import " + imp + ";\n");
         }
 
         //申明导入
         for (String imp : codeSpec.getImports()) {
-            importBuilder.append("import ").append(imp).append(";\n");
+            importBuilder.add("import " + imp + ";\n");
         }
 
         //代码导入
@@ -87,7 +85,7 @@ public class LiquorEvaluator implements Evaluator {
                 while ((line = reader.readLine()) != null) {
                     lineTrim = line.trim();
                     if (lineTrim.startsWith("import ")) {
-                        importBuilder.append(lineTrim).append("\n");
+                        importBuilder.add(lineTrim + "\n");
                     } else {
                         codeBuilder.append(line).append("\n");
                     }
@@ -106,8 +104,11 @@ public class LiquorEvaluator implements Evaluator {
 
         StringBuilder code = new StringBuilder();
 
-        if (importBuilder.length() > 0) {
-            code.append(importBuilder).append("\n");
+        if (importBuilder.size() > 0) {
+            for(String impCode : importBuilder) {
+                code.append(impCode);
+            }
+            code.append("\n");
         }
 
         code.append("public class ").append(clazzName).append(" {\n");

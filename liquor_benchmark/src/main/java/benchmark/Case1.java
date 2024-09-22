@@ -1,7 +1,7 @@
 package benchmark;
 
-
 import com.googlecode.aviator.AviatorEvaluator;
+import org.codehaus.janino.ExpressionEvaluator;
 import org.noear.liquor.eval.Exprs;
 
 public class Case1 {
@@ -20,25 +20,25 @@ public class Case1 {
 
 
         //不能复用
-        org.codehaus.janino.ExpressionEvaluator evaluator;
+        ExpressionEvaluator evaluator;
         for (int i = 0; i < count; i++) {
-            evaluator = new org.codehaus.janino.ExpressionEvaluator();
+            evaluator = new ExpressionEvaluator();
             evaluator.cook("1+1");
             evaluator.evaluate();
 
-            evaluator = new org.codehaus.janino.ExpressionEvaluator();
+            evaluator = new ExpressionEvaluator();
             evaluator.cook("1+2");
             evaluator.evaluate();
 
-            evaluator = new org.codehaus.janino.ExpressionEvaluator();
+            evaluator = new ExpressionEvaluator();
             evaluator.cook("1+3");
             evaluator.evaluate();
 
-            evaluator = new org.codehaus.janino.ExpressionEvaluator();
+            evaluator = new ExpressionEvaluator();
             evaluator.cook("1+4");
             evaluator.evaluate();
 
-            evaluator = new org.codehaus.janino.ExpressionEvaluator();
+            evaluator = new ExpressionEvaluator();
             evaluator.cook("1+5");
             evaluator.evaluate();
         }
