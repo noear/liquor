@@ -30,4 +30,12 @@ public class ScriptEvaluator extends AbstractEvaluator implements IEvaluator {
     public static ScriptEvaluator getInstance() {
         return instance;
     }
+
+    public ScriptEvaluator() {
+        super(null);
+    }
+
+    public ScriptEvaluator(ClassLoader parentClassLoader) {
+        super(parentClassLoader);
+    }
 }

@@ -43,6 +43,10 @@ public abstract class AbstractEvaluator implements IEvaluator {
     private final AtomicLong nameCounter = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
+    public AbstractEvaluator(ClassLoader parentClassLoader){
+        this.parentClassLoader = parentClassLoader;
+    }
+
     /**
      * 获取编译器
      */
@@ -155,13 +159,8 @@ public abstract class AbstractEvaluator implements IEvaluator {
     }
 
     /**
-     * 设置父类加载器
+     * 设置可打印的
      */
-    @Override
-    public void setParentClassLoader(ClassLoader parentClassLoader) {
-        this.parentClassLoader = parentClassLoader;
-    }
-
     @Override
     public void setPrintable(boolean printable) {
         this.printable = printable;

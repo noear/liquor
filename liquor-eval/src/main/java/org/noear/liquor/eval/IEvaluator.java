@@ -25,11 +25,6 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface IEvaluator {
     /**
-     * 设置父类加载器
-     */
-    void setParentClassLoader(ClassLoader parentClassLoader);
-
-    /**
      * 设置可打印的（默认为 false）
      */
     void setPrintable(boolean printable);

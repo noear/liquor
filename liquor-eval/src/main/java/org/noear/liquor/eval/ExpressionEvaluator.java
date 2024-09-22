@@ -31,6 +31,14 @@ public class ExpressionEvaluator extends AbstractEvaluator implements IEvaluator
         return instance;
     }
 
+    public ExpressionEvaluator() {
+        super(null);
+    }
+
+    public ExpressionEvaluator(ClassLoader parentClassLoader) {
+        super(parentClassLoader);
+    }
+
     @Override
     protected Class<?> build(CodeSpec codeSpec) {
         //强制有估评结果
