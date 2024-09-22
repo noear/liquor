@@ -26,6 +26,11 @@ import java.lang.reflect.InvocationTargetException;
  */
 public interface Evaluator {
     /**
+     * 配置可打印的
+     */
+    void printable(boolean printable);
+
+    /**
      * 预编译
      *
      * @param codeSpec 代码申明

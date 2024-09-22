@@ -34,7 +34,7 @@ public class CodeSpec {
     }
 
     /**
-     * 配置导入
+     * 申明导入
      */
     public CodeSpec imports(Class<?>... imports) {
         for (Class<?> imp : imports) {
@@ -44,7 +44,7 @@ public class CodeSpec {
     }
 
     /**
-     * 配置导入
+     * 申明导入
      */
     public CodeSpec imports(String... imports) {
         for (String imp : imports) {
@@ -54,7 +54,7 @@ public class CodeSpec {
     }
 
     /**
-     * 配置参数申明
+     * 申明参数
      */
     public CodeSpec parameters(Map.Entry<String, Class<?>>... parameters) {
         this.parameters = parameters;
@@ -62,7 +62,7 @@ public class CodeSpec {
     }
 
     /**
-     * 配置返回类型
+     * 申明返回类型
      */
     public CodeSpec returnType(Class<?> returnType) {
         this.returnType = returnType;
@@ -72,14 +72,14 @@ public class CodeSpec {
     //////////////////
 
     /**
-     * 获取代码
+     * 获取代码申明
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * 获取导入
+     * 获取导入申明
      */
     public Collection<String> getImports() {
         return imports;
@@ -93,7 +93,7 @@ public class CodeSpec {
     }
 
     /**
-     * 获取返回类型
+     * 获取返回类型申明
      */
     public Class<?> getReturnType() {
         return returnType;
