@@ -1,3 +1,9 @@
+### 1.3.2
+
+* 开放 Evaluator::printable 方法
+* 修复 Exprs:eval(code, context) 在多参时会出错的问题
+* 禁止 ParamSpec 修改值。避免后续影响 hashCode
+
 ### 1.3.1
 
 * 合并 ScriptEvaluator,ExpressionEvaluator,AbstractEvaluator 为一个类：LiquorEvaluator
