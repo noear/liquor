@@ -18,9 +18,7 @@ import java.util.stream.Collectors;
 public class PackageInternalsFinder {
     private final ClassLoader classLoader;
     private static final String CLASS_FILE_EXTENSION = ".class";
-
-    //todo: 不使用静态
-    private final Map<String, JarFileIndex> INDEXS = new ConcurrentHashMap<>();
+    private static final Map<String, JarFileIndex> INDEXS = new ConcurrentHashMap<>();
 
     public PackageInternalsFinder(ClassLoader classLoader) {
         this.classLoader = classLoader;
