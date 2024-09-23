@@ -48,7 +48,7 @@ public class LiquorEvaluator implements Evaluator {
     private final DynamicCompiler compiler;
     private final DynamicClassLoader cachedClassLoader;
     private DynamicClassLoader tempClassLoader;
-    private final AtomicLong tempCount = new AtomicLong();
+    private int tempCount = 0;
 
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
@@ -164,9 +164,9 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.isCached()) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                if(tempCount.incrementAndGet() > 1000){
+                if(tempCount++ > 1000){
                     tempClassLoader = compiler.newClassLoader();
-                    tempCount.set(0);
+                    tempCount = 0;
                 }
 
                 compiler.setClassLoader(tempClassLoader);
