@@ -1,3 +1,8 @@
+### 1.3.3
+
+* 新增 非缓存模式
+* 修复 SharedNameTable 内存大涨的问题
+
 ### 1.3.2
 
 * 开放 Evaluator::printable 方法
