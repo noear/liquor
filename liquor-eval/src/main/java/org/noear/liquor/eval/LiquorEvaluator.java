@@ -45,7 +45,6 @@ public class LiquorEvaluator implements Evaluator {
 
     private boolean printable = false;
 
-    private final ClassLoader parentClassLoader;
     private final DynamicClassLoader cachedClassLoader;
     private final DynamicCompiler compiler;
 
@@ -56,7 +55,6 @@ public class LiquorEvaluator implements Evaluator {
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
-        this.parentClassLoader = parentClassLoader;
         this.compiler = new DynamicCompiler(parentClassLoader);
         this.cachedClassLoader = compiler.getClassLoader();
     }
@@ -163,7 +161,7 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.isCached()) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                compiler.setClassLoader(new DynamicClassLoader(parentClassLoader));
+                compiler.newClassLoader();
             }
 
             compiler.addSource(clazzName, code.toString()).build();

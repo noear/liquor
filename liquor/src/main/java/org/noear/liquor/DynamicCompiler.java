@@ -63,6 +63,13 @@ public class DynamicCompiler {
     }
 
     /**
+     * 新建类加载器（替换旧的）
+     */
+    public void newClassLoader() {
+        this.dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
+    }
+
+    /**
      * 添加源码
      */
     public DynamicCompiler addSource(String className, String source) {

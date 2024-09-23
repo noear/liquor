@@ -11,7 +11,7 @@ public class DynamicClassLoader extends ClassLoader {
     private final Map<String, MemoryByteCode> byteCodes = new HashMap<>();
 
     public DynamicClassLoader(ClassLoader classLoader) {
-        super(classLoader);
+        super(classLoader != null ? classLoader : Thread.currentThread().getContextClassLoader());
     }
 
     protected void registerCompiledSource(MemoryByteCode byteCode) {
