@@ -65,8 +65,8 @@ public class DynamicCompiler {
     /**
      * 新建类加载器（替换旧的）
      */
-    public void newClassLoader() {
-        this.dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
+    public DynamicClassLoader newClassLoader() {
+        return new DynamicClassLoader(parentClassLoader);
     }
 
     /**

@@ -45,8 +45,10 @@ public class LiquorEvaluator implements Evaluator {
 
     private boolean printable = false;
 
-    private final DynamicClassLoader cachedClassLoader;
     private final DynamicCompiler compiler;
+    private final DynamicClassLoader cachedClassLoader;
+    private DynamicClassLoader tempClassLoader;
+    private final AtomicLong tempCount = new AtomicLong();
 
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
@@ -57,6 +59,7 @@ public class LiquorEvaluator implements Evaluator {
     public LiquorEvaluator(ClassLoader parentClassLoader) {
         this.compiler = new DynamicCompiler(parentClassLoader);
         this.cachedClassLoader = compiler.getClassLoader();
+        this.tempClassLoader = compiler.newClassLoader();
     }
 
     /**
@@ -161,7 +164,12 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.isCached()) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                compiler.newClassLoader();
+                if(tempCount.incrementAndGet() > 1000){
+                    tempClassLoader = compiler.newClassLoader();
+                    tempCount.set(0);
+                }
+
+                compiler.setClassLoader(tempClassLoader);
             }
 
             compiler.addSource(clazzName, code.toString()).build();
