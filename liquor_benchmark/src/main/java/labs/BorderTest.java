@@ -11,12 +11,9 @@ import org.noear.liquor.eval.LiquorEvaluator;
  */
 public class BorderTest {
     public static void main(String[] args) throws Exception {
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 100_000; i++) {
             //System.out.println(AviatorEvaluator.execute("1-1+" + i));
-            //System.out.println(Exprs.eval(new CodeSpec("1-1+" + i).cached(false)));
-            LiquorEvaluator evaluator = new LiquorEvaluator(null);
-
-            System.out.println(evaluator.eval(new CodeSpec("1-1+" + i).returnType(Object.class)));
+            System.out.println(Exprs.eval(new CodeSpec("1-1+" + i).cached(false)));
         }
 
         System.in.read();

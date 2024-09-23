@@ -51,6 +51,10 @@ public class DynamicCompiler {
         return dynamicClassLoader;
     }
 
+    public List<String> getOptions() {
+        return options;
+    }
+
     /**
      * 切换类加载器
      */
