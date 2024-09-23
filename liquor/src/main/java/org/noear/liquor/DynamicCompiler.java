@@ -38,6 +38,8 @@ public class DynamicCompiler {
 
         options.add("-Xlint:unchecked");
         options.add("-g");
+        options.add("-XDuseUnsharedTable");//可避免 SharedNameTable 内存大涨
+
         parentClassLoader = classLoader;
     }
 
@@ -53,8 +55,6 @@ public class DynamicCompiler {
      * 切换类加载器
      */
     public void setClassLoader(DynamicClassLoader dynamicClassLoader) {
-        assert dynamicClassLoader != null;
-
         this.dynamicClassLoader = dynamicClassLoader;
     }
 

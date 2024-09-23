@@ -24,7 +24,7 @@ public class MemoryByteCode extends SimpleJavaFileObject {
     @Override
     public OutputStream openOutputStream() {
         if (outputStream == null) {
-            outputStream = new BufOutputStream();
+            outputStream = new ByteArrayOutputStream();
         }
         return outputStream;
     }
@@ -51,14 +51,5 @@ public class MemoryByteCode extends SimpleJavaFileObject {
         }
 
         return className;
-    }
-
-    public static class BufOutputStream extends ByteArrayOutputStream {
-        /**
-         * 可减少一次内存拷贝
-         */
-        public byte[] getBuf() {
-            return buf;
-        }
     }
 }

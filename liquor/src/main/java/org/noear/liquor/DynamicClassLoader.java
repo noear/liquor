@@ -20,11 +20,8 @@ public class DynamicClassLoader extends ClassLoader {
 
     protected Class<?> defineClass(MemoryByteCode byteCode) {
         byteCode.defined = true;
-        MemoryByteCode.BufOutputStream tmp = (MemoryByteCode.BufOutputStream) byteCode.openOutputStream();
-        //减少内存副本
-        byteCode.delByteCode();
-        //减少内存拷贝
-        return super.defineClass(byteCode.getClassName(), tmp.getBuf(), 0, tmp.size());
+        byte[] bytes = byteCode.getByteCode();
+        return super.defineClass(byteCode.getClassName(), bytes, 0, bytes.length);
     }
 
     @Override
