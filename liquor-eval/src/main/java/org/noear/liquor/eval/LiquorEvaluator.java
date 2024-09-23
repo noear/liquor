@@ -15,6 +15,7 @@
  */
 package org.noear.liquor.eval;
 
+import org.noear.liquor.DynamicClassLoader;
 import org.noear.liquor.DynamicCompiler;
 
 import java.io.BufferedReader;
@@ -44,16 +45,20 @@ public class LiquorEvaluator implements Evaluator {
 
     private boolean printable = false;
 
+    private final ClassLoader parentClassLoader;
+    private final DynamicClassLoader cachedClassLoader;
     private final DynamicCompiler compiler;
 
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
-    private final Map<CodeSpec, String> nameMap = new ConcurrentHashMap<>();
+    private final Map<CodeSpec, Long> nameMap = new ConcurrentHashMap<>();
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
+        this.parentClassLoader = parentClassLoader;
         this.compiler = new DynamicCompiler(parentClassLoader);
+        this.cachedClassLoader = compiler.getClassLoader();
     }
 
     /**
@@ -105,7 +110,7 @@ public class LiquorEvaluator implements Evaluator {
         StringBuilder code = new StringBuilder();
 
         if (importBuilder.size() > 0) {
-            for(String impCode : importBuilder) {
+            for (String impCode : importBuilder) {
                 code.append(impCode);
             }
             code.append("\n");
@@ -155,6 +160,12 @@ public class LiquorEvaluator implements Evaluator {
         lock.tryLock();
 
         try {
+            if (codeSpec.isCached()) {
+                compiler.setClassLoader(cachedClassLoader);
+            } else {
+                compiler.setClassLoader(new DynamicClassLoader(parentClassLoader));
+            }
+
             compiler.addSource(clazzName, code.toString()).build();
 
             return compiler.getClassLoader().loadClass(clazzName);
@@ -193,19 +204,27 @@ public class LiquorEvaluator implements Evaluator {
     /**
      * 获取标记
      */
-    protected String getKey(CodeSpec codeSpec) {
+    protected Long getKey(CodeSpec codeSpec) {
+        if (codeSpec.isCached() == false) {
+            return nameIdx.incrementAndGet();
+        }
+
         //中转一下，可避免有相同 hash 的情况
-        return nameMap.computeIfAbsent(codeSpec, k -> String.valueOf(nameIdx.incrementAndGet()));
+        return nameMap.computeIfAbsent(codeSpec, k -> nameIdx.incrementAndGet());
     }
 
     /**
-     * 编译
+     * 预编译
      *
      * @param codeSpec 代码申明
      */
     @Override
     public Execable compile(CodeSpec codeSpec) {
         assert codeSpec != null;
+
+        if (codeSpec.isCached() == false) {
+            return new ExecableImpl(build(codeSpec));
+        }
 
         return cachedMap.computeIfAbsent(codeSpec, k -> new ExecableImpl(build(codeSpec)));
     }

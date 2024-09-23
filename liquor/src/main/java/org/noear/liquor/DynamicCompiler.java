@@ -49,6 +49,14 @@ public class DynamicCompiler {
         return dynamicClassLoader;
     }
 
+    /**
+     * 切换类加载器
+     */
+    public void setClassLoader(DynamicClassLoader dynamicClassLoader) {
+        assert dynamicClassLoader != null;
+
+        this.dynamicClassLoader = dynamicClassLoader;
+    }
 
     /**
      * 添加源码
@@ -70,7 +78,6 @@ public class DynamicCompiler {
      * 重置
      */
     public void reset() {
-        compilationUnits.clear();
         dynamicClassLoader = null;
     }
 

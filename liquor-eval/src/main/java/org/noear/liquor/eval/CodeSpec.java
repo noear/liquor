@@ -28,9 +28,18 @@ public class CodeSpec {
     private List<String> imports = new ArrayList<>();
     private Map.Entry<String, Class<?>>[] parameters;
     private Class<?> returnType;
+    private boolean cached = true;
 
     public CodeSpec(String code) {
         this.code = code;
+    }
+
+    /**
+     * 申明缓存的
+     */
+    public CodeSpec cached(boolean cached) {
+        this.cached = cached;
+        return this;
     }
 
     /**
@@ -70,6 +79,13 @@ public class CodeSpec {
     }
 
     //////////////////
+
+    /**
+     * 是否缓存
+     */
+    public boolean isCached() {
+        return cached;
+    }
 
     /**
      * 获取代码申明
