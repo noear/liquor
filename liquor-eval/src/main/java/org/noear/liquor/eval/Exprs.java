@@ -81,16 +81,9 @@ public interface Exprs {
     static Object eval(String code, Map<String, Object> context) throws InvocationTargetException {
         assert context != null;
 
-        ParamSpec[] parameters = new ParamSpec[context.size()];
-        Object[] args = new Object[context.size()];
+        CodeSpec codeSpec = new CodeSpec(code);
+        Object[] args = codeSpec.bind(context);
 
-        int idx = 0;
-        for (Map.Entry<String, Object> entry : context.entrySet()) {
-            parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
-            args[idx] = entry.getValue();
-            idx++;
-        }
-
-        return eval(new CodeSpec(code).parameters(parameters), args);
+        return eval(codeSpec, args);
     }
 }

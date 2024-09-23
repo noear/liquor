@@ -78,6 +78,27 @@ public class CodeSpec {
         return this;
     }
 
+    /**
+     * 绑定
+     *
+     * @param context 上下文
+     */
+    public Object[] bind(Map<String, Object> context) {
+        assert context != null;
+
+        parameters = new ParamSpec[context.size()];
+        Object[] args = new Object[context.size()];
+
+        int idx = 0;
+        for (Map.Entry<String, Object> entry : context.entrySet()) {
+            parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
+            args[idx] = entry.getValue();
+            idx++;
+        }
+
+        return args;
+    }
+
     //////////////////
 
     /**
