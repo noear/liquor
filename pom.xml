@@ -19,6 +19,7 @@
     <modules>
         <module>liquor</module>
         <module>liquor-eval</module>
+        <module>liquor-eval-jsr223</module>
         <module>liquor_benchmark</module>
         <module>demo_solon_jarinjar</module>
         <module>demo_springboot_jarinjar</module>
