@@ -22,7 +22,8 @@ public class Case22 {
                 "    Demo demo = new Demo();\n" +
                 "    return demo.hello(name);") //name 为外部参数
                 .parameters(new ParamSpec("name", String.class))
-                .returnType(String.class);
+                .returnType(String.class)
+                .cached(false);
 
         //直接执行
         System.out.println(Scripts.eval(code1, "noear"));
