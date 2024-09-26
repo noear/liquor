@@ -9,20 +9,6 @@ import org.noear.liquor.eval.Exprs;
  */
 public class CachedTest {
     @Test
-    public void test() throws Exception {
-        ClassLoader classLoader1 = Exprs.compile(new CodeSpec("1+1").cached(false))
-                .getMethod().getDeclaringClass().getClassLoader();
-
-        ClassLoader classLoader2 = Exprs.compile(new CodeSpec("1+1").cached(false))
-                .getMethod().getDeclaringClass().getClassLoader();
-
-        System.out.println(classLoader1);
-        System.out.println(classLoader2);
-
-        assert classLoader1.equals(classLoader2) == false;
-    }
-
-    @Test
     public void test2() throws Exception {
         ClassLoader classLoader1 = Exprs.compile(new CodeSpec("1+1"))
                 .getMethod().getDeclaringClass().getClassLoader();

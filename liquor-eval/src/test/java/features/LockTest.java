@@ -42,7 +42,7 @@ public class LockTest {
     public void test2() throws Exception {
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        System.out.println(Scripts.eval(new CodeSpec("return 2000+1;").cached(false)));
+        System.out.println(Scripts.eval(new CodeSpec("return 2000+1;").returnType(Object.class).cached(false)));
         int count = 100;
 
         CountDownLatch countDownLatch = new CountDownLatch(count);
@@ -50,7 +50,7 @@ public class LockTest {
         for (int i = 0; i < count; i++) {
             executor.submit(() -> {
                 try {
-                    Object tmp = Scripts.eval(new CodeSpec("return 2000+1;").cached(false));
+                    Object tmp = Scripts.eval(new CodeSpec("return 2000+1;").returnType(Object.class).cached(false));
                     System.out.println(Thread.currentThread().getName() + "::" + tmp);
                     countDownLatch.countDown();
                 } catch (Throwable ex) {
