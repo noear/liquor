@@ -164,7 +164,7 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.isCached()) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                if(tempCount++ > 1000){
+                if(tempCount++ > 10000){
                     tempClassLoader = compiler.newClassLoader();
                     tempCount = 0;
                 }
