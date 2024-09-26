@@ -158,7 +158,7 @@ public class LiquorEvaluator implements Evaluator {
         }
 
         //添加编译锁
-        lock.tryLock();
+        lock.lock();
 
         try {
             if (codeSpec.isCached()) {
