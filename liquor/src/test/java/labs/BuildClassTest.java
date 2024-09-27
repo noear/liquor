@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 /**
  * @author noear 2024/9/27 created
  */
-public class BuildTest {
+public class BuildClassTest {
     public static void main(String[] args) throws Exception {
         String className = "com.demo.AClass";
         String classCode = "package com.demo;\n" +
@@ -68,7 +68,7 @@ public class BuildTest {
         }
 
         countDownLatch.await();
-        System.out.println("case1:: " + (System.currentTimeMillis() - start));
+        System.out.println("case1_2:: " + (System.currentTimeMillis() - start));
     }
 
     public static void case2(String className, String classCode, int count) {
@@ -97,7 +97,7 @@ public class BuildTest {
             compiler.build();
         }
 
-        System.out.println("case2:: " + (System.currentTimeMillis() - start));
+        System.out.println("case3:: " + (System.currentTimeMillis() - start));
     }
 
     public static void case4(String className, String classCode, int count) {
@@ -111,6 +111,6 @@ public class BuildTest {
         }
         compiler.build();
 
-        System.out.println("case2:: " + (System.currentTimeMillis() - start));
+        System.out.println("case4:: " + (System.currentTimeMillis() - start));
     }
 }
