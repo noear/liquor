@@ -22,18 +22,18 @@ public class BuildClassTest {
                 "}";
 
         case1(className, classCode, 100);
-        case1_2(className, classCode, 100);
         case2(className, classCode, 100);
         case3(className, classCode, 100);
         case4(className, classCode, 100);
+        case5(className, classCode, 100);
 
         System.out.println("--------");
 
         case1(className, classCode, 1000); //   853ms/100;  8397ms/1000; （每次新建编译器）
-        case1_2(className, classCode, 1000); // 391ms/100;  3460ms/1000; （每次新建编译器）多线程
-        case2(className, classCode, 1000); //   418ms/100;  2328ms/1000; （复用编译器；每次新建类加载器）
-        case3(className, classCode, 1000); //   284ms/100;  2433ms/1000; （复用编译器；复用类加载器；每次新编译）
-        case4(className, classCode, 1000); //    35ms/100;   150ms/1000;  (复用编译器；复用类加载器；只一次编译)
+        case2(className, classCode, 1000); //   391ms/100;  3460ms/1000; （每次新建编译器）多线程
+        case3(className, classCode, 1000); //   418ms/100;  2328ms/1000; （复用编译器；每次新建类加载器）
+        case4(className, classCode, 1000); //   284ms/100;  2433ms/1000; （复用编译器；复用类加载器；每次新编译）
+        case5(className, classCode, 1000); //    35ms/100;   150ms/1000;  (复用编译器；复用类加载器；只一次编译)
     }
 
     public static void case1(String className, String classCode, int count) {
@@ -50,7 +50,7 @@ public class BuildClassTest {
         System.out.println("case1:: " + (System.currentTimeMillis() - start));
     }
 
-    public static void case1_2(String className, String classCode, int count) throws Exception {
+    public static void case2(String className, String classCode, int count) throws Exception {
         ExecutorService executor = Executors.newCachedThreadPool();
         CountDownLatch countDownLatch = new CountDownLatch(count);
 
@@ -68,21 +68,6 @@ public class BuildClassTest {
         }
 
         countDownLatch.await();
-        System.out.println("case1_2:: " + (System.currentTimeMillis() - start));
-    }
-
-    public static void case2(String className, String classCode, int count) {
-        long start = System.currentTimeMillis();
-        DynamicCompiler compiler = new DynamicCompiler();
-
-        for (int i = 0; i < count; i++) {
-            compiler.setClassLoader(compiler.newClassLoader());
-            compiler.addSource(
-                    className.replace("AClass", "AClass_" + i),
-                    classCode.replace("AClass", "AClass_" + i));
-            compiler.build();
-        }
-
         System.out.println("case2:: " + (System.currentTimeMillis() - start));
     }
 
@@ -91,6 +76,7 @@ public class BuildClassTest {
         DynamicCompiler compiler = new DynamicCompiler();
 
         for (int i = 0; i < count; i++) {
+            compiler.setClassLoader(compiler.newClassLoader());
             compiler.addSource(
                     className.replace("AClass", "AClass_" + i),
                     classCode.replace("AClass", "AClass_" + i));
@@ -108,9 +94,23 @@ public class BuildClassTest {
             compiler.addSource(
                     className.replace("AClass", "AClass_" + i),
                     classCode.replace("AClass", "AClass_" + i));
+            compiler.build();
+        }
+
+        System.out.println("case4:: " + (System.currentTimeMillis() - start));
+    }
+
+    public static void case5(String className, String classCode, int count) {
+        long start = System.currentTimeMillis();
+        DynamicCompiler compiler = new DynamicCompiler();
+
+        for (int i = 0; i < count; i++) {
+            compiler.addSource(
+                    className.replace("AClass", "AClass_" + i),
+                    classCode.replace("AClass", "AClass_" + i));
         }
         compiler.build();
 
-        System.out.println("case4:: " + (System.currentTimeMillis() - start));
+        System.out.println("case5:: " + (System.currentTimeMillis() - start));
     }
 }
