@@ -98,14 +98,22 @@ public class DemoApp {
 
 ## Evaluator demo
 
-Internally, the evaluation code is compiled into a static method
+Liquor evaluator tool, is based on Java compiler implementation. Under "cache overwriting", the performance is close to the original Java code. However, when there are "infinitely many variations" of expressions, the cache is invalidated and an infinite number of classes are generated, and then OOM.
+
+Consider the expression evaluator:
+
+* Use "variables" instead of constants to reduce compilation of Exprs.eval(new CodeSpec("a+b+c"), context).
+  * [recommendation] effects, like class-to-instance relationships
+* Use uncached mode Exprs.eval(new CodeSpec("1+2+3").cached(false))
+  * [Not recommended]
+
 
 
 ### 1) Expression Evaluator（You can only write one line of code）
 
 
 * Something must be returned
-* No ";" in the expression , the evaluator automatically adds "return" and ";". . Otherwise, make sure your statements are complete
+* There is no ";" in the expression , "return" and ";" are automatically added. . Otherwise, make sure your statements are complete
 * Use CodeSpec::imports to import the classes required by the expression
 
 
@@ -131,9 +139,9 @@ public class DemoApp {
 
 ### 2) Script Evaluator
 
-* Can import classes; It cannot have a package name
+* You can import classes or static methods. No package name
 * Don't use "public" when using inner classes
-* Using CodeSpec::imports to import the classes required by the expression; Or add an "import" statement to your code
+* Using CodeSpec::imports to import classes or static methods required by an expression Or add an "import" statement to your code
 
 
 ```java

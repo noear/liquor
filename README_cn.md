@@ -98,13 +98,19 @@ public class DemoApp {
 
 ## 评估器演示
 
-内部会把评估代码编译为一个静态方法
+Liquor 评估器工具，是基于 Java 编译实现的。在“缓存覆盖”下，性能接近原始 Java 代码。但是，当有“无限多变化”的表达式时，缓存会失效，且会产生无限多的类，然后 OOM。
 
+以表达式评估器为例：
+
+* 使用“变量”替代常量，以减少编译 Exprs.eval(new CodeSpec("a+b+c"), context)。
+  * 【推荐】效果，就像类与实例的关系
+* 使用非缓存模式 Exprs.eval(new CodeSpec("1+2+3").cached(false))
+  * 【不推荐】
 
 ### 1) 表达式评估器（只能写一行代码）
 
 * 必须有结果返回
-* 表达式中没有 ";" 时，评估器会自动添加 "return" 和 ";"。否则要自己确保语句完整
+* 表达式中没有 ";" 时，会自动添加 "return" 和 ";"。否则要自己确保语句完整
 * 使用 CodeSpec::imports 导入表达式需要的类
 
 ```java
@@ -128,9 +134,9 @@ public class DemoApp {
 
 ### 2) 脚本评估器
 
-* 可以导入类；不能有包名
+* 可以导入类或静态方法；不能有包名
 * 使用内部类时不要加 "public" 修饰
-* 使用 CodeSpec::imports 导入表达式需要的类；或者在代码里添加 "import" 语句
+* 使用 CodeSpec::imports 导入表达式需要的类或静态方法；或者在代码里添加 "import" 语句
 
 ```java
 public class DemoApp {
