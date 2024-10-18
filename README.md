@@ -140,7 +140,7 @@ public class DemoApp {
 ### 2) Script Evaluator
 
 * You can import classes or static methods. No package name
-* Don't use "public" when using inner classes
+* Inner classes are used without decoration ("public", "static"). Fields and methods of inner classes do not support "static"
 * Using CodeSpec::imports to import classes or static methods required by an expression Or add an "import" statement to your code
 
 

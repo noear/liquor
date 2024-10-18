@@ -135,7 +135,7 @@ public class DemoApp {
 ### 2) 脚本评估器
 
 * 可以导入类或静态方法；不能有包名
-* 使用内部类时不要加 "public" 修饰
+* 使用内部类时不要加修饰（"public"、"static"）；内部类的字段和方法不支持 "static"
 * 使用 CodeSpec::imports 导入表达式需要的类或静态方法；或者在代码里添加 "import" 语句
 
 ```java
