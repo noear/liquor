@@ -24,8 +24,8 @@ Liquor
     <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html">
 		<img src="https://img.shields.io/badge/JDK-21-green.svg" alt="jdk-21" />
 	</a>
-    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk22-archive-downloads.html">
-		<img src="https://img.shields.io/badge/JDK-22-green.svg" alt="jdk-22" />
+    <a target="_blank" href="https://www.oracle.com/java/technologies/javase/jdk23-archive-downloads.html">
+		<img src="https://img.shields.io/badge/JDK-23-green.svg" alt="jdk-23" />
 	</a>
     <br />
     <a target="_blank" href='https://gitee.com/noear/liquor/stargazers'>
