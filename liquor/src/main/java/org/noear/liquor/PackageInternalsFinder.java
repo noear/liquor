@@ -73,24 +73,33 @@ public class PackageInternalsFinder {
 
             JarURLConnection jarConn = (JarURLConnection) packageFolderURL.openConnection();
             String rootEntryName = jarConn.getEntryName();
-
-            if (rootEntryName == null) {
-                //当是一个 jar 时，可能为 null
-                return result;
+            int rootEnd = 0;
+            if(rootEntryName != null) {
+                //可能为 null
+                rootEnd = rootEntryName.length() + 1;
             }
-
-            int rootEnd = rootEntryName.length() + 1;
 
             Enumeration<JarEntry> entryEnum = jarConn.getJarFile().entries();
             while (entryEnum.hasMoreElements()) {
                 JarEntry jarEntry = entryEnum.nextElement();
                 String name = jarEntry.getName();
-                if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE_EXTENSION)) {
-                    URI uri = URI.create(jarUri + "!/" + name);
-                    String binaryName = name.replaceAll("/", ".");
-                    binaryName = binaryName.replaceAll(CLASS_FILE_EXTENSION + "$", "");
 
-                    result.add(new CustomJavaFileObject(binaryName, uri));
+                if (rootEntryName == null) {
+                    if (name.endsWith(CLASS_FILE_EXTENSION)) {
+                        URI uri = URI.create(jarUri + "!/" + name);
+                        String binaryName = name.replaceAll("/", ".");
+                        binaryName = binaryName.replaceAll(CLASS_FILE_EXTENSION + "$", "");
+
+                        result.add(new CustomJavaFileObject(binaryName, uri));
+                    }
+                } else {
+                    if (name.startsWith(rootEntryName) && name.indexOf('/', rootEnd) == -1 && name.endsWith(CLASS_FILE_EXTENSION)) {
+                        URI uri = URI.create(jarUri + "!/" + name);
+                        String binaryName = name.replaceAll("/", ".");
+                        binaryName = binaryName.replaceAll(CLASS_FILE_EXTENSION + "$", "");
+
+                        result.add(new CustomJavaFileObject(binaryName, uri));
+                    }
                 }
             }
         } catch (Exception e) {
