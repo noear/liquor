@@ -73,6 +73,12 @@ public class PackageInternalsFinder {
 
             JarURLConnection jarConn = (JarURLConnection) packageFolderURL.openConnection();
             String rootEntryName = jarConn.getEntryName();
+
+            if (rootEntryName == null) {
+                //当是一个 jar 时，可能为 null
+                return result;
+            }
+
             int rootEnd = rootEntryName.length() + 1;
 
             Enumeration<JarEntry> entryEnum = jarConn.getJarFile().entries();
@@ -90,6 +96,7 @@ public class PackageInternalsFinder {
         } catch (Exception e) {
             throw new RuntimeException("Wasn't able to open " + packageFolderURL + " as a jar file", e);
         }
+
         return result;
     }
 
