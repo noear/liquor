@@ -43,7 +43,7 @@ public interface Evaluator {
      * 批量预编译
      *
      * @param codeSpecs 代码申明集合
-     * @since 1.3.7
+     * @since 1.3.8
      */
     Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs);
 

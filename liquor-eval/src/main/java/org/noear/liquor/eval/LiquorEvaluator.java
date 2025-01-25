@@ -97,7 +97,7 @@ public class LiquorEvaluator implements Evaluator {
     /**
      * 批量构建类
      *
-     * @since 1.3.7
+     * @since 1.3.8
      */
     protected Map<CodeSpec, Class<?>> build(List<CodeSpec> codeSpecs) {
         boolean isCached = codeSpecs.get(0).isCached();
@@ -141,7 +141,7 @@ public class LiquorEvaluator implements Evaluator {
     /**
      * 添加源码
      *
-     * @since 1.3.7
+     * @since 1.3.8
      */
     protected String addSource(CodeSpec codeSpec) {
         //1.分离导入代码
@@ -301,7 +301,7 @@ public class LiquorEvaluator implements Evaluator {
      * 批量预编译
      *
      * @param codeSpecs 代码申明集合
-     * @since 1.3.7
+     * @since 1.3.8
      */
     @Override
     public Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs) {

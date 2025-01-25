@@ -53,7 +53,7 @@ public interface Exprs {
      * 批量编译
      *
      * @param codeSpecs 代码申明集合
-     * @since 1.3.7
+     * @since 1.3.8
      */
     static Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs) {
         for (CodeSpec codeSpec : codeSpecs) {
