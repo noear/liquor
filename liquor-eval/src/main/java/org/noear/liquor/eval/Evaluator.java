@@ -16,13 +16,15 @@
 package org.noear.liquor.eval;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 评估器
  *
  * @author noear
  * @since 1.2
- * @since 1.4
+ * @since 1.3
  */
 public interface Evaluator {
     /**
@@ -36,6 +38,14 @@ public interface Evaluator {
      * @param codeSpec 代码申明
      */
     Execable compile(CodeSpec codeSpec);
+
+    /**
+     * 批量预编译
+     *
+     * @param codeSpecs 代码申明集合
+     * @since 1.3.7
+     */
+    Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs);
 
     /**
      * 评估

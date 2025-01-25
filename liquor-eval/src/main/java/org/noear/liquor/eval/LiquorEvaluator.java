@@ -32,7 +32,7 @@ import java.util.concurrent.locks.ReentrantLock;
  *
  * @author noear
  * @since 1.2
- * @since 1.4
+ * @since 1.3
  */
 public class LiquorEvaluator implements Evaluator {
     //默认实例（也可定制自己的实例，增加全局导入）
@@ -66,8 +66,85 @@ public class LiquorEvaluator implements Evaluator {
      * 构建类
      */
     protected Class<?> build(CodeSpec codeSpec) {
-        //1.分离导入代码
+        boolean isCached = codeSpec.isCached();
 
+        //添加编译锁
+        lock.lock();
+
+        try {
+            if (isCached) {
+                compiler.setClassLoader(cachedClassLoader);
+            } else {
+                if (tempCount++ > 10000) {
+                    tempClassLoader = compiler.newClassLoader();
+                    tempCount = 0;
+                }
+
+                compiler.setClassLoader(tempClassLoader);
+            }
+
+            String clazzName = this.addSource(codeSpec);
+            compiler.build();
+
+            return compiler.getClassLoader().loadClass(clazzName);
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /**
+     * 批量构建类
+     *
+     * @since 1.3.7
+     */
+    protected Map<CodeSpec, Class<?>> build(List<CodeSpec> codeSpecs) {
+        boolean isCached = codeSpecs.get(0).isCached();
+
+        //添加编译锁
+        lock.lock();
+
+        try {
+            if (isCached) {
+                compiler.setClassLoader(cachedClassLoader);
+            } else {
+                if (tempCount++ > 10000) {
+                    tempClassLoader = compiler.newClassLoader();
+                    tempCount = 0;
+                }
+
+                compiler.setClassLoader(tempClassLoader);
+            }
+
+            Map<CodeSpec, String> clazzNameMap = new HashMap<>();
+            for (CodeSpec codeSpec : codeSpecs) {
+                String clazzName = this.addSource(codeSpec);
+                clazzNameMap.put(codeSpec, clazzName);
+            }
+
+            compiler.build();
+
+            Map<CodeSpec, Class<?>> clazzMap = new HashMap<>();
+            for (Map.Entry<CodeSpec, String> entry : clazzNameMap.entrySet()) {
+                Class<?> clazz = compiler.getClassLoader().loadClass(entry.getValue());
+                clazzMap.put(entry.getKey(), clazz);
+            }
+            return clazzMap;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+        } finally {
+            lock.unlock();
+        }
+    }
+
+    /**
+     * 添加源码
+     *
+     * @since 1.3.7
+     */
+    protected String addSource(CodeSpec codeSpec) {
+        //1.分离导入代码
         Set<String> importBuilder = new TreeSet<>();
         StringBuilder codeBuilder = new StringBuilder();
 
@@ -158,28 +235,9 @@ public class LiquorEvaluator implements Evaluator {
         }
 
         //添加编译锁
-        lock.lock();
+        compiler.addSource(clazzName, code.toString());
 
-        try {
-            if (codeSpec.isCached()) {
-                compiler.setClassLoader(cachedClassLoader);
-            } else {
-                if(tempCount++ > 10000){
-                    tempClassLoader = compiler.newClassLoader();
-                    tempCount = 0;
-                }
-
-                compiler.setClassLoader(tempClassLoader);
-            }
-
-            compiler.addSource(clazzName, code.toString()).build();
-
-            return compiler.getClassLoader().loadClass(clazzName);
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        } finally {
-            lock.unlock();
-        }
+        return clazzName;
     }
 
     /**
@@ -226,13 +284,61 @@ public class LiquorEvaluator implements Evaluator {
      */
     @Override
     public Execable compile(CodeSpec codeSpec) {
-        assert codeSpec != null;
-
-        if (codeSpec.isCached() == false) {
-            return new ExecableImpl(build(codeSpec));
+        if (codeSpec == null) {
+            throw new IllegalArgumentException("The codeSpec parameter is null");
         }
 
-        return cachedMap.computeIfAbsent(codeSpec, k -> new ExecableImpl(build(codeSpec)));
+        if (codeSpec.isCached() == false) {
+            //不缓存
+            return new ExecableImpl(build(codeSpec));
+        } else {
+            //缓存
+            return cachedMap.computeIfAbsent(codeSpec, k -> new ExecableImpl(build(codeSpec)));
+        }
+    }
+
+    /**
+     * 批量预编译
+     *
+     * @param codeSpecs 代码申明集合
+     * @since 1.3.7
+     */
+    @Override
+    public Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs) {
+        if (codeSpecs == null || codeSpecs.size() == 0) {
+            throw new IllegalArgumentException("The codeSpecs parameter is empty");
+        }
+
+        Map<CodeSpec, Execable> execableMap = new HashMap<>();
+
+        if (codeSpecs.get(0).isCached() == false) {
+            //不缓存
+            for (Map.Entry<CodeSpec, Class<?>> entry : build(codeSpecs).entrySet()) {
+                execableMap.put(entry.getKey(), new ExecableImpl(entry.getValue()));
+            }
+        } else {
+            //缓存
+
+            //1.尝试先从缓存里取
+            List<CodeSpec> codeSpecs2 = new ArrayList<>();
+            for (CodeSpec codeSpec : codeSpecs) {
+                Execable execable2 = cachedMap.get(codeSpec);
+                if (execable2 == null) {
+                    codeSpecs2.add(codeSpec);
+                } else {
+                    execableMap.put(codeSpec, execable2);
+                }
+            }
+
+            //2.对无缓存的代码进行构建
+            for (Map.Entry<CodeSpec, Class<?>> entry : build(codeSpecs).entrySet()) {
+                Execable execable1 = new ExecableImpl(entry.getValue());
+                cachedMap.put(entry.getKey(), execable1);
+                execableMap.put(entry.getKey(), execable1);
+            }
+        }
+
+        return execableMap;
     }
 
     /**
@@ -243,7 +349,9 @@ public class LiquorEvaluator implements Evaluator {
      */
     @Override
     public Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
-        assert codeSpec != null;
+        if (codeSpec == null) {
+            throw new IllegalArgumentException("The codeSpec parameter is null");
+        }
 
         try {
             return compile(codeSpec).exec(args);

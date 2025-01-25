@@ -16,6 +16,7 @@
 package org.noear.liquor.eval;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +47,23 @@ public interface Exprs {
         }
 
         return LiquorEvaluator.getInstance().compile(codeSpec);
+    }
+
+    /**
+     * 批量编译
+     *
+     * @param codeSpecs 代码申明集合
+     * @since 1.3.7
+     */
+    static Map<CodeSpec, Execable> compile(List<CodeSpec> codeSpecs) {
+        for (CodeSpec codeSpec : codeSpecs) {
+            //强制有估评结果
+            if (codeSpec.getReturnType() == null) {
+                codeSpec.returnType(Object.class);
+            }
+        }
+
+        return LiquorEvaluator.getInstance().compile(codeSpecs);
     }
 
 
