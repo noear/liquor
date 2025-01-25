@@ -48,7 +48,7 @@ The compiler code for this tool is mainly derived from arthas. Related knowledge
 | Artifact             | Size | Features                                  | Functional Description         |
 |----------------------|------|-----------------------------------------|--------------------------------|
 | liquor               | 24KB | DynamicCompiler                         | Compiling classes              |
-| liquor-eval          | 14KB | LiquorEvaluator (Exprs,Scripts)  | Evaluate expression and script |
+| liquor-eval          | 17KB | LiquorEvaluator (Exprs,Scripts)  | Evaluate expression and script |
 
 
 Reference dependency:
