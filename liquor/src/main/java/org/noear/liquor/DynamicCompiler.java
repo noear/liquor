@@ -83,6 +83,8 @@ public class DynamicCompiler {
 
     /**
      * 获取代码文件管理器
+     *
+     * @since 1.3.9
      */
     public StandardJavaFileManager getStandardFileManager() {
         return standardFileManager;
@@ -92,6 +94,7 @@ public class DynamicCompiler {
      * 添加类路径
      *
      * @param classPath 类路径
+     * @since 1.3.9
      */
     public DynamicCompiler addClassPath(File classPath) throws IOException {
         Iterable<? extends File> locations = standardFileManager.getLocation(StandardLocation.CLASS_PATH);
