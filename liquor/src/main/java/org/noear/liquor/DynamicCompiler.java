@@ -1,7 +1,11 @@
 package org.noear.liquor;
 
 import javax.tools.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * 动态编译器（线程不安全）
@@ -43,6 +47,9 @@ public class DynamicCompiler {
         parentClassLoader = classLoader;
     }
 
+    /**
+     * 获取类加载器
+     */
     public DynamicClassLoader getClassLoader() {
         if (dynamicClassLoader == null) {
             dynamicClassLoader = new DynamicClassLoader(parentClassLoader);
@@ -51,12 +58,17 @@ public class DynamicCompiler {
         return dynamicClassLoader;
     }
 
+    /**
+     * 获取选项
+     */
     public List<String> getOptions() {
         return options;
     }
 
     /**
      * 切换类加载器
+     *
+     * @param dynamicClassLoader 动态类加载器
      */
     public void setClassLoader(DynamicClassLoader dynamicClassLoader) {
         this.dynamicClassLoader = dynamicClassLoader;
@@ -77,7 +89,27 @@ public class DynamicCompiler {
     }
 
     /**
+     * 添加类路径
+     *
+     * @param classPath 类路径
+     */
+    public DynamicCompiler addClassPath(File classPath) throws IOException {
+        Iterable<? extends File> locations = standardFileManager.getLocation(StandardLocation.CLASS_PATH);
+
+        List<File> classpaths = StreamSupport.stream(locations.spliterator(), false)
+                .collect(Collectors.toList());
+
+        classpaths.add(classPath);
+
+        standardFileManager.setLocation(StandardLocation.CLASS_PATH, classpaths);
+        return this;
+    }
+
+    /**
      * 添加源码
+     *
+     * @param className 类名
+     * @param source    源码
      */
     public DynamicCompiler addSource(String className, String source) {
         addSource(new StringSource(className, source));
@@ -86,6 +118,8 @@ public class DynamicCompiler {
 
     /**
      * 添加源码
+     *
+     * @param javaFileObject 文件对象
      */
     public DynamicCompiler addSource(JavaFileObject javaFileObject) {
         compilationUnits.add(javaFileObject);

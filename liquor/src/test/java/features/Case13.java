@@ -4,17 +4,12 @@ import org.junit.jupiter.api.Test;
 import org.noear.liquor.DynamicCompiler;
 
 import javax.tools.SimpleJavaFileObject;
-import javax.tools.StandardJavaFileManager;
-import javax.tools.StandardLocation;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 /**
  * @author noear 2025/2/5 created
@@ -28,7 +23,7 @@ public class Case13 {
 
         // 启用这行代码，能让 A 类找到 B 类，但仍然进不到 MyClassLoader.loadClass()
         // 因为 JavaCompiler 内部走的 Launcher.AppClassLoader 去加载类，并没有进入 MyClassLoader.loadClass()
-        addClassPath(dynamicCompiler, classPath);
+        dynamicCompiler.addClassPath(classPath);
 
         final File codeSourceFile = new File(classPath, "test/A.java");
         dynamicCompiler.addSource(new JavaFileSource(codeSourceFile.toURI())).build();
@@ -62,17 +57,6 @@ public class Case13 {
         }
 
     }
-
-    private static void addClassPath(DynamicCompiler dynamicCompiler, File classPath) throws Exception {
-        final StandardJavaFileManager standardFileManager = dynamicCompiler.getStandardFileManager();
-
-        final Iterable<? extends File> locations = standardFileManager.getLocation(StandardLocation.CLASS_PATH);
-
-        final List<File> classpaths = StreamSupport.stream(locations.spliterator(), false)
-                .collect(Collectors.toList());
-        classpaths.add(classPath);
-        standardFileManager.setLocation(StandardLocation.CLASS_PATH, classpaths);
-    } // addClassPath()
 
     public static class JavaFileSource extends SimpleJavaFileObject {
 
