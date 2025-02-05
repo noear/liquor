@@ -70,6 +70,13 @@ public class DynamicCompiler {
     }
 
     /**
+     * 获取代码文件管理器
+     */
+    public StandardJavaFileManager getStandardFileManager() {
+        return standardFileManager;
+    }
+
+    /**
      * 添加源码
      */
     public DynamicCompiler addSource(String className, String source) {
