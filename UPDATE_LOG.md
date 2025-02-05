@@ -1,4 +1,9 @@
 
+### 1.3.9
+
+* 添加 DynamicCompiler:addClassPath 方法
+* 添加 DynamicCompiler:getStandardFileManager 方法
+
 ### 1.3.8
 
 * 添加 评估器批量预编译支持（批量时，可大大提高编译速度。适合启动初始化）
