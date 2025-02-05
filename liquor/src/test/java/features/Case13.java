@@ -26,7 +26,8 @@ public class Case13 {
         dynamicCompiler.addClassPath(classPath);
 
         final File codeSourceFile = new File(classPath, "test/A.java");
-        dynamicCompiler.addSource(new JavaFileSource(codeSourceFile.toURI())).build();
+        dynamicCompiler.addSource(new JavaFileSource(codeSourceFile.toURI()));
+        dynamicCompiler.build();
 
         final Class<?> clazz = dynamicCompiler.getClassLoader().loadClass("test.A");
         System.out.printf("clazz: %s\n", clazz);
