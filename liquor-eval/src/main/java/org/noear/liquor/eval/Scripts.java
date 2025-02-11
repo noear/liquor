@@ -74,4 +74,18 @@ public interface Scripts {
     static Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
         return LiquorEvaluator.getInstance().eval(codeSpec, args);
     }
+
+    /**
+     * 评估
+     *
+     * @param code 代码
+     */
+    static Object eval(String code, Map<String, Object> context) throws InvocationTargetException {
+        assert context != null;
+
+        CodeSpec codeSpec = new CodeSpec(code);
+        Object[] args = codeSpec.bind(context);
+
+        return eval(codeSpec, args);
+    }
 }
