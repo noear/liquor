@@ -1,4 +1,9 @@
 
+### 1.3.10
+
+* 添加 Scripts:eval(String, Map) 方法
+* 优化 LiquorEvaluator 编译的脚本允许显示抛出异常
+
 ### 1.3.9
 
 * 添加 DynamicCompiler:addClassPath 方法

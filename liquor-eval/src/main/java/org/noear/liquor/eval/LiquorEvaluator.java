@@ -211,7 +211,7 @@ public class LiquorEvaluator implements Evaluator {
                 }
                 code.setLength(code.length() - 1);
             }
-            code.append(")\n");
+            code.append(") throws Throwable\n");
             code.append("  {\n");
 
 
