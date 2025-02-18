@@ -17,6 +17,7 @@ package org.noear.liquor.eval;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 /**
  * 可执行的
@@ -28,7 +29,17 @@ public class ExecableImpl implements Execable {
     private final Method method;
 
     public ExecableImpl(Class<?> clazz) {
-        this.method = clazz.getDeclaredMethods()[0];
+        //可能会编译出别的私有方法
+        for (Method method : clazz.getDeclaredMethods()) {
+            //公有且静态的方法（为入口主方法）
+            if (Modifier.isPublic(method.getModifiers())
+                    && Modifier.isStatic(method.getModifiers())) {
+                this.method = method;
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Missing main method!");
     }
 
     /**
@@ -44,6 +55,8 @@ public class ExecableImpl implements Execable {
     public Object exec(Object... args) throws InvocationTargetException {
         try {
             return method.invoke(null, args);
+        } catch (IllegalArgumentException e) {
+            throw e;
         } catch (InvocationTargetException e) {
             throw e;
         } catch (Exception e) {
