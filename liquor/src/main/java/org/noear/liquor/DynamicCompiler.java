@@ -182,8 +182,6 @@ public class DynamicCompiler {
         } finally {
             compilationUnits.clear();
         }
-
-        //编译后需要再调用：getClassLoader().prepareClasses(); 才能使用类
     }
 
     /**
@@ -191,6 +189,7 @@ public class DynamicCompiler {
      */
     public void build() {
         compile();
+        //预处理加载类（或，首次调用 loadClass 时加载）
         getClassLoader().prepareClasses();
     }
 
