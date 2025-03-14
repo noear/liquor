@@ -55,6 +55,13 @@ public class DynamicClassLoader extends ClassLoader {
     }
 
     /**
+     * 获取类字节码
+     */
+    public MemoryByteCode getClassBytes(String className) {
+        return byteCodes.get(className);
+    }
+
+    /**
      * 获取集合大小
      */
     public int size() {
