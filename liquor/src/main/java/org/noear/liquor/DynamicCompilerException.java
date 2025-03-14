@@ -6,6 +6,9 @@ import java.util.*;
 
 /**
  * This code mainly from: Arthas project
+ *
+ * @author noear
+ * @since 1.3.12
  * */
 public class DynamicCompilerException extends RuntimeException {
     private static final long serialVersionUID = 1L;
@@ -21,44 +24,24 @@ public class DynamicCompilerException extends RuntimeException {
         this.diagnostics = diagnostics;
     }
 
-    private List<Map<String, Object>> getErrorList() {
-        List<Map<String, Object>> messages = new ArrayList<>();
+    private String getErrors() {
+        StringBuilder buf = new StringBuilder();
+
         if (diagnostics != null) {
             for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
-                Map<String, Object> message = new HashMap<>(2);
-                message.put("line", diagnostic.getLineNumber());
-                message.put("message", diagnostic.getMessage(Locale.US));
-                messages.add(message);
+                buf.append(diagnostic.toString()).append("\n");
             }
-
-        }
-        return messages;
-    }
-
-    private String getErrors() {
-        StringBuilder errors = new StringBuilder();
-
-        for (Map<String, Object> message : getErrorList()) {
-            for (Map.Entry<String, Object> entry : message.entrySet()) {
-                Object value = entry.getValue();
-                if (value != null && !value.toString().isEmpty()) {
-                    errors.append(entry.getKey());
-                    errors.append(": ");
-                    errors.append(value);
-                }
-                errors.append(" , ");
-            }
-
-            errors.append("\n");
         }
 
-        return errors.toString();
+        if (buf.length() > 0) {
+            buf.setLength(buf.length() - 1);
+        }
 
+        return buf.toString();
     }
 
     @Override
     public String getMessage() {
         return super.getMessage() + "\n" + getErrors();
     }
-
 }
