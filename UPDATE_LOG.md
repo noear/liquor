@@ -1,4 +1,10 @@
 
+### 1.3.13
+
+* 添加 DynamicCompiler:compile 方法
+* 添加 DynamicClassLoader:getClassBytes 方法
+* 优化 编译错误提示，带上包名（可全类名露出）
+
 ### 1.3.12
 
 * 优化 编译提醒添加类文件信息
