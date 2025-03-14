@@ -137,9 +137,9 @@ public class DynamicCompiler {
     }
 
     /**
-     * 构建
+     * 编译
      */
-    public void build() {
+    public void compile() {
         errors.clear();
         warnings.clear();
 
@@ -177,13 +177,21 @@ public class DynamicCompiler {
                     }
                 }
             }
-
-            getClassLoader().prepareClasses();
         } catch (Throwable e) {
             throw new DynamicCompilerException(e, errors);
         } finally {
             compilationUnits.clear();
         }
+
+        //编译后需要再调用：getClassLoader().prepareClasses(); 才能使用类
+    }
+
+    /**
+     * 构建
+     */
+    public void build() {
+        compile();
+        getClassLoader().prepareClasses();
     }
 
     private List<String> diagnosticToString(List<Diagnostic<? extends JavaFileObject>> diagnostics) {
