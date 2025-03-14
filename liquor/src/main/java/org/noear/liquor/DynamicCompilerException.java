@@ -62,6 +62,6 @@ public class DynamicCompilerException extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + "\n\n" + getErrors();
+        return super.getMessage() + ":\n\n" + getErrors();
     }
 }
