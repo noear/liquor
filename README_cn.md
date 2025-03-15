@@ -96,7 +96,7 @@ public class DemoApp {
 }
 ```
 
-运行时调试方案说明：
+运行时调试方案说明（可参考示例模块，demo_dynamic_compiling_and_debugging_solon）：
 
 * 为源代码创建一个相同类名、相同代码的 `.java` 文件（如果直接读取 `.java` 文件的，就省了）
 * 文件需放到工程里。比如，根目录下建个 `dynamic` 的普通目录放这个调试文件。
