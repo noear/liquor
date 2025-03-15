@@ -6,6 +6,7 @@ import org.noear.solon.annotation.Component;
 import org.noear.solon.annotation.Init;
 import org.noear.solon.scheduling.annotation.Scheduled;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.stream.Stream;
@@ -19,7 +20,9 @@ public class DemoDynamicJavaService {
 
     public DemoDynamicJavaService() {
         //这个相对位置，只适合在开发时找开 liquor 工程为基准
-        directoryPath = System.getProperty("user.dir") + "/demo_dynamic_compiling_and_debugging_solon/dynamic/";
+        directoryPath = System.getProperty("user.dir") + File.separator
+                + "demo_dynamic_compiling_and_debugging_solon" + File.separator
+                + "dynamic" + File.separator;
     }
 
     //获取类
