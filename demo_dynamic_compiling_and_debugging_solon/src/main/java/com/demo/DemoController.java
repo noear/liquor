@@ -13,7 +13,7 @@ import java.util.Map;
 @Mapping("/demo")
 public class DemoController {
     @Inject
-    DemoLiquorService demoLiquorService;
+    DemoDynamicJavaService demoLiquorService;
 
     @Mapping("/hello")
     public String hello() {

@@ -13,12 +13,12 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Component
-public class DemoLiquorService {
+public class DemoDynamicJavaService {
     private final DynamicCompiler compiler = new DynamicCompiler();
     private final String directoryPath;
 
-    public DemoLiquorService() {
-        //这个相对位置，只适合在开发时以 liquor 工程为基准
+    public DemoDynamicJavaService() {
+        //这个相对位置，只适合在开发时找开 liquor 工程为基准
         directoryPath = System.getProperty("user.dir") + "/demo_dynamic_compiling_and_debugging_solon/dynamic/";
     }
 
@@ -50,7 +50,7 @@ public class DemoLiquorService {
                 }
             }
         } catch (Exception e) {
-            log.error("File watcher interrupted", e);
+            log.error("File watcher error", e);
         }
     }
 
@@ -64,7 +64,9 @@ public class DemoLiquorService {
                         .forEach(path -> {
                             try {
                                 String classCode = new String(Files.readAllBytes(path));
-                                String className = "com.a." + path.getFileName().toString().replace(".java", "");
+
+                                //可以是 "全类名" 或 "短类名"（但真实的名字）
+                                String className = path.getFileName().toString().replace(".java", "");
                                 compiler.addSource(className, classCode);
                             } catch (IOException e) {
                                 log.error("Failed to read file: " + path, e);
