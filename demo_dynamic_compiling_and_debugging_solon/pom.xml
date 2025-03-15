@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.demo</groupId>
-    <artifactId>demo_dynamic_compiling_and_debugging</artifactId>
+    <artifactId>demo_dynamic_compiling_and_debugging_solon</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <dependencies>

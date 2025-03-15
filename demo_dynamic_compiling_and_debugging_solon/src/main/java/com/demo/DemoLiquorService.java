@@ -19,7 +19,7 @@ public class DemoLiquorService {
 
     public DemoLiquorService() {
         //这个相对位置，只适合在开发时以 liquor 工程为基准
-        directoryPath = System.getProperty("user.dir") + "/demo_dynamic_compiling_and_debugging/dynamic/";
+        directoryPath = System.getProperty("user.dir") + "/demo_dynamic_compiling_and_debugging_solon/dynamic/";
     }
 
     //获取类
