@@ -36,12 +36,6 @@ Liquor
 	</a>
 </p>
 
-<br/>
-<p align="center">
-	<a href="https://jq.qq.com/?_wv=1027&k=kjB5JNiC">
-	<img src="https://img.shields.io/badge/QQ交流群-22200020-orange"/></a>
-</p>
-
 <hr>
 
 
