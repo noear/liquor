@@ -29,12 +29,17 @@ public class DynamicCompilerException extends RuntimeException {
 
         if (diagnostics != null) {
             for (Diagnostic<? extends JavaFileObject> diagnostic : diagnostics) {
-                String packageName = getPackageName(diagnostic);
+                String packagePath = getPackagePath(diagnostic);
+                String diagnosticString = diagnostic.toString();
 
-                if (packageName == null) {
-                    buf.append(diagnostic.toString()).append("\n");
+                if (packagePath == null) {
+                    buf.append(diagnosticString).append("\n");
                 } else {
-                    buf.append("/").append(packageName).append(".").append(diagnostic.toString().substring(1)).append("\n");
+                    if (diagnosticString.startsWith(packagePath)) {
+                        buf.append(diagnosticString).append("\n");
+                    } else {
+                        buf.append(packagePath).append(diagnosticString).append("\n");
+                    }
                 }
             }
         }
@@ -46,12 +51,14 @@ public class DynamicCompilerException extends RuntimeException {
         return buf.toString();
     }
 
-    private String getPackageName(Diagnostic<? extends JavaFileObject> diagnostic) {
+    private String getPackagePath(Diagnostic<? extends JavaFileObject> diagnostic) {
         try {
             String source = diagnostic.getSource().getCharContent(true).toString();
             if (source.startsWith("package ")) {
                 int end = source.indexOf(";");
-                return source.substring("package ".length(), end);
+                if (end > 0) {
+                    return "/" + source.substring("package ".length(), end).replace(".", "/");
+                }
             }
         } catch (Exception skip) {
 
