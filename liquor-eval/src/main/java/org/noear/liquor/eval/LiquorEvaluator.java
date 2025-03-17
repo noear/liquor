@@ -51,18 +51,20 @@ public class LiquorEvaluator implements Evaluator {
 
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap;
+    private final int cahceCapacity;
     private final Map<CodeSpec, Long> nameMap;
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
-        this(parentClassLoader, 10_000);
+        this(parentClassLoader, 1000);
     }
 
     public LiquorEvaluator(ClassLoader parentClassLoader, int cahceCapacity) {
         this.compiler = new DynamicCompiler(parentClassLoader);
         this.cachedClassLoader = compiler.getClassLoader();
         this.tempClassLoader = compiler.newClassLoader();
+        this.cahceCapacity = cahceCapacity;
         this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
         this.nameMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
     }
@@ -80,7 +82,7 @@ public class LiquorEvaluator implements Evaluator {
             if (isCached) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                if (tempCount++ > 10000) {
+                if (tempCount++ > cahceCapacity) {
                     tempClassLoader = compiler.newClassLoader();
                     tempCount = 0;
                 }
@@ -114,7 +116,7 @@ public class LiquorEvaluator implements Evaluator {
             if (isCached) {
                 compiler.setClassLoader(cachedClassLoader);
             } else {
-                if (tempCount++ > 10000) {
+                if (tempCount++ > cahceCapacity) {
                     tempClassLoader = compiler.newClassLoader();
                     tempCount = 0;
                 }
