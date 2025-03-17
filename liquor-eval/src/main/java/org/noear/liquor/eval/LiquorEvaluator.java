@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -51,15 +50,21 @@ public class LiquorEvaluator implements Evaluator {
     private int tempCount = 0;
 
     private final List<String> globalImports = new ArrayList<>();
-    private final Map<CodeSpec, Execable> cachedMap = new ConcurrentHashMap<>();
-    private final Map<CodeSpec, Long> nameMap = new ConcurrentHashMap<>();
+    private final Map<CodeSpec, Execable> cachedMap;
+    private final Map<CodeSpec, Long> nameMap;
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
+        this(parentClassLoader, 10_000);
+    }
+
+    public LiquorEvaluator(ClassLoader parentClassLoader, int cahceCapacity) {
         this.compiler = new DynamicCompiler(parentClassLoader);
         this.cachedClassLoader = compiler.getClassLoader();
         this.tempClassLoader = compiler.newClassLoader();
+        this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
+        this.nameMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
     }
 
     /**
