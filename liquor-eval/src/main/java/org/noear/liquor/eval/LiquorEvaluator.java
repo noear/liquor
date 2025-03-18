@@ -21,7 +21,6 @@ import org.noear.liquor.DynamicCompiler;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -355,17 +354,15 @@ public class LiquorEvaluator implements Evaluator {
      * @param args     执行参数
      */
     @Override
-    public Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
+    public Object eval(CodeSpec codeSpec, Object... args) {
         if (codeSpec == null) {
             throw new IllegalArgumentException("The codeSpec parameter is null");
         }
 
         try {
             return compile(codeSpec).exec(args);
-        } catch (InvocationTargetException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new InvocationTargetException(e);
+        } catch (Throwable e) {
+            throw new EvaluationException(e);
         }
     }
 }

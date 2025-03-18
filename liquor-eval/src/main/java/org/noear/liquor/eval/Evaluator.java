@@ -15,7 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,5 +52,5 @@ public interface Evaluator {
      * @param codeSpec 代码申明
      * @param args     执行参数
      */
-    Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException;
+    Object eval(CodeSpec codeSpec, Object... args);
 }

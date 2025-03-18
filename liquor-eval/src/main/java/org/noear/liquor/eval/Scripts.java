@@ -15,7 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -60,7 +59,7 @@ public interface Scripts {
      *
      * @param code 代码
      */
-    static Object eval(String code) throws InvocationTargetException {
+    static Object eval(String code) {
         assert code != null;
         return eval(new CodeSpec(code));
     }
@@ -71,7 +70,7 @@ public interface Scripts {
      * @param codeSpec 代码申明
      * @param args     执行参数
      */
-    static Object eval(CodeSpec codeSpec, Object... args) throws InvocationTargetException {
+    static Object eval(CodeSpec codeSpec, Object... args) {
         return LiquorEvaluator.getInstance().eval(codeSpec, args);
     }
 
@@ -80,7 +79,7 @@ public interface Scripts {
      *
      * @param code 代码
      */
-    static Object eval(String code, Map<String, Object> context) throws InvocationTargetException {
+    static Object eval(String code, Map<String, Object> context) {
         assert context != null;
 
         CodeSpec codeSpec = new CodeSpec(code);
