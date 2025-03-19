@@ -361,6 +361,8 @@ public class LiquorEvaluator implements Evaluator {
 
         try {
             return compile(codeSpec).exec(args);
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Throwable e) {
             throw new EvaluationException(e);
         }

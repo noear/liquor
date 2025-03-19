@@ -34,5 +34,5 @@ public interface Execable {
     /**
      * 执行
      */
-    Object exec(Object... args) throws InvocationTargetException;
+    Object exec(Object... args) throws EvaluationException;
 }

@@ -52,15 +52,15 @@ public class ExecableImpl implements Execable {
     /**
      * 执行
      */
-    public Object exec(Object... args) throws InvocationTargetException {
+    public Object exec(Object... args) throws EvaluationException {
         try {
             return method.invoke(null, args);
-        } catch (IllegalArgumentException e) {
+        } catch (RuntimeException e) {
             throw e;
         } catch (InvocationTargetException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new InvocationTargetException(e);
+            throw new EvaluationException(e.getCause());
+        } catch (Throwable e) {
+            throw new EvaluationException(e);
         }
     }
 }
