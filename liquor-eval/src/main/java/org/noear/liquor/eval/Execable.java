@@ -15,7 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -34,5 +33,5 @@ public interface Execable {
     /**
      * 执行
      */
-    Object exec(Object... args) throws EvaluationException;
+    Object exec(Object... args) throws ExecuteException;
 }

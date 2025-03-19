@@ -1,3 +1,7 @@
+### 1.3.16
+
+* 优化 solon-eval 异常设计
+
 ### 1.3.15
 
 * 优化 liquor-evel 改为 LRUCache 缓存 

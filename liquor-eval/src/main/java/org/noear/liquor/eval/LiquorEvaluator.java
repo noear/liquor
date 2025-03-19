@@ -364,7 +364,7 @@ public class LiquorEvaluator implements Evaluator {
         } catch (RuntimeException e) {
             throw e;
         } catch (Throwable e) {
-            throw new EvaluationException(e);
+            throw new ExecuteException(e);
         }
     }
 }

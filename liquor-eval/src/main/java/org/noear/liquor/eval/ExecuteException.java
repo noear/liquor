@@ -16,21 +16,21 @@
 package org.noear.liquor.eval;
 
 /**
- * 评估异常
+ * 执行异常
  *
  * @author noear
  * @since 1.3
  */
-public class EvaluationException extends RuntimeException {
-    public EvaluationException(String message) {
+public class ExecuteException extends RuntimeException {
+    public ExecuteException(String message) {
         super(message);
     }
 
-    public EvaluationException(String message, Throwable cause) {
+    public ExecuteException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public EvaluationException(Throwable cause) {
+    public ExecuteException(Throwable cause) {
         super(cause);
     }
 }
