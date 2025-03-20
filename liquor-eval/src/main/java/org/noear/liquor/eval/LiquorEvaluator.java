@@ -154,6 +154,9 @@ public class LiquorEvaluator implements Evaluator {
         Set<String> importBuilder = new TreeSet<>();
         StringBuilder codeBuilder = new StringBuilder();
 
+        importBuilder.add("import org.noear.liquor.eval.Execable;\n");
+        importBuilder.add("import org.noear.liquor.eval.ExecuteException;\n");
+
         //全局导入
         for (String imp : globalImports) {
             importBuilder.add("import " + imp + ";\n");
@@ -200,15 +203,43 @@ public class LiquorEvaluator implements Evaluator {
             code.append("\n");
         }
 
-        code.append("public class ").append(clazzName).append(" {\n");
+        code.append("public class ").append(clazzName).append(" implements Execable {\n");
         {
-            code.append("  public static ");
+            code.append("  public Object exec(Object... args) throws ExecuteException {\n");
+            code.append("    try {\n");
+            if (codeSpec.getReturnType() == null) {
+                code.append("      execDo(");
+            } else {
+                code.append("      return execDo(");
+            }
+
+            if (codeSpec.getParameters() != null && codeSpec.getParameters().length > 0) {
+                for (int i = 0; i < codeSpec.getParameters().length; i++) {
+                    Map.Entry<String, Class<?>> kv = codeSpec.getParameters()[i];
+                    code.append("(").append(kv.getValue().getCanonicalName()).append(")args[").append(i).append("],");
+                }
+                code.setLength(code.length() - 1);
+            }
+            code.append(");\n");
+            code.append("    } catch(Throwable e) {\n");
+            code.append("      throw new ExecuteException(e);\n");
+            code.append("    }\n");
+
+            if (codeSpec.getReturnType() == null) {
+                code.append("    return null;\n");
+            }
+
+            code.append("  }\n\n");
+
+            /// //////////////////////////////////////
+
+            code.append("  public ");
             if (codeSpec.getReturnType() != null) {
                 code.append(codeSpec.getReturnType().getCanonicalName());
             } else {
                 code.append("void");
             }
-            code.append(" _main$(");
+            code.append(" execDo(");
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().length > 0) {
                 for (int i = 0; i < codeSpec.getParameters().length; i++) {
@@ -296,10 +327,18 @@ public class LiquorEvaluator implements Evaluator {
 
         if (codeSpec.isCached() == false) {
             //不缓存
-            return new ExecableImpl(build(codeSpec));
+            return clazzToExecable(build(codeSpec));
         } else {
             //缓存
-            return cachedMap.computeIfAbsent(codeSpec, k -> new ExecableImpl(build(codeSpec)));
+            return cachedMap.computeIfAbsent(codeSpec, k -> clazzToExecable(build(codeSpec)));
+        }
+    }
+
+    private Execable clazzToExecable(Class<?> clazz) {
+        try {
+            return (Execable) clazz.getConstructor().newInstance();
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
         }
     }
 
@@ -320,7 +359,7 @@ public class LiquorEvaluator implements Evaluator {
         if (codeSpecs.get(0).isCached() == false) {
             //不缓存
             for (Map.Entry<CodeSpec, Class<?>> entry : build(codeSpecs).entrySet()) {
-                execableMap.put(entry.getKey(), new ExecableImpl(entry.getValue()));
+                execableMap.put(entry.getKey(), clazzToExecable(entry.getValue()));
             }
         } else {
             //缓存
@@ -338,7 +377,7 @@ public class LiquorEvaluator implements Evaluator {
 
             //2.对无缓存的代码进行构建
             for (Map.Entry<CodeSpec, Class<?>> entry : build(codeSpecs).entrySet()) {
-                Execable execable1 = new ExecableImpl(entry.getValue());
+                Execable execable1 = clazzToExecable(entry.getValue());
                 cachedMap.put(entry.getKey(), execable1);
                 execableMap.put(entry.getKey(), execable1);
             }

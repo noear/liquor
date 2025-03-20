@@ -15,8 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.lang.reflect.Method;
-
 /**
  * 可执行的
  *
@@ -25,11 +23,6 @@ import java.lang.reflect.Method;
  * @since 1.4
  */
 public interface Execable {
-    /**
-     * 获取方法
-     */
-    Method getMethod();
-
     /**
      * 执行
      */

@@ -11,10 +11,10 @@ public class CachedTest {
     @Test
     public void test2() throws Exception {
         ClassLoader classLoader1 = Exprs.compile(new CodeSpec("1+1"))
-                .getMethod().getDeclaringClass().getClassLoader();
+                .getClass().getClassLoader();
 
         ClassLoader classLoader2 = Exprs.compile(new CodeSpec("1+1"))
-                .getMethod().getDeclaringClass().getClassLoader();
+                .getClass().getClassLoader();
 
         System.out.println(classLoader1);
         System.out.println(classLoader2);
