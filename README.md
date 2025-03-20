@@ -61,6 +61,10 @@ Performance (Third party performance test, champion):
 * [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
 
 
+## Security Alerts !!!
+
+Liquor offers full Java capabilities (anything can happen). It is recommended that developers do a good job of security checking (or filtering) code before submitting it to Liquor for execution.
+
 ## Compiler demo
 
 You can have package names. You can import classes. Interdependent; Can not repeat compilation; Just like you would write a java class.

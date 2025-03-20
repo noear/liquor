@@ -63,6 +63,11 @@ Liquor
 
 * [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
 
+
+## 安全提醒 ！！！
+
+Liquor 提供的是完整的 Java 能力（什么都有可能会发生）。 建议开发者，在提交给 Liquor 执行之前，做好代码的安全检测（或者过滤）。
+
 ## 编译器演示
 
 可以有包名；可以导入类；可相互依赖；可多次不重复编译；跟平常写 java 类一样。
