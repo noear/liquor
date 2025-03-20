@@ -102,7 +102,7 @@ Liquor 评估器工具，是基于 Java 编译实现的。在“缓存覆盖”�
 
 以表达式评估器为例：
 
-* 使用“变量”替代常量，以减少编译 Exprs.eval(new CodeSpec("a+b+c"), context)。
+* 使用“变量”替代常量，以减少编译 Exprs.eval("a+b+c", context)。
   * 【推荐】效果，就像类与实例的关系
 * 使用非缓存模式 Exprs.eval(new CodeSpec("1+2+3").cached(false))
   * 【不推荐】

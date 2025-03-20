@@ -96,7 +96,7 @@ Liquor evaluator tool, is based on Java compiler implementation. Under "cache ov
 
 Consider the expression evaluator:
 
-* Use "variables" instead of constants to reduce compilation of Exprs.eval(new CodeSpec("a+b+c"), context).
+* Use "variables" instead of constants to reduce compilation of Exprs.eval("a+b+c", context).
   * [recommendation] effects, like class-to-instance relationships
 * Use uncached mode Exprs.eval(new CodeSpec("1+2+3").cached(false))
   * [Not recommended]
