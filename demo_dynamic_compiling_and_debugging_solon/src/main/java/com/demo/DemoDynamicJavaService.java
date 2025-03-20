@@ -21,8 +21,7 @@ public class DemoDynamicJavaService {
     public DemoDynamicJavaService() {
         //这个相对位置，只适合在开发时找开 liquor 工程为基准
         directoryPath = System.getProperty("user.dir") + File.separator
-                + "demo_dynamic_compiling_and_debugging_solon" + File.separator
-                + "dynamic" + File.separator;
+                + "demo_dynamic_script" + File.separator;
     }
 
     //获取类
