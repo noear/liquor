@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.noear</groupId>
         <artifactId>solon-parent</artifactId>
-        <version>2.9.3</version>
+        <version>3.1.1</version>
         <relativePath />
     </parent>
 
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>liquor-eval</artifactId>
-            <version>1.4.0</version>
+            <version>1.5.0</version>
         </dependency>
 
         <dependency>
