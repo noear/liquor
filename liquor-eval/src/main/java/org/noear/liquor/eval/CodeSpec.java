@@ -64,23 +64,29 @@ public class CodeSpec {
 
     /**
      * 申明参数
+     *
+     * @param params 参数
      */
-    public CodeSpec parameters(ParamSpec... parameters) {
+    public CodeSpec parameters(ParamSpec... params) {
         //不需要排序，已指定顺位
-        this.parameters.addAll(Arrays.asList(parameters));
+        this.parameters.addAll(Arrays.asList(params));
         return this;
     }
 
     /**
      * 绑定
      *
-     * @param context 上下文
+     * @param params 参数（支持 [key,val] 或 [key,clz]）
      */
-    public CodeSpec parameters(Map<String, Object> context) {
-        assert context != null;
+    public CodeSpec parameters(Map<String, Object> params) {
+        assert params != null;
 
-        for (Map.Entry<String, Object> entry : context.entrySet()) {
-            parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
+        for (Map.Entry<String, Object> entry : params.entrySet()) {
+            if (entry.getValue() instanceof Class<?>) {
+                parameters.add(new ParamSpec(entry.getKey(), (Class<?>) entry.getValue()));
+            } else {
+                parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
+            }
         }
         //要排序下，避免 hash-map 的顺位变化
         Collections.sort(parameters);
