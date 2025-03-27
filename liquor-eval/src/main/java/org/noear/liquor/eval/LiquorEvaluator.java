@@ -233,14 +233,14 @@ public class LiquorEvaluator implements Evaluator {
             } else {
                 code.append("void");
             }
-            code.append(" execDo(Map<String, Object> context) throws Throwable\n");
+            code.append(" execDo(Map<String, Object> _$CTX$) throws Throwable\n");
             code.append("  {\n");
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
                     code.append("    ").append(ps.getValue().getCanonicalName()).append(" ").append(ps.getName())
                             .append(" = ")
-                            .append("(").append(ps.getValue().getCanonicalName()).append(")context.get(\"").append(ps.getName()).append("\");")
+                            .append("(").append(ps.getValue().getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
                             .append("\n");
                 }
             }
