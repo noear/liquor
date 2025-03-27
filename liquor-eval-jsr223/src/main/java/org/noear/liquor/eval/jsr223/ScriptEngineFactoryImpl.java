@@ -16,7 +16,7 @@ public class ScriptEngineFactoryImpl implements ScriptEngineFactory {
 
     @Override
     public String getEngineVersion() {
-        return "1.3.4";
+        return "1.5.0";
     }
 
     @Override
