@@ -66,6 +66,7 @@ public class CodeSpec {
      * 申明参数
      */
     public CodeSpec parameters(ParamSpec... parameters) {
+        //不需要排序，已指定顺位
         this.parameters.addAll(Arrays.asList(parameters));
         return this;
     }
@@ -89,6 +90,7 @@ public class CodeSpec {
         for (Map.Entry<String, Object> entry : context.entrySet()) {
             parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
         }
+        //要排序下，避免 map 的顺位变化
         Collections.sort(parameters);
 
         return context;

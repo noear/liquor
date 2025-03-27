@@ -1,12 +1,8 @@
 package features;
 
 import org.junit.jupiter.api.Test;
-import org.noear.liquor.eval.CodeSpec;
-import org.noear.liquor.eval.Exprs;
-import org.noear.liquor.eval.LiquorEvaluator;
-import org.noear.liquor.eval.Scripts;
+import org.noear.liquor.eval.*;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -46,7 +42,7 @@ public class Case21_2 {
         System.out.println(Exprs.eval(exp6));
 
 
-        Map<String, Object> context = new HashMap<>();
+        Map<String, Object> context = Maps.of();
         context.put("a", 1);
         context.put("b", 2);
 

@@ -26,27 +26,30 @@ public class Case22 {
                 .returnType(String.class)
                 .cached(false);
 
+        Map<String,Object> context = new HashMap<>();
+        context.put("name","noear");
+
         //直接执行
-        System.out.println(Scripts.eval(code1, "noear"));
-        assert "noear".equals(Scripts.eval(code1, "noear"));
-        assert "solon".equals(Scripts.eval(code1, "solon"));
+        System.out.println(Scripts.eval(code1, Maps.of("name","noear")));
+        assert "noear".equals(Scripts.eval(code1, Maps.of("name","noear")));
+        assert "solon".equals(Scripts.eval(code1, Maps.of("name","solon")));
 
         //转类再执行
         Execable execable1 = Scripts.compile(code1);
-        System.out.println(execable1.exec( "noear"));
+        System.out.println(execable1.exec( context));
 
         ///////////////
 
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new ParamSpec("a",Integer.class));
 
-        System.out.println(Exprs.eval(code2, 2));
-        assert 3 == (int) Exprs.eval(code2, 2);
+        System.out.println(Exprs.eval(code2, Maps.of("a",2)));
+        assert 3 == (int) Exprs.eval(code2, Maps.of("a",2));
 
         ///////////////
 
-        System.out.println(Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 1));
-        assert 24 == (int) Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), 2);
+        System.out.println(Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Maps.of("a",1)));
+        assert 24 == (int) Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Maps.of("a",2));
 
         Map<String, Object> context1 = new HashMap<>();
         context1.put("aa", 3);
