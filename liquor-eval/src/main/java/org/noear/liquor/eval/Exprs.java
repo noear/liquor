@@ -15,6 +15,7 @@
  */
 package org.noear.liquor.eval;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -72,35 +73,45 @@ public interface Exprs {
      * @param code 代码
      */
     static Object eval(String code) {
-        return eval(new CodeSpec(code));
+        return eval(new CodeSpec(code), Collections.emptyMap());
+    }
+
+    /**
+     * 评估
+     *
+     * @param code    代码
+     * @param context 执行参数
+     */
+    static Object eval(String code, Map<String, Object> context) {
+        assert context != null;
+
+        CodeSpec codeSpec = new CodeSpec(code);
+        codeSpec.bind(context);
+
+        return eval(codeSpec, context);
     }
 
     /**
      * 评估
      *
      * @param codeSpec 代码申明
-     * @param args     执行参数
      */
-    static Object eval(CodeSpec codeSpec, Object... args) {
-        //强制有估评结果
-        if (codeSpec.getReturnType() == null) {
-            codeSpec.returnType(Object.class);
-        }
-
-        return LiquorEvaluator.getInstance().eval(codeSpec, args);
+    static Object eval(CodeSpec codeSpec) {
+        return eval(codeSpec, Collections.emptyMap());
     }
 
     /**
      * 评估
      *
-     * @param code 代码
+     * @param codeSpec 代码申明
+     * @param context  执行参数
      */
-    static Object eval(String code, Map<String, Object> context) {
-        assert context != null;
+    static Object eval(CodeSpec codeSpec, Map<String, Object> context) {
+        //强制有估评结果
+        if (codeSpec.getReturnType() == null) {
+            codeSpec.returnType(Object.class);
+        }
 
-        CodeSpec codeSpec = new CodeSpec(code);
-        Object[] args = codeSpec.bind(context);
-
-        return eval(codeSpec, args);
+        return LiquorEvaluator.getInstance().eval(codeSpec, context);
     }
 }

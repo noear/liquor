@@ -15,7 +15,6 @@
  */
 package org.noear.liquor.eval;
 
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -23,8 +22,9 @@ import java.util.Objects;
  *
  * @author noear
  * @since 1.2
+ * @since 1.5
  */
-public class ParamSpec implements Map.Entry<String,Class<?>> {
+public class ParamSpec  implements Comparable<ParamSpec> {
     private String name;
     private Class<?> type;
 
@@ -33,22 +33,14 @@ public class ParamSpec implements Map.Entry<String,Class<?>> {
         this.type = type;
     }
 
-
-    @Override
-    public String getKey() {
+    public String getName() {
         return name;
     }
 
-    @Override
     public Class<?> getValue() {
         return type;
     }
 
-    @Override
-    public Class<?> setValue(Class<?> value) {
-        //禁止修改
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -61,5 +53,10 @@ public class ParamSpec implements Map.Entry<String,Class<?>> {
     @Override
     public int hashCode() {
         return Objects.hash(name, type);
+    }
+
+    @Override
+    public int compareTo(ParamSpec o) {
+        return this.name.compareTo(o.name);
     }
 }

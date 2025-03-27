@@ -66,6 +66,10 @@ public class LiquorEvaluator implements Evaluator {
         this.cahceCapacity = cahceCapacity;
         this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
         this.nameMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
+
+        globalImports.add(Map.class.getCanonicalName());
+        globalImports.add(Execable.class.getCanonicalName());
+        globalImports.add(ExecuteException.class.getCanonicalName());
     }
 
     /**
@@ -154,9 +158,6 @@ public class LiquorEvaluator implements Evaluator {
         Set<String> importBuilder = new TreeSet<>();
         StringBuilder codeBuilder = new StringBuilder();
 
-        importBuilder.add("import org.noear.liquor.eval.Execable;\n");
-        importBuilder.add("import org.noear.liquor.eval.ExecuteException;\n");
-
         //全局导入
         for (String imp : globalImports) {
             importBuilder.add("import " + imp + ";\n");
@@ -205,21 +206,14 @@ public class LiquorEvaluator implements Evaluator {
 
         code.append("public class ").append(clazzName).append(" implements Execable {\n");
         {
-            code.append("  public Object exec(Object... args) throws ExecuteException {\n");
+            code.append("  public Object exec(Map<String, Object> context) throws ExecuteException {\n");
             code.append("    try {\n");
             if (codeSpec.getReturnType() == null) {
-                code.append("      execDo(");
+                code.append("      execDo(context");
             } else {
-                code.append("      return execDo(");
+                code.append("      return execDo(context");
             }
 
-            if (codeSpec.getParameters() != null && codeSpec.getParameters().length > 0) {
-                for (int i = 0; i < codeSpec.getParameters().length; i++) {
-                    Map.Entry<String, Class<?>> kv = codeSpec.getParameters()[i];
-                    code.append("(").append(kv.getValue().getCanonicalName()).append(")args[").append(i).append("],");
-                }
-                code.setLength(code.length() - 1);
-            }
             code.append(");\n");
             code.append("    } catch(Throwable e) {\n");
             code.append("      throw new ExecuteException(e);\n");
@@ -239,17 +233,17 @@ public class LiquorEvaluator implements Evaluator {
             } else {
                 code.append("void");
             }
-            code.append(" execDo(");
-
-            if (codeSpec.getParameters() != null && codeSpec.getParameters().length > 0) {
-                for (int i = 0; i < codeSpec.getParameters().length; i++) {
-                    Map.Entry<String, Class<?>> kv = codeSpec.getParameters()[i];
-                    code.append(kv.getValue().getCanonicalName()).append(" ").append(kv.getKey()).append(",");
-                }
-                code.setLength(code.length() - 1);
-            }
-            code.append(") throws Throwable\n");
+            code.append(" execDo(Map<String, Object> context) throws Throwable\n");
             code.append("  {\n");
+
+            if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
+                for (ParamSpec ps : codeSpec.getParameters()) {
+                    code.append("    ").append(ps.getValue().getCanonicalName()).append(" ").append(ps.getName())
+                            .append(" = ")
+                            .append("(").append(ps.getValue().getCanonicalName()).append(")context.get(\"").append(ps.getName()).append("\");")
+                            .append("\n");
+                }
+            }
 
 
             if (codeSpec.getCode().indexOf(';') < 0) {
@@ -390,16 +384,16 @@ public class LiquorEvaluator implements Evaluator {
      * 评估
      *
      * @param codeSpec 代码申明
-     * @param args     执行参数
+     * @param context  执行参数
      */
     @Override
-    public Object eval(CodeSpec codeSpec, Object... args) {
+    public Object eval(CodeSpec codeSpec, Map<String, Object> context) {
         if (codeSpec == null) {
             throw new IllegalArgumentException("The codeSpec parameter is null");
         }
 
         try {
-            return compile(codeSpec).exec(args);
+            return compile(codeSpec).exec(context);
         } catch (RuntimeException e) {
             throw e;
         } catch (Throwable e) {

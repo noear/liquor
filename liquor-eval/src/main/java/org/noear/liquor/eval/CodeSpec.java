@@ -25,8 +25,8 @@ import java.util.*;
  */
 public class CodeSpec {
     private final String code;
-    private List<String> imports = new ArrayList<>();
-    private Map.Entry<String, Class<?>>[] parameters;
+    private final List<String> imports = new ArrayList<>();
+    private final List<ParamSpec> parameters = new ArrayList<>();
     private Class<?> returnType;
     private boolean cached = true;
 
@@ -65,8 +65,8 @@ public class CodeSpec {
     /**
      * 申明参数
      */
-    public CodeSpec parameters(Map.Entry<String, Class<?>>... parameters) {
-        this.parameters = parameters;
+    public CodeSpec parameters(ParamSpec... parameters) {
+        this.parameters.addAll(Arrays.asList(parameters));
         return this;
     }
 
@@ -83,20 +83,15 @@ public class CodeSpec {
      *
      * @param context 上下文
      */
-    public Object[] bind(Map<String, Object> context) {
+    public Map<String, Object> bind(Map<String, Object> context) {
         assert context != null;
 
-        parameters = new ParamSpec[context.size()];
-        Object[] args = new Object[context.size()];
-
-        int idx = 0;
         for (Map.Entry<String, Object> entry : context.entrySet()) {
-            parameters[idx] = new ParamSpec(entry.getKey(), entry.getValue().getClass());
-            args[idx] = entry.getValue();
-            idx++;
+            parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
         }
+        Collections.sort(parameters);
 
-        return args;
+        return context;
     }
 
     //////////////////
@@ -125,7 +120,7 @@ public class CodeSpec {
     /**
      * 获取参数申明
      */
-    public Map.Entry<String, Class<?>>[] getParameters() {
+    public Collection<ParamSpec> getParameters() {
         return parameters;
     }
 
@@ -136,18 +131,18 @@ public class CodeSpec {
         return returnType;
     }
 
-    //////////////////
+    /// ///////////////
 
-    private boolean deepEquals(Map.Entry<String, Class<?>>[] a, Map.Entry<String, Class<?>>[] b) {
+    private boolean deepEquals(List<ParamSpec> a, List<ParamSpec> b) {
         if (a == b)
             return true;
         else if (a == null || b == null)
             return false;
-        else if (a.length != b.length)
+        else if (a.size() != b.size())
             return false;
         else {
-            for (int i = 0; i < a.length; i++) {
-                if (Objects.equals(a[i], b[i]) == false) {
+            for (int i = 0; i < a.size(); i++) {
+                if (Objects.equals(a.get(i), b.get(i)) == false) {
                     return false;
                 }
             }
@@ -158,15 +153,13 @@ public class CodeSpec {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
         if (!(o instanceof CodeSpec)) return false;
         CodeSpec codeSpec = (CodeSpec) o;
-        return Objects.equals(code, codeSpec.code) && this.deepEquals(parameters, codeSpec.parameters);
+        return Objects.equals(code, codeSpec.code) && deepEquals(parameters, codeSpec.parameters);
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, Arrays.hashCode(parameters));
+        return Objects.hash(code, parameters);
     }
 }

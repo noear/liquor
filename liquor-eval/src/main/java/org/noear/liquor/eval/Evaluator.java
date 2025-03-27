@@ -50,7 +50,7 @@ public interface Evaluator {
      * 评估
      *
      * @param codeSpec 代码申明
-     * @param args     执行参数
+     * @param context  执行参数
      */
-    Object eval(CodeSpec codeSpec, Object... args);
+    Object eval(CodeSpec codeSpec, Map<String, Object> context);
 }

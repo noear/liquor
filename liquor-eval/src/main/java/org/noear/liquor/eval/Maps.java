@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 noear.org and authors
+ * Copyright 2025 noear.org and authors
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,30 +15,24 @@
  */
 package org.noear.liquor.eval;
 
-import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
- * 可执行的
- *
  * @author noear
- * @since 1.2
- * @since 1.4
+ * @since 1.5
  */
-public interface Execable {
-    /**
-     * 执行
-     *
-     * @param context 执行参数
-     */
-    Object exec(Map<String, Object> context) throws ExecuteException;
+public class Maps extends LinkedHashMap<String,Object> implements Map<String,Object> {
+    public static Maps of() {
+        return new Maps();
+    }
 
-    /**
-     * 执行
-     *
-     * @since 1.5
-     */
-    default Object exec() throws ExecuteException {
-        return exec(Collections.emptyMap());
+    public static Maps of(String key, Object value) {
+        return new Maps().set(key, value);
+    }
+
+    public Maps set(String key, Object value) {
+        put(key, value);
+        return this;
     }
 }
