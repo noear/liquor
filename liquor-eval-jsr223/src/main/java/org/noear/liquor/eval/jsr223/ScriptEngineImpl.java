@@ -30,7 +30,7 @@ public class ScriptEngineImpl implements ScriptEngine {
             if (bindings == null || bindings.isEmpty()) {
                 return Scripts.eval(codeSpec);
             } else {
-                return Scripts.eval(codeSpec, codeSpec.bind(bindings));
+                return Scripts.eval(codeSpec.parameters(bindings), bindings);
             }
         } catch (Exception ex) {
             throw new ScriptException(ex);
@@ -56,7 +56,7 @@ public class ScriptEngineImpl implements ScriptEngine {
             if (bindings == null || bindings.isEmpty()) {
                 return Scripts.eval(codeSpec);
             } else {
-                return Scripts.eval(codeSpec, codeSpec.bind(bindings));
+                return Scripts.eval(codeSpec.parameters(bindings), bindings);
             }
         } catch (Exception ex) {
             throw new ScriptException(ex);

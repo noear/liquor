@@ -75,8 +75,7 @@ public interface Scripts {
     static Object eval(String code, Map<String, Object> context) {
         assert context != null;
 
-        CodeSpec codeSpec = new CodeSpec(code);
-        codeSpec.bind(context);
+        CodeSpec codeSpec = new CodeSpec(code).parameters(context);
 
         return eval(codeSpec, context);
     }

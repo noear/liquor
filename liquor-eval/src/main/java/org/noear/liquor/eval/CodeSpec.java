@@ -72,28 +72,28 @@ public class CodeSpec {
     }
 
     /**
-     * 申明返回类型
-     */
-    public CodeSpec returnType(Class<?> returnType) {
-        this.returnType = returnType;
-        return this;
-    }
-
-    /**
      * 绑定
      *
      * @param context 上下文
      */
-    public Map<String, Object> bind(Map<String, Object> context) {
+    public CodeSpec parameters(Map<String, Object> context) {
         assert context != null;
 
         for (Map.Entry<String, Object> entry : context.entrySet()) {
             parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
         }
-        //要排序下，避免 map 的顺位变化
+        //要排序下，避免 hash-map 的顺位变化
         Collections.sort(parameters);
 
-        return context;
+        return this;
+    }
+
+    /**
+     * 申明返回类型
+     */
+    public CodeSpec returnType(Class<?> returnType) {
+        this.returnType = returnType;
+        return this;
     }
 
     //////////////////
@@ -135,29 +135,11 @@ public class CodeSpec {
 
     /// ///////////////
 
-    private boolean deepEquals(List<ParamSpec> a, List<ParamSpec> b) {
-        if (a == b)
-            return true;
-        else if (a == null || b == null)
-            return false;
-        else if (a.size() != b.size())
-            return false;
-        else {
-            for (int i = 0; i < a.size(); i++) {
-                if (Objects.equals(a.get(i), b.get(i)) == false) {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-    }
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof CodeSpec)) return false;
         CodeSpec codeSpec = (CodeSpec) o;
-        return Objects.equals(code, codeSpec.code) && deepEquals(parameters, codeSpec.parameters);
+        return Objects.equals(code, codeSpec.code) && Objects.equals(parameters, codeSpec.parameters);
     }
 
     @Override

@@ -22,6 +22,6 @@ public class LamdaTest {
                 "        });").imports(ONode.class);
 
         LiquorEvaluator.getInstance().printable(true);
-        Scripts.eval(codeSpec, codeSpec.bind(argsMap));
+        Scripts.eval(codeSpec.parameters(argsMap), argsMap);
     }
 }
