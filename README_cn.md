@@ -169,3 +169,15 @@ public class DemoApp {
     }
 }
 ```
+
+## JSR223 演示（需使用 liquor-eval-jsr223）
+
+```java
+@Test
+public void case1() {
+    ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("liquor"); //或 "java"
+
+    scriptEngine.eval("System.out.println(\"Hello world!\");");
+}
+```

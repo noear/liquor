@@ -165,3 +165,16 @@ public class DemoApp {
     }
 }
 ```
+
+## JSR223 demo (requires baive-eval-JSR223)
+
+```java
+@Test
+public void case1() {
+    ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("liquor"); //或 "java"
+
+    scriptEngine.eval("System.out.println(\"Hello world!\");");
+}
+```
+
