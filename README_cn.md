@@ -170,7 +170,7 @@ public class DemoApp {
 }
 ```
 
-## JSR223 演示（需使用 liquor-eval-jsr223）
+## JSR223 演示
 
 ```java
 @Test

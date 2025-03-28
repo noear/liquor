@@ -166,7 +166,7 @@ public class DemoApp {
 }
 ```
 
-## JSR223 demo (requires baive-eval-JSR223)
+## JSR223 demo
 
 ```java
 @Test

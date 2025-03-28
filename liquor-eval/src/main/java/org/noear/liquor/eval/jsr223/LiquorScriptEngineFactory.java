@@ -17,14 +17,15 @@ package org.noear.liquor.eval.jsr223;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineFactory;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 /**
+ * Liquor 脚本引擎工厂（JSR223 适配）
+ *
  * @author noear
- * @since 3.1
+ * @since 1.5
  */
 public class LiquorScriptEngineFactory implements ScriptEngineFactory {
     private static final List<String> names = immutableList("liquor", "Liquor", "java", "Java");

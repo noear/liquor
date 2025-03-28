@@ -2,13 +2,16 @@ package features;
 
 import org.junit.jupiter.api.Test;
 
-import javax.script.*;
+import javax.script.Bindings;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.SimpleBindings;
 import java.io.StringReader;
 
 /**
  * @author noear 2024/9/23 created
  */
-public class DemoTest {
+public class Jsr223Test {
     ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
 
     @Test
