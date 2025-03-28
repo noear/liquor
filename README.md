@@ -170,7 +170,7 @@ public class DemoApp {
 ```java
 @Test
 public void case1() {
-    ScriptEngineManager sem = new ScriptEngineManager();
+    ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
     ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("liquor"); //或 "java"
 
     scriptEngine.eval("System.out.println(\"Hello world!\");");
