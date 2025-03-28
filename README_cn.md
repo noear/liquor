@@ -56,7 +56,7 @@ Liquor
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 
