@@ -60,7 +60,7 @@ Liquor
 </dependency>
 ```
 
-性能表现（第三方性能测试，榜首）：
+性能表现（第三方性能测试）：
 
 * [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
 

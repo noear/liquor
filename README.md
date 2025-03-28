@@ -57,7 +57,7 @@ Reference dependency:
 ```
 
 
-Performance (Third party performance test, champion):
+Performance (Third party performance test):
 
 * [https://gitee.com/xiandafu/beetl/tree/master/express-benchmark](https://gitee.com/xiandafu/beetl/tree/master/express-benchmark)
 
