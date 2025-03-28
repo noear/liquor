@@ -55,8 +55,12 @@ public class LiquorScriptEngine extends AbstractScriptEngine {
     @Override
     public Object eval(Reader reader, ScriptContext context) throws ScriptException {
         StringBuilder buf = new StringBuilder();
+        String line;
+
         try (BufferedReader reader1 = new BufferedReader(reader)) {
-            buf.append(reader1.readLine());
+            while ((line = reader1.readLine()) != null) {
+                buf.append(line).append(System.lineSeparator());
+            }
         } catch (Exception e) {
             throw new ScriptException(e);
         }
