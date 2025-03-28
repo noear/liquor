@@ -39,10 +39,10 @@ Liquor
 
 The compiler code for this tool is mainly derived from arthas. Related knowledge is relatively unpopular, very precious. In order to reuse convenient, specially organized into a small toolkit for long-term maintenance. Evaluators were added later to run expressions and scripts.
 
-| Artifact             | Size   | Features                                  | Functional Description               |
-|----------------------|--------|-----------------------------------------|--------------------------------------|
-| liquor               | 24KB   | DynamicCompiler                         | Compiling classes                    |
-| liquor-eval          | 17KB   | LiquorEvaluator (Exprs,Scripts)  | Evaluate expression and script(support JSR223) |
+| Artifact             | Size | Features                                  | Functional Description               |
+|----------------------|------|-----------------------------------------|--------------------------------------|
+| liquor               | 24KB | DynamicCompiler                         | Compiling classes                    |
+| liquor-eval          | 23KB | LiquorEvaluator (Exprs,Scripts)  | Evaluate expression and script(support JSR223) |
 
 
 Reference dependency:
