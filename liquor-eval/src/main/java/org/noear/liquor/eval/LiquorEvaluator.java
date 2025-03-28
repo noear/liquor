@@ -56,7 +56,7 @@ public class LiquorEvaluator implements Evaluator {
     private final ReentrantLock lock = new ReentrantLock();
 
     public LiquorEvaluator(ClassLoader parentClassLoader) {
-        this(parentClassLoader, 1000);
+        this(parentClassLoader, 10000);
     }
 
     public LiquorEvaluator(ClassLoader parentClassLoader, int cahceCapacity) {
