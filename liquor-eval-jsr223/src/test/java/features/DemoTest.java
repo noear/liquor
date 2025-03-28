@@ -15,7 +15,7 @@ public class DemoTest {
     public void case1() throws Exception {
         ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("liquor");
 
-        String exp = "2*6-(6+5)";
+        String exp = "return 2*6-(6+5);";
         Object result = scriptEngine.eval(exp);
         System.out.println(exp + "=" + result);
         assert result instanceof Integer;
@@ -30,7 +30,7 @@ public class DemoTest {
     public void case2() throws Exception {
         ScriptEngine scriptEngine = scriptEngineManager.getEngineByName("java");
 
-        String exp = "2*6-(6+5)";
+        String exp = "return 2*6-(6+5);";
         Object result = scriptEngine.eval(exp);
         System.out.println(exp + "=" + result);
         assert result instanceof Integer;

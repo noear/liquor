@@ -35,11 +35,6 @@ public class LiquorScriptEngine extends AbstractScriptEngine {
         }
 
         try {
-            //如果脚本里没有 ; 号，说明是简化表达式
-            if (script.indexOf(';') < 0) {
-                script = "return " + script + ";";
-            }
-
             CodeSpec codeSpec = new CodeSpec(script);
 
             //如果有返回，则申明返回类型为 object
