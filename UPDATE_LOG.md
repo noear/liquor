@@ -1,3 +1,7 @@
+### 1.5.3
+
+* 添加 LiquorEvaluator:eval 内部自动参数绑定
+
 ### 1.5.2
 * 增加 liquor-eval 对 jsr223 规范适配
 
