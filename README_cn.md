@@ -128,11 +128,9 @@ public class DemoApp {
 
         //进阶
         CodeSpec code1 = new CodeSpec("aa + 22").parameters(new ParamSpec("aa", Integer.class));
-        System.out.println(Exprs.eval(code1, 1)); //=> 23
+        System.out.println(Exprs.eval(code1, Maps.of("aa", 1))); //=> 23
 
-        Map<String, Object> context2 = new HashMap<>();
-        context2.put("bb", 3);
-        System.out.println(Exprs.eval("bb + 22", context2)); //=>25
+        System.out.println(Exprs.eval("bb + 22", Maps.of("bb", 3))); //=>25
 
         System.out.println(Exprs.eval(new CodeSpec("Math.min(1,2)").imports(Math.class))); //=>1
     }
@@ -164,7 +162,7 @@ public class DemoApp {
                 "    return demo.hello(name);") //name 为外部参数
                 .parameters(new ParamSpec("name", String.class))
                 .returnType(String.class);
-        System.out.println(Scripts.eval(code1, "noear")); //=>noear
+        System.out.println(Scripts.eval(code1, Maps.of("name", "noear"))); //=>noear
     }
 }
 ```
