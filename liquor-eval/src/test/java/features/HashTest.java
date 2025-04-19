@@ -1,10 +1,7 @@
 package features;
 
 import org.junit.jupiter.api.Test;
-import org.noear.liquor.eval.CodeSpec;
-import org.noear.liquor.eval.Execable;
-import org.noear.liquor.eval.Exprs;
-import org.noear.liquor.eval.ParamSpec;
+import org.noear.liquor.eval.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -64,6 +61,8 @@ public class HashTest {
 
     @Test
     public void case3() throws Exception {
+        LiquorEvaluator.getInstance().printable(true);
+
         Map<String, Object> context = new HashMap<>();
         context.put("a", 1);
         context.put("b", 2);
