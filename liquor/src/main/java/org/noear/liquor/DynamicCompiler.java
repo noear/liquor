@@ -59,6 +59,14 @@ public class DynamicCompiler {
     }
 
     /**
+     * 添加选项
+     */
+    public DynamicCompiler addOption(String option) {
+        options.add(option);
+        return this;
+    }
+
+    /**
      * 获取选项
      */
     public List<String> getOptions() {
