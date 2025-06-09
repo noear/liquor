@@ -1,3 +1,8 @@
+### 1.5.4
+
+* 添加 DynamicCompiler:addOption 方法
+* 修复 java -jar 下 lombok 动态编译失败的问题
+
 ### 1.5.3
 
 * 添加 LiquorEvaluator:eval 内部自动参数绑定
