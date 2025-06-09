@@ -1,4 +1,4 @@
-### 1.5.4
+### 1.5.5
 
 * 添加 DynamicCompiler:addOption 方法
 * 修复 java -jar 下 lombok 动态编译失败的问题

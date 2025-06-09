@@ -19,13 +19,13 @@
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>liquor-eval</artifactId>
-            <version>1.5.4</version>
+            <version>1.5.5</version>
         </dependency>
 
         <dependency>
             <groupId>org.noear</groupId>
             <artifactId>solon-expression</artifactId>
-            <version>3.1.1-SNAPSHOT</version>
+            <version>3.3.1</version>
         </dependency>
 
         <dependency>
