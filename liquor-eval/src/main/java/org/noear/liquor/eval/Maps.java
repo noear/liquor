@@ -21,7 +21,9 @@ import java.util.Map;
 /**
  * @author noear
  * @since 1.5
+ * @deprecated 1.5 {@link org.noear.liquor.Utils}
  */
+@Deprecated
 public class Maps extends LinkedHashMap<String,Object> implements Map<String,Object> {
     public static Maps of() {
         return new Maps();

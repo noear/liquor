@@ -3,6 +3,7 @@ package features;
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -42,7 +43,7 @@ public class Case21_2 {
         System.out.println(Exprs.eval(exp6));
 
 
-        Map<String, Object> context = Maps.of();
+        Map<String, Object> context = new HashMap<>();
         context.put("a", 1);
         context.put("b", 2);
 

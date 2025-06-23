@@ -1,6 +1,7 @@
 package features;
 
 import org.junit.jupiter.api.Test;
+import org.noear.liquor.Utils;
 import org.noear.liquor.eval.*;
 
 import java.util.HashMap;
@@ -30,9 +31,9 @@ public class Case22 {
         context.put("name","noear");
 
         //直接执行
-        System.out.println(Scripts.eval(code1, Maps.of("name","noear")));
-        assert "noear".equals(Scripts.eval(code1, Maps.of("name","noear")));
-        assert "solon".equals(Scripts.eval(code1, Maps.of("name","solon")));
+        System.out.println(Scripts.eval(code1, Utils.asMap("name", "noear")));
+        assert "noear".equals(Scripts.eval(code1, Utils.asMap("name","noear")));
+        assert "solon".equals(Scripts.eval(code1, Utils.asMap("name","solon")));
 
         //转类再执行
         Execable execable1 = Scripts.compile(code1);
@@ -43,13 +44,13 @@ public class Case22 {
 
         CodeSpec code2 = new CodeSpec("a+1").parameters(new ParamSpec("a",Integer.class));
 
-        System.out.println(Exprs.eval(code2, Maps.of("a",2)));
-        assert 3 == (int) Exprs.eval(code2, Maps.of("a",2));
+        System.out.println(Exprs.eval(code2, Utils.asMap("a",2)));
+        assert 3 == (int) Exprs.eval(code2, Utils.asMap("a",2));
 
         ///////////////
 
-        System.out.println(Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Maps.of("a",1)));
-        assert 24 == (int) Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Maps.of("a",2));
+        System.out.println(Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Utils.asMap("a",1)));
+        assert 24 == (int) Exprs.eval(new CodeSpec("a + 22").parameters(new ParamSpec("a", Integer.class)), Utils.asMap("a",2));
 
         Map<String, Object> context1 = new HashMap<>();
         context1.put("aa", 3);
