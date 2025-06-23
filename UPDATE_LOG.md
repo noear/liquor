@@ -1,3 +1,8 @@
+
+### 1.5.6
+
+* 添加 Utils 工具类
+
 ### 1.5.5
 
 * 添加 DynamicCompiler:addOption 方法
