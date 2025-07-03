@@ -274,7 +274,7 @@ public class LiquorEvaluator implements Evaluator {
     /**
      * 配置可打印的
      *
-     * @deprecated 1.5.6 @{link #log}
+     * @deprecated 1.5.6 {@link #log}
      */
     @Deprecated
     public void printable(boolean printable) {
