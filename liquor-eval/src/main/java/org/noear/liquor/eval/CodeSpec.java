@@ -43,7 +43,17 @@ public class CodeSpec {
     }
 
     /**
-     * 申明导入
+     * 申明导入包
+     */
+    public CodeSpec imports(Package... imports) {
+        for (Package imp : imports) {
+            this.imports.add(imp.getName() + ".*");
+        }
+        return this;
+    }
+
+    /**
+     * 申明导入类
      */
     public CodeSpec imports(Class<?>... imports) {
         for (Class<?> imp : imports) {
@@ -53,7 +63,7 @@ public class CodeSpec {
     }
 
     /**
-     * 申明导入
+     * 申明导入描述（字符串形式，支持更丰富）
      */
     public CodeSpec imports(String... imports) {
         for (String imp : imports) {
