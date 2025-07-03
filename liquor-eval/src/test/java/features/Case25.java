@@ -31,7 +31,6 @@ public class Case25 {
     @Test
     public void test2() throws Exception {
         //常量
-        LiquorEvaluator.getInstance().printable(true);
         CodeSpec exp6 = new CodeSpec("min(11,21)").imports("static java.lang.Math.*");
         System.out.println(Exprs.eval(exp6));
 

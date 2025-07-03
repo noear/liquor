@@ -47,7 +47,6 @@ public class Case21_2 {
         context.put("a", 1);
         context.put("b", 2);
 
-        LiquorEvaluator.getInstance().printable(true);
         Exprs.eval("if (a < 0) { return b; } else { return 0; }", context);
     }
 
@@ -89,7 +88,6 @@ public class Case21_2 {
         context.put("a", 1);
         context.put("b", 2);
 
-        LiquorEvaluator.getInstance().printable(true);
         Exprs.eval("if (a < 0) { return b; } else { return 0; }", context);
     }
 }

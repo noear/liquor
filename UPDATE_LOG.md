@@ -1,3 +1,7 @@
+### 1.5.7
+
+* 添加 CodeSpec:imports(Package...) 方法
+* 添加 slf4j 引用，替代旧的 LiquorEvaluator.getInstance().printable （标为弃用）
 
 ### 1.5.6
 

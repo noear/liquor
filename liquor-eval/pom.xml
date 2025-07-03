@@ -37,6 +37,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <slf4j.version>2.0.17</slf4j.version>
         <java.version>1.8</java.version>
     </properties>
 
@@ -48,9 +49,22 @@
         </dependency>
 
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.noear</groupId>
             <artifactId>snack3</artifactId>
-            <version>3.2.126</version>
+            <version>3.2.134</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.noear</groupId>
+            <artifactId>solon-logging-simple</artifactId>
+            <version>3.3.3</version>
             <scope>test</scope>
         </dependency>
 

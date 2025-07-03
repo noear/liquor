@@ -16,7 +16,6 @@ public class Case21 {
         LiquorEvaluator tmp = ((LiquorEvaluator)LiquorEvaluator.getInstance());
         tmp.globalImports(List.class);
         tmp.globalImports("java.util.*");
-        tmp.printable(true);
 
         /////////
 

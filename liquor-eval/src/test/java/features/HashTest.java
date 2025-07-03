@@ -61,8 +61,6 @@ public class HashTest {
 
     @Test
     public void case3() throws Exception {
-        LiquorEvaluator.getInstance().printable(true);
-
         Map<String, Object> context = new HashMap<>();
         context.put("a", 1);
         context.put("b", 2);

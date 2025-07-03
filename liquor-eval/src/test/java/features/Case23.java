@@ -14,8 +14,6 @@ import java.util.List;
 public class Case23 {
     @Test
     public void test() throws Exception {
-        LiquorEvaluator.getInstance().printable(true);
-
         CodeSpec code1 = new CodeSpec("import java.util.HashMap;\n" +
                 "    import java.util.Collection;\n" +
                 "    import java.util.Collection;\n" +

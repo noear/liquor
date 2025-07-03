@@ -17,6 +17,8 @@ package org.noear.liquor.eval;
 
 import org.noear.liquor.DynamicClassLoader;
 import org.noear.liquor.DynamicCompiler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,15 +35,13 @@ import java.util.concurrent.locks.ReentrantLock;
  * @since 1.3
  */
 public class LiquorEvaluator implements Evaluator {
+    private static final Logger log = LoggerFactory.getLogger(LiquorEvaluator.class);
     //默认实例（也可定制自己的实例，增加全局导入）
     private static final Evaluator instance = new LiquorEvaluator(null);
 
     public static Evaluator getInstance() {
         return instance;
     }
-
-
-    private boolean printable = false;
 
     private final DynamicCompiler compiler;
     private final DynamicClassLoader cachedClassLoader;
@@ -259,10 +259,10 @@ public class LiquorEvaluator implements Evaluator {
         }
         code.append("}");
 
-        if (printable) {
-            System.out.println("-- Start(" + clazzName + ") --");
-            System.out.println(code);
-            System.out.println("-- End(" + clazzName + ") --");
+        if (log.isDebugEnabled()) {
+            log.debug("-- Liquor Class Start(" + clazzName + ") --\n"
+                    + code
+                    + "\n-- End(" + clazzName + ") --");
         }
 
         //添加编译锁
@@ -273,9 +273,12 @@ public class LiquorEvaluator implements Evaluator {
 
     /**
      * 配置可打印的
+     *
+     * @deprecated 1.5.6 @{link #log}
      */
+    @Deprecated
     public void printable(boolean printable) {
-        this.printable = printable;
+
     }
 
     /**
