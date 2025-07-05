@@ -1,0 +1,45 @@
+package demo;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import java.time.LocalDateTime;
+
+public class HelloLiquor {
+
+    private final DemoService demoService;
+
+    @Value("${server.port}")
+    private String serverPort;
+
+    @Value("${server.servlet.context-path:/}")
+    private String contextPath;
+
+    @Value("${logging.level.demo:info}")
+    private String logLevel;
+
+    public HelloLiquor(DemoService demoService) {
+        this.demoService = demoService;
+    }
+
+    @ResponseBody
+    @GetMapping(path = {"/liquor", "/liquor/hello"})
+    public String hello(@RequestParam(value = "name", defaultValue = "liquor") String name) {
+        return demoService.sayHello(name);
+    }
+
+    @ResponseBody
+    @GetMapping(path = {"/liquor/getDate"})
+    public String getDate() {
+        return LocalDateTime.now().toString();
+    }
+
+    @ResponseBody
+    @GetMapping(path = {"/liquor/config"})
+    public String getConfig() {
+        return String.format("服务配置信息 - 端口: %s, 上下文路径: %s, 日志级别: %s",
+                           serverPort, contextPath, logLevel);
+    }
+
+}
