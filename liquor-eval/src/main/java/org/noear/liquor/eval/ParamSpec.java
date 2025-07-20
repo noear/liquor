@@ -33,10 +33,26 @@ public class ParamSpec  implements Comparable<ParamSpec> {
         this.type = type;
     }
 
+    /**
+     * 获取参数名字
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * 获取参数类型
+     */
+    public Class<?> getType() {
+        return type;
+    }
+
+    /**
+     * 获取参数类型
+     *
+     * @deprecated 1.5.8
+     */
+    @Deprecated
     public Class<?> getValue() {
         return type;
     }

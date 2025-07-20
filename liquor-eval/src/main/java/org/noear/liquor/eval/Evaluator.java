@@ -28,7 +28,10 @@ import java.util.Map;
 public interface Evaluator {
     /**
      * 配置可打印的
+     *
+     * @deprecated 1.5.6
      */
+    @Deprecated
     void printable(boolean printable);
 
     /**

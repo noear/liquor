@@ -238,9 +238,9 @@ public class LiquorEvaluator implements Evaluator {
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
-                    code.append("    ").append(ps.getValue().getCanonicalName()).append(" ").append(ps.getName())
+                    code.append("    ").append(ps.getType().getCanonicalName()).append(" ").append(ps.getName())
                             .append(" = ")
-                            .append("(").append(ps.getValue().getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
+                            .append("(").append(ps.getType().getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
                             .append("\n");
                 }
             }

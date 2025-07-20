@@ -73,7 +73,7 @@ public class CodeSpec {
     }
 
     /**
-     * 申明参数
+     * 申明传入参数
      *
      * @param params 参数
      */
@@ -84,7 +84,7 @@ public class CodeSpec {
     }
 
     /**
-     * 绑定
+     * 申明传入参数（根据数据，自动转为申明）
      *
      * @param params 参数（支持 [key,val] 或 [key,clz]）
      */
@@ -136,7 +136,7 @@ public class CodeSpec {
     }
 
     /**
-     * 获取参数申明
+     * 获取输入参数申明
      */
     public Collection<ParamSpec> getParameters() {
         return parameters;
