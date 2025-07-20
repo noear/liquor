@@ -42,6 +42,8 @@ public class ParamSpec  implements Comparable<ParamSpec> {
 
     /**
      * 获取参数类型
+     *
+     * @since 1.5.8
      */
     public Class<?> getType() {
         return type;

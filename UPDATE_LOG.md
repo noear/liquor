@@ -1,3 +1,8 @@
+
+### 1.5.8
+
+* 添加 ParamSpec:getType 替代 getValue （标为弃用，之前的命名不合理）
+
 ### 1.5.7
 
 * 添加 CodeSpec:imports(Package...) 方法
