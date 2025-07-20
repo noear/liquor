@@ -52,7 +52,7 @@ public class ParamSpec  implements Comparable<ParamSpec> {
     /**
      * 获取参数类型
      *
-     * @deprecated 1.5.8
+     * @deprecated 1.5.8 {@link #getType()}
      */
     @Deprecated
     public Class<?> getValue() {
