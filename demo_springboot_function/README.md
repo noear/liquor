@@ -14,7 +14,7 @@
 
 - Spring Boot 2.7.18
 - Java 8
-- liquor 1.5.7（动态编译库）
+- liquor 1.5.8（动态编译库）
 - Lombok
 - JUnit 5
 
