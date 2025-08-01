@@ -23,9 +23,11 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.stream.Stream;
 
 /**
  * Liquor 评估器（线程安全）
@@ -238,9 +240,10 @@ public class LiquorEvaluator implements Evaluator {
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
-                    code.append("    ").append(ps.getType().getCanonicalName()).append(" ").append(ps.getName())
+                    Class<?> type = getParamType(ps.getType());
+                    code.append("    ").append(type.getCanonicalName()).append(" ").append(ps.getName())
                             .append(" = ")
-                            .append("(").append(ps.getType().getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
+                            .append("(").append(type.getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
                             .append("\n");
                 }
             }
@@ -269,6 +272,28 @@ public class LiquorEvaluator implements Evaluator {
         compiler.addSource(clazzName, code.toString());
 
         return clazzName;
+    }
+
+    private Class<?> getParamType(Class<?> type) {
+        if (Modifier.isPublic(type.getModifiers())) {
+            //如果是公有的不变
+            return type;
+        } else {
+            //否则转换为相关接口
+            if (List.class.isAssignableFrom(type)) {
+                return List.class;
+            } else if (Set.class.isAssignableFrom(type)) {
+                return Set.class;
+            } else if (Queue.class.isAssignableFrom(type)) {
+                return Queue.class;
+            } else if (Iterator.class.isAssignableFrom(type)) {
+                return Iterator.class;
+            } else if (Stream.class.isAssignableFrom(type)) {
+                return Stream.class;
+            }
+
+            return type;
+        }
     }
 
     /**
