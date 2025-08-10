@@ -1,4 +1,12 @@
 
+### 1.6.0
+
+* 使用 getTypeName 替换 getCanonicalName （优化 arm jdk 兼容性）
+
+### 1.5.9
+
+* 添加 LiquorEvaluator:getParamType 优化私有类型处理
+
 ### 1.5.8
 
 * 添加 ParamSpec:getType 替代 getValue （标为弃用，之前的命名不合理）
