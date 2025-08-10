@@ -69,9 +69,9 @@ public class LiquorEvaluator implements Evaluator {
         this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
         this.nameMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
 
-        globalImports.add(Map.class.getCanonicalName());
-        globalImports.add(Execable.class.getCanonicalName());
-        globalImports.add(ExecuteException.class.getCanonicalName());
+        globalImports.add(Map.class.getTypeName());
+        globalImports.add(Execable.class.getTypeName());
+        globalImports.add(ExecuteException.class.getTypeName());
     }
 
     /**
@@ -231,19 +231,19 @@ public class LiquorEvaluator implements Evaluator {
 
             code.append("  public ");
             if (codeSpec.getReturnType() != null) {
-                code.append(codeSpec.getReturnType().getCanonicalName());
+                code.append(codeSpec.getReturnType().getTypeName());
             } else {
                 code.append("void");
             }
-            code.append(" execDo(Map<String, Object> _$CTX$) throws Throwable\n");
+            code.append(" execDo(Map<String, Object> _$$) throws Throwable\n");
             code.append("  {\n");
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
                     Class<?> type = getParamType(ps.getType());
-                    code.append("    ").append(type.getCanonicalName()).append(" ").append(ps.getName())
+                    code.append("    ").append(type.getTypeName()).append(" ").append(ps.getName())
                             .append(" = ")
-                            .append("(").append(type.getCanonicalName()).append(")_$CTX$.get(\"").append(ps.getName()).append("\");")
+                            .append("(").append(type.getTypeName()).append(")_$$.get(\"").append(ps.getName()).append("\");")
                             .append("\n");
                 }
             }
@@ -311,7 +311,7 @@ public class LiquorEvaluator implements Evaluator {
      */
     public void globalImports(Class<?>... classes) {
         for (Class<?> clz : classes) {
-            globalImports.add(clz.getCanonicalName());
+            globalImports.add(clz.getTypeName());
         }
     }
 

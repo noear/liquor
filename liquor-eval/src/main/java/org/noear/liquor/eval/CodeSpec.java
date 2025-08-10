@@ -57,7 +57,7 @@ public class CodeSpec {
      */
     public CodeSpec imports(Class<?>... imports) {
         for (Class<?> imp : imports) {
-            this.imports.add(imp.getCanonicalName());
+            this.imports.add(imp.getTypeName());
         }
         return this;
     }
@@ -155,11 +155,13 @@ public class CodeSpec {
     public boolean equals(Object o) {
         if (!(o instanceof CodeSpec)) return false;
         CodeSpec codeSpec = (CodeSpec) o;
-        return Objects.equals(code, codeSpec.code) && Objects.equals(parameters, codeSpec.parameters);
+        return Objects.equals(code, codeSpec.code) &&
+                Objects.equals(parameters, codeSpec.parameters) &&
+                Objects.equals(returnType, codeSpec.returnType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(code, parameters);
+        return Objects.hash(code, parameters, returnType);
     }
 }
