@@ -1,4 +1,8 @@
 
+### 1.6.2
+
+* 添加 JavaFileSource
+
 ### 1.6.1
 
 * 优化 LiquorEvaluator:addSource ';' 号补全处理
