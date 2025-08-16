@@ -53,7 +53,6 @@ public class LiquorEvaluator implements Evaluator {
     private final List<String> globalImports = new ArrayList<>();
     private final Map<CodeSpec, Execable> cachedMap;
     private final int cahceCapacity;
-    private final Map<CodeSpec, Long> nameMap;
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
@@ -67,7 +66,6 @@ public class LiquorEvaluator implements Evaluator {
         this.tempClassLoader = compiler.newClassLoader();
         this.cahceCapacity = cahceCapacity;
         this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
-        this.nameMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
 
         globalImports.add(Map.class.getTypeName());
         globalImports.add(Execable.class.getTypeName());
@@ -195,7 +193,7 @@ public class LiquorEvaluator implements Evaluator {
 
         //2.构建代码申明
 
-        String clazzName = "Execable$" + getKey(codeSpec);
+        String clazzName = "Execable$" + nameIdx.incrementAndGet();
 
         StringBuilder code = new StringBuilder();
 
@@ -328,18 +326,6 @@ public class LiquorEvaluator implements Evaluator {
         for (String imp : imports) {
             globalImports.add(imp);
         }
-    }
-
-    /**
-     * 获取标记
-     */
-    protected Long getKey(CodeSpec codeSpec) {
-        if (codeSpec.isCached() == false) {
-            return nameIdx.incrementAndGet();
-        }
-
-        //中转一下，可避免有相同 hash 的情况
-        return nameMap.computeIfAbsent(codeSpec, k -> nameIdx.incrementAndGet());
     }
 
     /**
