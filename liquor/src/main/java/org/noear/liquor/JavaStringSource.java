@@ -7,17 +7,16 @@ import java.net.URI;
 /**
  * This code mainly from: Arthas project
  * */
-public class StringSource extends SimpleJavaFileObject {
-    private final String contents;
+public class JavaStringSource extends SimpleJavaFileObject {
+    private final String stringSource;
 
-    public StringSource(String className, String contents) {
+    public JavaStringSource(String className, String stringSource) {
         super(URI.create("string:///" + className.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
-        this.contents = contents;
+        this.stringSource = stringSource;
     }
 
     @Override
     public CharSequence getCharContent(boolean ignoreEncodingErrors) throws IOException {
-        return contents;
+        return stringSource;
     }
-
 }

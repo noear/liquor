@@ -123,7 +123,7 @@ public class DynamicCompiler {
      * @param source    源码
      */
     public DynamicCompiler addSource(String className, String source) {
-        addSource(new StringSource(className, source));
+        addSource(new JavaStringSource(className, source));
         return this;
     }
 
