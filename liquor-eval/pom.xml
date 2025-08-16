@@ -5,7 +5,7 @@
 
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.1</version>
 
     <name>${project.artifactId}</name>
     <description>Java project for liquor</description>

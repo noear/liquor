@@ -1,4 +1,9 @@
 
+### 1.6.1
+
+* 优化 LiquorEvaluator:addSource ';' 号补全处理
+* 简化 LiquorEvaluator clazzName 生成，避免冲突可能
+
 ### 1.6.0
 
 * 使用 getTypeName 替换 getCanonicalName （优化 arm jdk 兼容性）

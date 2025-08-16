@@ -257,7 +257,7 @@ public class LiquorEvaluator implements Evaluator {
                     code.append("    return ").append(codeSpec.getCode()).append(";\n");
                 }
             } else {
-                //有 ";" 号，说明是完整的语句
+                //有 ";" 号，说明是完整的语句（已提前构建）
                 code.append("    ").append(codeBuilder).append("\n");
             }
 
