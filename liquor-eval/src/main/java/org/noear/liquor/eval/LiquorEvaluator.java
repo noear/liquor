@@ -251,7 +251,13 @@ public class LiquorEvaluator implements Evaluator {
 
             if (codeSpec.getCode().indexOf(';') < 0) {
                 //没有 ";" 号（支持表达式）
-                code.append("    return ").append(codeSpec.getCode()).append(";\n");
+                if (codeSpec.getReturnType() == null) {
+                    //没返回
+                    code.append("    ").append(codeSpec.getCode()).append(";\n");
+                } else {
+                    //有返回
+                    code.append("    return ").append(codeSpec.getCode()).append(";\n");
+                }
             } else {
                 //有 ";" 号，说明是完整的语句
                 code.append("    ").append(codeBuilder).append("\n");

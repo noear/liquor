@@ -23,6 +23,9 @@ public class Case21 {
         Scripts.eval("System.out.println(\"hello word\");"); //cached
         Scripts.eval("System.out.println(\"hello word---x\");");
 
+
+        Scripts.eval("System.out.println(\"hello word\")");
+
         Scripts.compile("System.out.println(\"hello word1\");").exec();
 
         Execable execable1 = Scripts.compile("System.out.println(\"hello word2\");");
