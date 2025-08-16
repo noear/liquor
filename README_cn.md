@@ -45,7 +45,7 @@ Liquor
 
 | 工件                 | 大小   | 功能                              | 功能描述          |
 |--------------------|------|---------------------------------|---------------|
-| liquor             | 25KB | DynamicCompiler                 | 编译类           |
+| liquor             | 26KB | DynamicCompiler                 | 编译类           |
 | liquor-eval        | 22KB | LiquorEvaluator (Exprs,Scripts) | 运行表达式和脚本（支持 JSR223） |
 
 
