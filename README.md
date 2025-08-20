@@ -70,6 +70,8 @@ Liquor offers full Java capabilities (anything can happen). It is recommended th
 You can have package names. You can import classes. Interdependent; Can not repeat compilation; Just like you would write a java class.
 
 ```java
+import org.noear.liquor.DynamicCompiler;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception{
         // reusable (don't, keep creating)
@@ -116,6 +118,11 @@ Consider the expression evaluator:
 
 
 ```java
+import org.noear.liquor.Utils;
+import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.Exprs;
+import org.noear.liquor.eval.ParamSpec;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //Basics
@@ -141,6 +148,11 @@ public class DemoApp {
 
 
 ```java
+import org.noear.liquor.Utils;
+import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.ParamSpec;
+import org.noear.liquor.eval.Scripts;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //Basics
@@ -166,6 +178,9 @@ public class DemoApp {
 ## JSR223 demo
 
 ```java
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 @Test
 public void case1() {
     ScriptEngineManager scriptEngineManager = new ScriptEngineManager();

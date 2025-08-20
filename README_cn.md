@@ -73,6 +73,8 @@ Liquor 提供的是完整的 Java 能力（什么都有可能会发生）。 建
 可以有包名；可以导入类；可相互依赖；可多次不重复编译；跟平常写 java 类一样。
 
 ```java
+import org.noear.liquor.DynamicCompiler;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception{
         //可以复用（不要，不断的新建）
@@ -121,6 +123,11 @@ Liquor 评估器工具，是基于 Java 编译实现的。在“缓存覆盖”�
 
 
 ```java
+import org.noear.liquor.Utils;
+import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.Exprs;
+import org.noear.liquor.eval.ParamSpec;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //基础
@@ -145,6 +152,11 @@ public class DemoApp {
 * 不能直接用“编译器演示”里的方案调试，因为脚本生成的类名是动态的。（可以 copy 代码到具体的类里，先调试完成再复制出来）
 
 ```java
+import org.noear.liquor.Utils;
+import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.ParamSpec;
+import org.noear.liquor.eval.Scripts;
+
 public class DemoApp {
     public static void main(String[] args) throws Exception {
         //基础
@@ -170,6 +182,9 @@ public class DemoApp {
 ## JSR223 演示
 
 ```java
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+
 @Test
 public void case1() {
     ScriptEngineManager scriptEngineManager = new ScriptEngineManager();
