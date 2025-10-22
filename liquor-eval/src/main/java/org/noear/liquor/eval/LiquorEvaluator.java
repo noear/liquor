@@ -418,6 +418,10 @@ public class LiquorEvaluator implements Evaluator {
             throw new IllegalArgumentException("The codeSpec parameter is null");
         }
 
+        if (codeSpec.getCode() == null || codeSpec.getCode().length() == 0) {
+            throw new IllegalArgumentException("The codeSpec code is empty");
+        }
+
         if (codeSpec.getParameters().size() == 0) {
             //自动绑定参数
             if (context != null && context.size() > 0) {
