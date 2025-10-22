@@ -76,7 +76,7 @@ public class LiquorScriptEngineFactory implements ScriptEngineFactory {
             case "javax.script.engine":
                 return "Noear Liquor";
             case "javax.script.engine_version":
-                return "1.6.2";
+                return "1.6.3";
             case "javax.script.language":
                 return "java";
             case "javax.script.language_version":
