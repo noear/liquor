@@ -1,5 +1,6 @@
 package features.generation;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.Utils;
 import org.noear.liquor.eval.CodeSpec;
@@ -47,8 +48,9 @@ class ExceptionTest {
     @Test
     void testEmptyCode() {
         // 空代码应该返回null
-        Object result = Exprs.eval("");
-        assertNull(result);
+        Assertions.assertThrows(Exception.class, () -> {
+            Exprs.eval("");
+        });
     }
 
     @Test

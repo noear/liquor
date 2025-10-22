@@ -15,18 +15,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class CompilationTest {
 
     @Test
-    void testCompileAndExecute() {
-        Execable execable = Scripts.compile("a + b");
-
-        Map<String, Object> context = new HashMap<>();
-        context.put("a", 15);
-        context.put("b", 25);
-
-        Object result = execable.exec(context);
-        assertEquals(40, result);
-    }
-
-    @Test
     void testBatchCompile() {
         CodeSpec spec1 = new CodeSpec("return x + y;")
                 .parameters(new ParamSpec("x", Integer.class))

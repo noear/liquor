@@ -16,7 +16,7 @@ class LiquorEvaluatorBasicTest {
 
     @Test
     void testSimpleExpression() {
-        Object result = Scripts.eval("1 + 2 * 3");
+        Object result = Exprs.eval("1 + 2 * 3");
         assertEquals(7, result);
     }
 
@@ -26,7 +26,7 @@ class LiquorEvaluatorBasicTest {
         context.put("a", 10);
         context.put("b", 20);
 
-        Object result = Scripts.eval("a + b", context);
+        Object result = Exprs.eval("a + b", context);
         assertEquals(30, result);
     }
 
@@ -36,7 +36,7 @@ class LiquorEvaluatorBasicTest {
         context.put("name", "John");
         context.put("age", 25);
 
-        Object result = Scripts.eval("name + \" is \" + age + \" years old\"", context);
+        Object result = Exprs.eval("name + \" is \" + age + \" years old\"", context);
         assertEquals("John is 25 years old", result);
     }
 

@@ -2,6 +2,7 @@ package features.generation;
 
 import org.junit.jupiter.api.Test;
 import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.Exprs;
 import org.noear.liquor.eval.ParamSpec;
 import org.noear.liquor.eval.Scripts;
 
@@ -13,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * 类型和参数处理测试
  */
-class TypeAndParameterTest {
+public class TypeAndParameterTest {
 
-    static class TestUser {
+    public static class TestUser {
         private String name;
         private int age;
 
@@ -40,7 +41,7 @@ class TypeAndParameterTest {
         Map<String, Object> context = new HashMap<>();
         context.put("user", user);
 
-        Object result = Scripts.eval(spec, context);
+        Object result = Exprs.eval(spec, context);
         assertEquals("Alice", result);
     }
 
@@ -52,7 +53,7 @@ class TypeAndParameterTest {
         context.put("stringVal", "test");
         context.put("boolVal", true);
 
-        Object result = Scripts.eval("intVal + \"-\" + doubleVal + \"-\" + stringVal + \"-\" + boolVal", context);
+        Object result = Exprs.eval("intVal + \"-\" + doubleVal + \"-\" + stringVal + \"-\" + boolVal", context);
         assertEquals("10-10.5-test-true", result);
     }
 
@@ -61,7 +62,7 @@ class TypeAndParameterTest {
         Map<String, Object> context = new HashMap<>();
         context.put("list", Arrays.asList(1, 2, 3, 4, 5));
 
-        Object result = Scripts.eval("list.size()", context);
+        Object result = Exprs.eval("list.size()", context);
         assertEquals(5, result);
     }
 
@@ -73,7 +74,7 @@ class TypeAndParameterTest {
         data.put("key2", "value2");
         context.put("map", data);
 
-        Object result = Scripts.eval("map.get(\"key1\")", context);
+        Object result = Exprs.eval("map.get(\"key1\")", context);
         assertEquals("value1", result);
     }
 
