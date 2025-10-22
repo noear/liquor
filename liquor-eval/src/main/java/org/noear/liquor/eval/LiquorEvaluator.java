@@ -239,9 +239,15 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
                     Class<?> type = getParamType(ps.getType());
-                    code.append("    ").append(type.getTypeName()).append(" ").append(ps.getName())
+
+                    String typeName = type.getCanonicalName(); //可能会是 null（会出错），更适合源码表示
+                    if (typeName == null) {
+                        typeName = type.getTypeName(); //内部类可能会用：xxx.yyy$zzz （会出错）
+                    }
+
+                    code.append("    ").append(typeName).append(" ").append(ps.getName())
                             .append(" = ")
-                            .append("(").append(type.getTypeName()).append(")_$$.get(\"").append(ps.getName()).append("\");")
+                            .append("(").append(typeName).append(")_$$.get(\"").append(ps.getName()).append("\");")
                             .append("\n");
                 }
             }
