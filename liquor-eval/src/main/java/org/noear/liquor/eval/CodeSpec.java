@@ -57,7 +57,11 @@ public class CodeSpec {
      */
     public CodeSpec imports(Class<?>... imports) {
         for (Class<?> imp : imports) {
-            this.imports.add(imp.getTypeName());
+            String typeName = imp.getCanonicalName(); //适合源码展示，可能会是 null
+
+            if(typeName != null) {
+                this.imports.add(typeName);
+            }
         }
         return this;
     }

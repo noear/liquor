@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
@@ -229,7 +230,8 @@ public class LiquorEvaluator implements Evaluator {
 
             code.append("  public ");
             if (codeSpec.getReturnType() != null) {
-                code.append(codeSpec.getReturnType().getTypeName());
+                String typeName = getTypeName(codeSpec.getReturnType());
+                code.append(typeName);
             } else {
                 code.append("void");
             }
@@ -239,11 +241,7 @@ public class LiquorEvaluator implements Evaluator {
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
                     Class<?> type = getParamType(ps.getType());
-
-                    String typeName = type.getCanonicalName(); //可能会是 null（会出错），更适合源码表示
-                    if (typeName == null) {
-                        typeName = type.getTypeName(); //内部类可能会用：xxx.yyy$zzz （会出错）
-                    }
+                    String typeName = getTypeName(type);
 
                     code.append("    ").append(typeName).append(" ").append(ps.getName())
                             .append(" = ")
@@ -282,6 +280,15 @@ public class LiquorEvaluator implements Evaluator {
         compiler.addSource(clazzName, code.toString());
 
         return clazzName;
+    }
+
+    private String getTypeName(Class type) {
+        String typeName = type.getCanonicalName(); //可能会是 null（会出错），更适合源码表示
+        if (typeName == null) {
+            typeName = type.getTypeName(); //内部类可能会用：xxx.yyy$zzz （会出错）
+        }
+
+        return typeName;
     }
 
     private Class<?> getParamType(Class<?> type) {
