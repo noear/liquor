@@ -26,7 +26,7 @@ import java.util.stream.Stream;
  * @since 1.2
  * @since 1.5
  */
-public class ParamSpec  implements Comparable<ParamSpec> {
+public class ParamSpec implements Comparable<ParamSpec> {
     private String name;
     private Class<?> type;
     private String typeName;
@@ -46,34 +46,49 @@ public class ParamSpec  implements Comparable<ParamSpec> {
     private String resolveTypeName(Class<?> type) {
         // 处理非公有类型，转换为公有接口
         Class<?> actualType = resolveParamType(type);
-        
+
         // 获取类型名称
-        String typeName = actualType.getCanonicalName(); //可能会是 null（会出错），更适合源码表示
+        String typeName = actualType.getCanonicalName(); // 优先使用：最适合源码表示
         if (typeName == null) {
-            typeName = actualType.getTypeName(); //内部类可能会用：xxx.yyy$zzz （会出错）
+            typeName = actualType.getTypeName(); // 回退到：内部类或匿名类（可能带 $ 符号）
         }
-        
+
         return typeName;
     }
     
     private Class<?> resolveParamType(Class<?> type) {
         if (Modifier.isPublic(type.getModifiers())) {
-            //如果是公有的不变
+            // 如果是公有的不变
             return type;
         } else {
-            //否则转换为相关接口
+            // 否则转换为相关接口
+
+            // 1. Map 接口 (新增)
+            if (Map.class.isAssignableFrom(type)) {
+                return Map.class;
+            }
+
+            // 2. Collection 接口
+            // 优先检查更具体的接口
             if (List.class.isAssignableFrom(type)) {
                 return List.class;
             } else if (Set.class.isAssignableFrom(type)) {
                 return Set.class;
             } else if (Queue.class.isAssignableFrom(type)) {
                 return Queue.class;
-            } else if (Iterator.class.isAssignableFrom(type)) {
+            } else if (Collection.class.isAssignableFrom(type)) {
+                // 如果是 Collection 的实现，但不是 List/Set/Queue，则转换为 Collection
+                return Collection.class;
+            }
+
+            // 3. 其他迭代器和流
+            if (Iterator.class.isAssignableFrom(type)) {
                 return Iterator.class;
             } else if (Stream.class.isAssignableFrom(type)) {
                 return Stream.class;
             }
-            
+
+            // 4. 其他非公有类型，没有合适的接口转换，保持原样
             return type;
         }
     }
