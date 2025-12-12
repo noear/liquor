@@ -1,4 +1,10 @@
 
+### 1.6.4
+
+* 添加 ParamSpec 泛型定义支持（通过 string 方式，自由些）
+* 优化 LiquorScriptEngine 自动识别 Bindings 中的类导入
+* 调整 CodeSpec:parameters Class 类型的参数，将以 Class 做为类型
+
 ### 1.6.3
 
 * 修复 内嵌类型作为参数时，会出错的问题

@@ -104,14 +104,14 @@ public class CodeSpec {
     /**
      * 申明传入参数（根据数据，自动转为申明）
      *
-     * @param params 参数（支持 [key,val] 或 [key,clz]）
+     * @param params 参数（支持 [key,val]）
      */
     public CodeSpec parameters(Map<String, Object> params) {
         assert params != null;
 
         for (Map.Entry<String, Object> entry : params.entrySet()) {
             if (entry.getValue() instanceof Class<?>) {
-                parameters.add(new ParamSpec(entry.getKey(), (Class<?>) entry.getValue()));
+                parameters.add(new ParamSpec(entry.getKey(), Class.class));
             } else {
                 parameters.add(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
             }
