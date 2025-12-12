@@ -16,11 +16,13 @@
 package org.noear.liquor.eval.jsr223;
 
 import org.noear.liquor.eval.CodeSpec;
+import org.noear.liquor.eval.ParamSpec;
 import org.noear.liquor.eval.Scripts;
 
 import javax.script.*;
 import java.io.BufferedReader;
 import java.io.Reader;
+import java.util.Map;
 
 /**
  * Liquor 脚本引擎（JSR223 适配）
@@ -63,7 +65,15 @@ public class LiquorScriptEngine extends AbstractScriptEngine {
             if (bindings.isEmpty()) {
                 return Scripts.eval(codeSpec);
             } else {
-                return Scripts.eval(codeSpec.parameters(bindings), bindings);
+                for (Map.Entry<String, Object> entry : bindings.entrySet()) {
+                    if (entry.getValue() instanceof Class) {
+                        codeSpec.importAs((Class<?>) entry.getValue(), entry.getKey());
+                    } else {
+                        codeSpec.parameters(new ParamSpec(entry.getKey(), entry.getValue().getClass()));
+                    }
+                }
+
+                return Scripts.eval(codeSpec, bindings);
             }
         } catch (Exception e) {
             throw new ScriptException(e);
