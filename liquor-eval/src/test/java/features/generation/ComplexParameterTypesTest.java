@@ -369,7 +369,7 @@ public class ComplexParameterTypesTest {
                 "                .sorted()\n" +
                 "                .collect(java.util.stream.Collectors.joining(\", \"))")
                 .imports(StaticNestedClass.class, java.util.stream.Collectors.class)
-                .parameters(new ParamSpec("items", List.class))
+                .parameters(new ParamSpec("items", "java.util.List<StaticNestedClass>"))
                 .returnType(String.class);
 
         Map<String, Object> context = new HashMap<>();

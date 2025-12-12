@@ -240,8 +240,7 @@ public class LiquorEvaluator implements Evaluator {
 
             if (codeSpec.getParameters() != null && codeSpec.getParameters().size() > 0) {
                 for (ParamSpec ps : codeSpec.getParameters()) {
-                    Class<?> type = getParamType(ps.getType());
-                    String typeName = getTypeName(type);
+                    String typeName = ps.getTypeName();
 
                     code.append("    ").append(typeName).append(" ").append(ps.getName())
                             .append(" = ")
