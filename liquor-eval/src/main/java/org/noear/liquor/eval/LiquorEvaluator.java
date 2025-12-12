@@ -290,28 +290,6 @@ public class LiquorEvaluator implements Evaluator {
         return typeName;
     }
 
-    private Class<?> getParamType(Class<?> type) {
-        if (Modifier.isPublic(type.getModifiers())) {
-            //如果是公有的不变
-            return type;
-        } else {
-            //否则转换为相关接口
-            if (List.class.isAssignableFrom(type)) {
-                return List.class;
-            } else if (Set.class.isAssignableFrom(type)) {
-                return Set.class;
-            } else if (Queue.class.isAssignableFrom(type)) {
-                return Queue.class;
-            } else if (Iterator.class.isAssignableFrom(type)) {
-                return Iterator.class;
-            } else if (Stream.class.isAssignableFrom(type)) {
-                return Stream.class;
-            }
-
-            return type;
-        }
-    }
-
     /**
      * 配置可打印的
      *
