@@ -76,6 +76,20 @@ public class CodeSpec {
         return this;
     }
 
+    public CodeSpec importAs(Class<?> imp, String asName) {
+        String typeName = imp.getCanonicalName(); //适合源码展示，可能会是 null
+
+        if (typeName != null) {
+            if (typeName.endsWith(asName)) {
+                this.imports.add(typeName);
+            } else {
+                this.imports.add(typeName + " as " + asName);
+            }
+        }
+
+        return this;
+    }
+
     /**
      * 申明传入参数
      *
