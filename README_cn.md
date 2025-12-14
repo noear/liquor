@@ -6,6 +6,7 @@ Liquor
 	<strong>Java 动态编译、表达式、脚本工具（兼容 jar in jar）</strong>
 </p>
 <p align="center">
+    <a href="https://deepwiki.com/noear/liquor"><img src="https://deepwiki.com/badge.svg" alt="Ask DeepWiki"></a>
     <a target="_blank" href="https://central.sonatype.com/search?q=org.noear%liquor">
         <img src="https://img.shields.io/maven-central/v/org.noear/liquor.svg?label=Maven%20Central" alt="Maven" />
     </a>
