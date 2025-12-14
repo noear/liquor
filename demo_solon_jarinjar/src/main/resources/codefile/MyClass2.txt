@@ -3,7 +3,7 @@ package com.demo.proxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.noear.snack.ONode;
+import org.noear.snack4.ONode;
 
 public class MyClass {
     ONode node = new ONode(); //jar in jar
