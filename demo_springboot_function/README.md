@@ -14,7 +14,7 @@
 
 - Spring Boot 2.7.18
 - Java 8
-- liquor 1.5.8（动态编译库）
+- liquor（动态编译库）
 - Lombok
 - JUnit 5
 
@@ -27,6 +27,7 @@ src/main/java/demo/
 ├── DemoApp.java                 # Spring Boot启动类
 ├── DemoController.java          # 静态Controller示例
 ├── DemoService.java             # 业务服务类
+├── DynamicBeanInfo.java         # 动态Bean信息
 ├── DynamicBeanManager.java      # 动态Bean管理器（核心组件）
 └── ControllerRegister.java      # 动态Controller注册器
 
