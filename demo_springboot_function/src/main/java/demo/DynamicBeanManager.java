@@ -268,23 +268,4 @@ public class DynamicBeanManager {
             log.debug("清理失败注册状态时出现异常: {}", beanName, e);
         }
     }
-
-    /**
-     * 动态Bean信息
-     */
-    @Getter
-    public static class DynamicBeanInfo {
-        private final String beanName;
-        private final String className;
-        private final Class<?> clazz;
-        private final LocalDateTime registrationTime;
-
-        public DynamicBeanInfo(String beanName, String className, Class<?> clazz) {
-            this.beanName = beanName;
-            this.className = className;
-            this.clazz = clazz;
-            this.registrationTime = LocalDateTime.now();
-        }
-    }
-
 }
