@@ -52,7 +52,7 @@ public class LiquorEvaluator implements Evaluator {
     private int tempCount = 0;
 
     private final List<String> globalImports = new ArrayList<>();
-    private final Map<CodeSpec, Execable> cachedMap;
+    private final LRUCache<CodeSpec, Execable> cachedMap;
     private final int cahceCapacity;
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
@@ -66,7 +66,7 @@ public class LiquorEvaluator implements Evaluator {
         this.cachedClassLoader = compiler.getClassLoader();
         this.tempClassLoader = compiler.newClassLoader();
         this.cahceCapacity = cahceCapacity;
-        this.cachedMap = Collections.synchronizedMap(new LRUCache<>(cahceCapacity));
+        this.cachedMap = new LRUCache<>(cahceCapacity);
 
         globalImports.add(Map.class.getTypeName());
         globalImports.add(Execable.class.getTypeName());
