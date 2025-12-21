@@ -22,7 +22,7 @@
         <module>liquor_benchmark</module>
         <module>demo_solon_jarinjar</module>
         <module>demo_springboot_jarinjar</module>
-        <module>demo_springboot_function</module>
+<!--        <module>demo_springboot_function</module>-->
         <module>demo_dynamic_compiling_and_debugging_solon</module>
     </modules>
 

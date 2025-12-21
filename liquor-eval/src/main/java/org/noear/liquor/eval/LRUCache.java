@@ -42,7 +42,7 @@ public class LRUCache<K, V> {
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.data = new ConcurrentHashMap<>((int) (capacity / 0.75f) + 1);
+        this.data = new ConcurrentHashMap<>(capacity);
     }
 
     public V get(K key) {
@@ -155,13 +155,22 @@ public class LRUCache<K, V> {
         }
     }
 
-    public int size() { return sizeCounter.get(); }
+    public int size() {
+        return sizeCounter.get();
+    }
+
+    // --- 内部数据结构 ---
 
     private static class Node<K, V> {
-        final K key; final V value;
+        final K key;
+        final V value;
         volatile boolean retired = false;
-        volatile Node<K, V> prev, next;
-        Node(K key, V value) { this.key = key; this.value = value; }
+        Node<K, V> prev, next; // 去掉了 volatile，靠锁保证可见性，极致性能
+
+        Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 
     private static class NodeList<K, V> {
@@ -172,8 +181,12 @@ public class LRUCache<K, V> {
             remove(node);
             node.prev = tail;
             node.next = null;
-            if (tail == null) head = tail = node;
-            else { tail.next = node; tail = node; }
+            if (tail == null) {
+                head = tail = node;
+            } else {
+                tail.next = node;
+                tail = node;
+            }
         }
 
         Node<K, V> removeHead() {
@@ -184,6 +197,7 @@ public class LRUCache<K, V> {
         }
 
         void remove(Node<K, V> node) {
+            if (node == null) return;
             if (node.prev != null) node.prev.next = node.next;
             if (node.next != null) node.next.prev = node.prev;
             if (node == head) head = node.next;
@@ -191,6 +205,8 @@ public class LRUCache<K, V> {
             node.prev = node.next = null;
         }
 
-        void clear() { head = tail = null; }
+        void clear() {
+            head = tail = null;
+        }
     }
 }
