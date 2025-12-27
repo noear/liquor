@@ -1,6 +1,5 @@
 package labs;
 
-import org.junit.jupiter.api.Test;
 import org.noear.solon.expression.util.LRUCache;
 
 import java.util.Collections;
@@ -15,7 +14,17 @@ import java.util.concurrent.Executors;
  *
  */
 public class LRUCacheTest {
-    @Test
+
+    public static void main(String[] args) throws InterruptedException {
+        LRUCacheTest test = new LRUCacheTest();
+
+        System.out.println("--- 开始单线程测试 ---");
+        test.testSingleThreadPerformance();
+
+        System.out.println("\n--- 开始多线程高并发测试 ---");
+        test.testMultiThreadPerformance();
+    }
+
     public void testSingleThreadPerformance() {
         int iterations = 1_000_000;
 
@@ -40,7 +49,7 @@ public class LRUCacheTest {
         System.out.println("单线程 - 高性能并发类 耗时: " + (end - start) / 1_000_000 + "ms");
     }
 
-    @Test
+
     public void testMultiThreadPerformance() throws InterruptedException {
         int threadCount = 10;
         int opsPerThread = 100_000;
