@@ -17,18 +17,16 @@ package org.noear.liquor.eval;
 
 import org.noear.liquor.DynamicClassLoader;
 import org.noear.liquor.DynamicCompiler;
+import org.noear.liquor.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Stream;
 
 /**
  * Liquor 评估器（线程安全）
@@ -230,7 +228,7 @@ public class LiquorEvaluator implements Evaluator {
 
             code.append("  public ");
             if (codeSpec.getReturnType() != null) {
-                String typeName = getTypeName(codeSpec.getReturnType());
+                String typeName = Utils.getTypeName(codeSpec.getReturnType());
                 code.append(typeName);
             } else {
                 code.append("void");
@@ -281,15 +279,6 @@ public class LiquorEvaluator implements Evaluator {
         return clazzName;
     }
 
-    private String getTypeName(Class type) {
-        String typeName = type.getCanonicalName(); //可能会是 null（会出错），更适合源码表示
-        if (typeName == null) {
-            typeName = type.getTypeName(); //内部类可能会用：xxx.yyy$zzz （会出错）
-        }
-
-        return typeName;
-    }
-
     /**
      * 配置可打印的
      *
@@ -305,7 +294,10 @@ public class LiquorEvaluator implements Evaluator {
      */
     public void globalImports(Class<?>... classes) {
         for (Class<?> clz : classes) {
-            globalImports.add(clz.getTypeName());
+            String typeName = Utils.getTypeName(clz);
+            if (typeName != null) {
+                globalImports.add(typeName);
+            }
         }
     }
 

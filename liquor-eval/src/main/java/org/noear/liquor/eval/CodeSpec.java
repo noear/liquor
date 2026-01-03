@@ -15,6 +15,8 @@
  */
 package org.noear.liquor.eval;
 
+import org.noear.liquor.Utils;
+
 import java.util.*;
 
 /**
@@ -57,7 +59,7 @@ public class CodeSpec {
      */
     public CodeSpec imports(Class<?>... imports) {
         for (Class<?> imp : imports) {
-            String typeName = imp.getCanonicalName(); //适合源码展示，可能会是 null
+            String typeName = Utils.getTypeName(imp); //适合源码展示，可能会是 null
 
             if(typeName != null) {
                 this.imports.add(typeName);
@@ -77,7 +79,7 @@ public class CodeSpec {
     }
 
     public CodeSpec importAs(Class<?> imp, String asName) {
-        String typeName = imp.getCanonicalName(); //适合源码展示，可能会是 null
+        String typeName = Utils.getTypeName(imp); //适合源码展示，可能会是 null
 
         if (typeName != null) {
             if (typeName.endsWith(asName)) {

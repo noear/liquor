@@ -25,6 +25,18 @@ import java.util.*;
  */
 public class Utils {
     /**
+     * 获取类型名字
+     */
+    public static String getTypeName(Class<?> clz) {
+        String typeName = clz.getCanonicalName(); // 优先使用：最适合源码表示
+        if (typeName == null) {
+            typeName = clz.getTypeName(); // 回退到：内部类或匿名类（可能带 $ 符号）
+        }
+
+        return typeName;
+    }
+
+    /**
      * 转为一个可变 List
      */
     public static <T> List<T> asList(T... ary) {

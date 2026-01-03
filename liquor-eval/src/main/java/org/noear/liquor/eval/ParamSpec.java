@@ -15,6 +15,8 @@
  */
 package org.noear.liquor.eval;
 
+import org.noear.liquor.Utils;
+
 import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Stream;
@@ -46,14 +48,7 @@ public class ParamSpec implements Comparable<ParamSpec> {
     private String resolveTypeName(Class<?> type) {
         // 处理非公有类型，转换为公有接口
         Class<?> actualType = resolveParamType(type);
-
-        // 获取类型名称
-        String typeName = actualType.getCanonicalName(); // 优先使用：最适合源码表示
-        if (typeName == null) {
-            typeName = actualType.getTypeName(); // 回退到：内部类或匿名类（可能带 $ 符号）
-        }
-
-        return typeName;
+        return Utils.getTypeName(actualType);
     }
     
     private Class<?> resolveParamType(Class<?> type) {
