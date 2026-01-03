@@ -19,6 +19,7 @@ import org.noear.liquor.Utils;
 
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
 /**
@@ -36,7 +37,7 @@ public class ParamSpec implements Comparable<ParamSpec> {
     public ParamSpec(String name, Class<?> type) {
         this.name = name;
         this.type = type;
-        this.typeName = resolveTypeName(type);
+        this.typeName = Utils.getTypeName(resolveParamType(type));
     }
 
     public ParamSpec(String name, String typeName) {
@@ -45,47 +46,45 @@ public class ParamSpec implements Comparable<ParamSpec> {
         this.typeName = typeName;
     }
 
-    private String resolveTypeName(Class<?> type) {
-        // 处理非公有类型，转换为公有接口
-        Class<?> actualType = resolveParamType(type);
-        return Utils.getTypeName(actualType);
-    }
-    
-    private Class<?> resolveParamType(Class<?> type) {
-        if (Modifier.isPublic(type.getModifiers())) {
-            // 如果是公有的不变
-            return type;
-        } else {
-            // 否则转换为相关接口
+    private static final Map<Class<?>, Class<?>> paramTypeCache = new ConcurrentHashMap<>();
 
-            // 1. Map 接口 (新增)
-            if (Map.class.isAssignableFrom(type)) {
-                return Map.class;
+    private static Class<?> resolveParamType(Class<?> type) {
+        return paramTypeCache.computeIfAbsent(type, k -> {
+            if (Modifier.isPublic(type.getModifiers())) {
+                // 如果是公有的不变
+                return type;
+            } else {
+                // 否则转换为相关接口
+
+                // 1. Map 接口 (新增)
+                if (Map.class.isAssignableFrom(type)) {
+                    return Map.class;
+                }
+
+                // 2. Collection 接口
+                // 优先检查更具体的接口
+                if (List.class.isAssignableFrom(type)) {
+                    return List.class;
+                } else if (Set.class.isAssignableFrom(type)) {
+                    return Set.class;
+                } else if (Queue.class.isAssignableFrom(type)) {
+                    return Queue.class;
+                } else if (Collection.class.isAssignableFrom(type)) {
+                    // 如果是 Collection 的实现，但不是 List/Set/Queue，则转换为 Collection
+                    return Collection.class;
+                }
+
+                // 3. 其他迭代器和流
+                if (Iterator.class.isAssignableFrom(type)) {
+                    return Iterator.class;
+                } else if (Stream.class.isAssignableFrom(type)) {
+                    return Stream.class;
+                }
+
+                // 4. 其他非公有类型，没有合适的接口转换，保持原样
+                return type;
             }
-
-            // 2. Collection 接口
-            // 优先检查更具体的接口
-            if (List.class.isAssignableFrom(type)) {
-                return List.class;
-            } else if (Set.class.isAssignableFrom(type)) {
-                return Set.class;
-            } else if (Queue.class.isAssignableFrom(type)) {
-                return Queue.class;
-            } else if (Collection.class.isAssignableFrom(type)) {
-                // 如果是 Collection 的实现，但不是 List/Set/Queue，则转换为 Collection
-                return Collection.class;
-            }
-
-            // 3. 其他迭代器和流
-            if (Iterator.class.isAssignableFrom(type)) {
-                return Iterator.class;
-            } else if (Stream.class.isAssignableFrom(type)) {
-                return Stream.class;
-            }
-
-            // 4. 其他非公有类型，没有合适的接口转换，保持原样
-            return type;
-        }
+        });
     }
 
     /**

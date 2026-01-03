@@ -180,8 +180,14 @@ public class CodeSpec {
                 Objects.equals(returnType, codeSpec.returnType);
     }
 
+    private int hash; // 缓存 hashCode
     @Override
     public int hashCode() {
-        return Objects.hash(code, parameters, returnType);
+        int h = hash;
+        if (h == 0 && code != null) {
+            h = Objects.hash(code, parameters, returnType);
+            hash = h;
+        }
+        return h;
     }
 }

@@ -16,6 +16,7 @@
 package org.noear.liquor;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 工具
@@ -24,16 +25,32 @@ import java.util.*;
  * @since 1.5
  */
 public class Utils {
+    private static final Map<Class<?>, String> typeNameCache = new ConcurrentHashMap<>();
     /**
      * 获取类型名字
      */
     public static String getTypeName(Class<?> clz) {
-        String typeName = clz.getCanonicalName(); // 优先使用：最适合源码表示
-        if (typeName == null) {
-            typeName = clz.getTypeName(); // 回退到：内部类或匿名类（可能带 $ 符号）
+        if (clz == null) {
+            return null;
         }
 
-        return typeName;
+        String cached = typeNameCache.get(clz);
+        if (cached != null) {
+            return cached;
+        }
+
+        String name;
+        if (clz.isArray()) {
+            name = getTypeName(clz.getComponentType()) + "[]";
+        } else {
+            name = clz.getCanonicalName();
+            if (name == null) {
+                name = clz.getTypeName().replace('$', '.');
+            }
+        }
+
+        typeNameCache.putIfAbsent(clz, name);
+        return name;
     }
 
     /**
