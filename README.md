@@ -52,7 +52,7 @@ Reference dependency:
 <dependency>
     <groupId>org.noear</groupId>
     <artifactId>liquor-eval</artifactId> <!-- or liquor -->
-    <version>1.6.7</version>
+    <version>1.6.8</version>
 </dependency>
 ```
 
