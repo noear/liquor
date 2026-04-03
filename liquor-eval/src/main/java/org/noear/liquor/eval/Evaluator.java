@@ -27,6 +27,11 @@ import java.util.Map;
  */
 public interface Evaluator {
     /**
+     * 非安全重置
+     */
+    void unsafeReset();
+
+    /**
      * 配置可打印的
      *
      * @deprecated 1.5.6

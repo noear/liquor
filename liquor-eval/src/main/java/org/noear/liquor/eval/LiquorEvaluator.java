@@ -44,10 +44,7 @@ public class LiquorEvaluator implements Evaluator {
         return instance;
     }
 
-    private final DynamicCompiler compiler;
-    private final DynamicClassLoader cachedClassLoader;
-    private DynamicClassLoader tempClassLoader;
-    private int tempCount = 0;
+    private final ClassLoader parentClassLoader;
 
     private final List<String> globalImports = new ArrayList<>();
     private final LRUCache<CodeSpec, Execable> cachedMap;
@@ -55,20 +52,46 @@ public class LiquorEvaluator implements Evaluator {
     private final AtomicLong nameIdx = new AtomicLong(0L);
     private final ReentrantLock lock = new ReentrantLock();
 
+    private DynamicCompiler compiler;
+    private DynamicClassLoader cachedClassLoader;
+    private DynamicClassLoader tempClassLoader;
+    private int tempCount = 0;
+
     public LiquorEvaluator(ClassLoader parentClassLoader) {
         this(parentClassLoader, 2048);
     }
 
     public LiquorEvaluator(ClassLoader parentClassLoader, int cahceCapacity) {
+        this.parentClassLoader = parentClassLoader;
+        this.cahceCapacity = cahceCapacity;
+
         this.compiler = new DynamicCompiler(parentClassLoader);
         this.cachedClassLoader = compiler.getClassLoader();
         this.tempClassLoader = compiler.newClassLoader();
-        this.cahceCapacity = cahceCapacity;
         this.cachedMap = new LRUCache<>(cahceCapacity);
 
         globalImports.add(Map.class.getTypeName());
         globalImports.add(Execable.class.getTypeName());
         globalImports.add(ExecuteException.class.getTypeName());
+    }
+
+    /**
+     * 获取临时数量
+     */
+    public int getTempCount() {
+        return tempCount;
+    }
+
+    /**
+     * 重置
+     */
+    public void unsafeReset() {
+        this.cachedMap.clear();
+        this.tempCount = 0;
+
+        this.compiler = new DynamicCompiler(parentClassLoader);
+        this.cachedClassLoader = compiler.getClassLoader();
+        this.tempClassLoader = compiler.newClassLoader();
     }
 
     /**
